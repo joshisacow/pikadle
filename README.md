@@ -1,6 +1,6 @@
 # Pikadle
 
-#Team Members and Roles
+## Team Members and Roles
 Chris
 Josh
 Justin
