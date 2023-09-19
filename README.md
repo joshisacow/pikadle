@@ -1,7 +1,7 @@
 # Pikadle
 
 ## Team Members and Roles
-(spitballing - change later)
+(spitballing - change later) \ 
 Chris - Users Guru: responsible for Account info \ 
 Josh -   Matching Guru: matches Pokemon attributes to the heatmap of closeness \
 Justin - Capture Guru: responsible for updating "captures" and the pokedex\
