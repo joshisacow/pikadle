@@ -73,12 +73,5 @@ class Main(Resource):
 api.add_resource(Main, '/')
 api.add_resource(Pokemon.Pokemon, '/pokemon/<int:pokeID>')
 
-
-<<<<<<< HEAD
-
-
-
-=======
->>>>>>> 3e65c93ff568f70ba8308265e9b06e7d4052b353
 if __name__ == '__main__':
     app.run(port=8080, debug=True)
