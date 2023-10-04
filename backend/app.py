@@ -13,7 +13,6 @@ api = Api(app)
 url = os.getenv('DATABASE_URL')
 conn = psycopg2.connect(url)
 
-<<<<<<< HEAD
 cursor = conn.cursor 
 
 sql = '''CREATE TABLE Pokemon (
@@ -64,7 +63,6 @@ conn.close()
 @app.route('/')
 def get():
     return 'Pikadle API'
-=======
 
 import db.Pokemon as Pokemon
 
@@ -76,7 +74,6 @@ api.add_resource(Main, '/')
 api.add_resource(Pokemon.Pokemon, '/pokemon/<int:pokeID>')
 
 
->>>>>>> 1fef59d7eae70b5ed43e5a5f3f9bd3f457102664
 
 
 
