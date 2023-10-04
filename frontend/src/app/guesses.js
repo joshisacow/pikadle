@@ -1,4 +1,5 @@
 'use client'
+import './wordle.css'
 
 export default function Guesses(pokemon) {
         // const fetchPokemon = () => {
@@ -18,7 +19,7 @@ export default function Guesses(pokemon) {
     //     // console.log("CURRENT USER, from get: ", userId);
     // }, [trigger])
     return(
-        <div>
+        <div id='guesses'>
             <div className = 'guess'>
                 <div className = 'guessAttr'>
                     <p>box</p>

@@ -1,0 +1,28 @@
+.guess {
+    display: flex;
+    flex-direction: row;
+}
+
+#guesses{
+    margin-top: 5%;
+}
+
+#guessTitle{
+    margin-bottom: 5%;
+}
+
+rbt-input-main form-control rbt-input{
+    border: 3px solid;
+    outline: none;
+}
+
+#answers {
+    text-align: center;
+    margin: 12em auto 0 ;
+    height: 70%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: space-between; */
+}
