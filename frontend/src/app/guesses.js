@@ -17,6 +17,45 @@ function AttrColor({attr, dailyAttr}){
         )
     }
 }
+function TypeColor({attr, dailyAttr}){
+    let counter = 0;
+    for (var i = 0; i< attr.length; i++){
+        if (dailyAttr.includes(attr[i])){
+            counter ++;
+        }
+    }
+    if (counter == dailyAttr.length){
+        return(
+            <div className = 'guessRight' id='pokeName'>
+                {attr.map((type =>{
+                    return(
+                        <p>{type}</p>
+                    )
+                }))}
+            </div>
+        )
+    }else if (counter >0 && counter != dailyAttr.length){
+        return(
+            <div className = 'guessOK' id='pokeName'>
+                {attr.map((type =>{
+                    return(
+                        <p>{type}</p>
+                    )
+                }))}
+            </div>
+        )
+    } else {
+        return(
+            <div className = 'guessWrong' id='pokeName'>
+                {attr.map((type =>{
+                    return(
+                        <p>{type}</p>
+                    )
+                }))}
+            </div>
+        )
+    }
+}
 
 export default function Guesses({pokemon, setTrigger, daily}) {
         // const fetchPokemon = () => {
@@ -59,7 +98,7 @@ export default function Guesses({pokemon, setTrigger, daily}) {
                         <div className = 'guess'key = {pokemon.id}>
 
                             <AttrColor attr = {pokemon.pokemon} dailyAttr = {daily.pokemon}/>
-                            <AttrColor attr = {pokemon.type} dailyAttr = {daily.type}/>
+                            <TypeColor attr = {pokemon.type} dailyAttr = {daily.type}/>
                             <AttrColor attr = {pokemon.evc} dailyAttr = {daily.evc}/>
                             <AttrColor attr = {pokemon.health} dailyAttr = {daily.health}/>
                             <AttrColor attr = {pokemon.attack} dailyAttr = {daily.attack}/>

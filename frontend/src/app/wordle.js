@@ -31,8 +31,8 @@ export default function Wordle () {
     // }
 
     let options = ["pokemon"]
-    let daily = {id: 1, pokemon: "pikachu", type: "electric", evc: 3, health: 100, defense: 90, attack: 80, height: 70, weight: 60, speed: 50}
-    let poke2 = {id: 2, pokemon: "grah", type: "water", evc: 3, health: 100, defense: 90, attack: 80, height: 70, weight: 60, speed: 50}
+    let daily = {id: 1, pokemon: "pikachu", type: ["electric", "water"], evc: 3, health: 100, defense: 90, attack: 80, height: 70, weight: 60, speed: 50}
+    let poke2 = {id: 2, pokemon: "grah", type: ["water"], evc: 3, health: 100, defense: 90, attack: 80, height: 70, weight: 60, speed: 50}
 
     let guesses = [daily, poke2]
 

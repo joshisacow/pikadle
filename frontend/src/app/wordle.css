@@ -53,10 +53,11 @@
     margin: 3px;
     text-align: center;
     background-color: limegreen;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;    
 }
-.guessRight p{
-    margin-top:33px;
-}
+
 
 .guessWrong{
     width: 100px;
@@ -65,7 +66,20 @@
     margin: 3px;
     text-align: center;
     background-color: red;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
-.guessWrong p{
-    margin-top:33px;
+
+
+.guessOK{
+    width: 100px;
+    height: 100px;
+    border: 2px solid;
+    margin: 3px;
+    text-align: center;
+    background-color: yellow;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
