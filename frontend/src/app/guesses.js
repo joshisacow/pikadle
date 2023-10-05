@@ -1,7 +1,24 @@
 'use client'
+import { useEffect } from 'react';
 import './wordle.css'
 
-export default function Guesses(pokemon) {
+function AttrColor({attr, dailyAttr}){
+    if(attr == dailyAttr){
+        return(
+            <div className = 'guessRight' id='pokeName'>
+                <p>{attr}</p>
+            </div>
+        )
+    }else {
+        return(
+            <div className = 'guessWrong' id='pokeName'>
+                <p>{attr}</p>
+            </div>
+        )
+    }
+}
+
+export default function Guesses({pokemon, setTrigger, daily}) {
         // const fetchPokemon = () => {
     //     fetch(pokemonurl)
     //         .then((response) => response.json())
@@ -18,22 +35,45 @@ export default function Guesses(pokemon) {
     //     // console.log("was triggered");
     //     // console.log("CURRENT USER, from get: ", userId);
     // }, [trigger])
+    // let guesses  = [];
+    // useEffect(() => {
+    //     setTrigger(prevTrigger => !prevTrigger)
+    //     guesses.push(pokemon);
+    // })
     return(
         <div id='guesses'>
-            <div className = 'guess'>
-                <div className = 'guessAttr'>
-                    <p>box</p>
-                </div>
-                <div className = 'guessAttr'>
-                    <p>box</p>
-                </div>
-                <div className = 'guessAttr'>
-                    <p>box</p>
-                </div>
-                <div className = 'guessAttr'>
-                    <p>box</p>
-                </div>
+            <div id='attrTitles'>
+                <p>Pokemon</p>
+                <p>Type</p>
+                <p>EvC</p>
+                <p>Health</p>
+                <p>Attack</p>
+                <p>Defense</p>
+                <p>Height</p>
+                <p>Weight</p>
+                <p>Speed</p>
             </div>
+            {
+                pokemon.map((pokemon => {
+                    return(
+                        <div className = 'guess'key = {pokemon.id}>
+
+                            <AttrColor attr = {pokemon.pokemon} dailyAttr = {daily.pokemon}/>
+                            <AttrColor attr = {pokemon.type} dailyAttr = {daily.type}/>
+                            <AttrColor attr = {pokemon.evc} dailyAttr = {daily.evc}/>
+                            <AttrColor attr = {pokemon.health} dailyAttr = {daily.health}/>
+                            <AttrColor attr = {pokemon.attack} dailyAttr = {daily.attack}/>
+
+                            <AttrColor attr = {pokemon.defense} dailyAttr = {daily.defense}/>
+                            <AttrColor attr = {pokemon.height} dailyAttr = {daily.height}/>
+                            <AttrColor attr = {pokemon.weight} dailyAttr = {daily.weight}/>
+                            <AttrColor attr = {pokemon.speed} dailyAttr = {daily.speed}/>
+
+                        </div>
+                    )
+                   
+                }))
+            }
         </div>
     )
 }
