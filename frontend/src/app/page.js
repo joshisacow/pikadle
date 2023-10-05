@@ -1,6 +1,4 @@
-import Image from 'next/image'
-import Wordle from './wordle.js'
-import './page.css'
+import Wordle from '@/components/wordle.js'
 
 export default function Home() {
   return (
