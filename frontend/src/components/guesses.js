@@ -17,41 +17,33 @@ function AttrColor({attr, dailyAttr}){
         )
     }
 }
-function TypeColor({attr, dailyAttr}){
+function TypeColor({t1, t2, dt1, dt2}){
     let counter = 0;
-    for (var i = 0; i< attr.length; i++){
-        if (dailyAttr.includes(attr[i])){
-            counter ++;
-        }
+    if (t1 == dt1 || t1 ==dt2){
+        counter ++;
     }
-    if (counter == dailyAttr.length){
+    if (t2 ==dt1 || t2 == dt){
+        counter ++;
+    }
+    if (counter == 2){
         return(
             <div className = 'guessRight' id='pokeName'>
-                {attr.map((type =>{
-                    return(
-                        <p>{type}</p>
-                    )
-                }))}
+                <p>{t1}</p>
+                <p>{t2}</p>
             </div>
         )
     }else if (counter >0 && counter != dailyAttr.length){
         return(
             <div className = 'guessOK' id='pokeName'>
-                {attr.map((type =>{
-                    return(
-                        <p>{type}</p>
-                    )
-                }))}
+                <p>{t1}</p>
+                <p>{t2}</p>
             </div>
         )
     } else {
         return(
             <div className = 'guessWrong' id='pokeName'>
-                {attr.map((type =>{
-                    return(
-                        <p>{type}</p>
-                    )
-                }))}
+                <p>{t1}</p>
+                <p>{t2}</p>
             </div>
         )
     }
@@ -84,7 +76,6 @@ export default function Guesses({pokemon, setTrigger, daily}) {
             <div id='attrTitles'>
                 <p>Pokemon</p>
                 <p>Type</p>
-                <p>EvC</p>
                 <p>Health</p>
                 <p>Attack</p>
                 <p>Defense</p>
@@ -99,7 +90,6 @@ export default function Guesses({pokemon, setTrigger, daily}) {
 
                             <AttrColor attr = {pokemon.pokemon} dailyAttr = {daily.pokemon}/>
                             <TypeColor attr = {pokemon.type} dailyAttr = {daily.type}/>
-                            <AttrColor attr = {pokemon.evc} dailyAttr = {daily.evc}/>
                             <AttrColor attr = {pokemon.health} dailyAttr = {daily.health}/>
                             <AttrColor attr = {pokemon.attack} dailyAttr = {daily.attack}/>
 
