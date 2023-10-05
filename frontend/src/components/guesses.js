@@ -22,7 +22,7 @@ function TypeColor({t1, t2, dt1, dt2}){
     if (t1 == dt1 || t1 ==dt2){
         counter ++;
     }
-    if (t2 ==dt1 || t2 == dt){
+    if (t2 ==dt1 || t2 == dt2){
         counter ++;
     }
     if (counter == 2){
@@ -32,7 +32,7 @@ function TypeColor({t1, t2, dt1, dt2}){
                 <p>{t2}</p>
             </div>
         )
-    }else if (counter >0 && counter != dailyAttr.length){
+    }else if (counter == 1){
         return(
             <div className = 'guessOK' id='pokeName'>
                 <p>{t1}</p>
@@ -89,7 +89,7 @@ export default function Guesses({pokemon, setTrigger, daily}) {
                         <div className = 'guess'key = {pokemon.id}>
 
                             <AttrColor attr = {pokemon.pokemon} dailyAttr = {daily.pokemon}/>
-                            <TypeColor attr = {pokemon.type} dailyAttr = {daily.type}/>
+                            <TypeColor t1 = {pokemon.type1} t2 = {pokemon.type2} dt1={daily.type1} dt2 = {daily.type2}/>
                             <AttrColor attr = {pokemon.health} dailyAttr = {daily.health}/>
                             <AttrColor attr = {pokemon.attack} dailyAttr = {daily.attack}/>
 

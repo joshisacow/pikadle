@@ -38,23 +38,23 @@ export default function Wordle () {
 
     let guesses = [daily, poke2]
 
-    // const fetchDaily = () =>{
-    //     fetch(config.RANDOM_URL)
-    //         .then((response) => response.json())
-    //         .then((data) => {
-    //             setDailyPokemon(data)
-    //         })
-    // }
-    // I think useMemo would be better here
-    // useEffect(() => {
-    //     fetchDaily()
-    // }, [])
-    // 
+    const fetchDaily = () =>{
+        fetch(config.RANDOM_URL, {mode: 'no-cors'})
+            .then(response => response.json())
+            .then((data) => {
+                setDailyPokemon(data)
+            })
+    }
+    useEffect(() => {
+        console.log(config.RANDOM_URL)
+        fetchDaily()
+    }, [])
+    
     // const fetchPokemon = () => {
     //     fetch(pokemonurl)
     //         .then((response) => response.json())
     //         .then((data) => {
-    //   
+      
     //             setPokeOptions(data)
     //         })
     // }
