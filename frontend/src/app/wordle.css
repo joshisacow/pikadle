@@ -11,11 +11,6 @@
     margin-bottom: 5%;
 }
 
-rbt-input-main form-control rbt-input{
-    border: 3px solid;
-    outline: none;
-}
-
 #answers {
     text-align: center;
     margin: 12em auto 0 ;
@@ -25,4 +20,52 @@ rbt-input-main form-control rbt-input{
     flex-direction: column;
     align-items: center;
     /* justify-content: space-between; */
+}
+
+#attrTitles{
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+}
+#attrTitles p {
+    width: 100px;
+    margin: 3px;
+}
+.guessAttr{
+    width: 100px;
+    height: 100px;
+    border: 2px solid;
+    margin: 3px;
+    text-align: center;
+}
+.guessAttr p{
+    margin-top:33px;
+}
+
+.rbt {
+    text-align: start;
+}
+
+.guessRight{
+    width: 100px;
+    height: 100px;
+    border: 2px solid;
+    margin: 3px;
+    text-align: center;
+    background-color: limegreen;
+}
+.guessRight p{
+    margin-top:33px;
+}
+
+.guessWrong{
+    width: 100px;
+    height: 100px;
+    border: 2px solid;
+    margin: 3px;
+    text-align: center;
+    background-color: red;
+}
+.guessWrong p{
+    margin-top:33px;
 }
