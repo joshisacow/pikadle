@@ -1,4 +1,3 @@
-from sqlite3 import Cursor
 from flask import Flask
 from flask_restful import Api, Resource
 import os
@@ -25,6 +24,7 @@ class Main(Resource):
 
 api.add_resource(Main, '/')
 api.add_resource(Pokemon.Pokemon, '/pokemon/<int:pokeID>')
+api.add_resource(Pokemon.Random, '/random')
 
 if __name__ == '__main__':
     app.run(port=8080, debug=True)
