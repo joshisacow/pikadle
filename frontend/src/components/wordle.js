@@ -5,6 +5,7 @@ import Guesses from './guesses.js'
 import { Typeahead } from 'react-bootstrap-typeahead';
 import Form from 'react-bootstrap/Form';
 import './wordle.css'
+import config from '../../config.json'
 
 export default function Wordle () {
     const [pokemonID, setPokemonID] =useState("");
@@ -14,7 +15,8 @@ export default function Wordle () {
     const [trigger, setTrigger] = useState(false);
     function handleSubmit(){}
     // const fetchGuess = ()  => {
-    //     fetch(`http://localhost:8080/pokemon/${pokemonID}`)
+            // TODO: might have to restructure my endpoint to be able to fetch by name
+    //     fetch(config.POKEMON_URL + pokemonID)
     //         .then((response) => {
     //          setTrigger(prevTrigger => !prevTrigger)
     //          return response.json())
@@ -37,16 +39,17 @@ export default function Wordle () {
     let guesses = [daily, poke2]
 
     // const fetchDaily = () =>{
-    //     fetch(randPokemonUrl)
+    //     fetch(config.RANDOM_URL)
     //         .then((response) => response.json())
     //         .then((data) => {
     //             setDailyPokemon(data)
     //         })
     // }
+    // I think useMemo would be better here
     // useEffect(() => {
     //     fetchDaily()
-    // })
-    // U
+    // }, [])
+    // 
     // const fetchPokemon = () => {
     //     fetch(pokemonurl)
     //         .then((response) => response.json())
