@@ -23,36 +23,36 @@ export default function Wordle () {
 
     let guesses = [daily, poke2]
 
-    // const handleClick = async() => {
-    //     const response = await  fetch(config.POKEMON_URL + pokeGuess[0])
-    //     const guess =await response.json();  
-    //     setPokemon(guess)
-    //     setTrigger(!trigger)
-    //     console.log(pokemon)
+    const handleClick = async() => {
+        const response = await  fetch(config.POKEMON_URL + pokeGuess[0])
+        const guess =await response.json();  
+        setPokemon(guess)
+        setTrigger(!trigger)
+        console.log(pokemon)
 
+    }
+    // const handleChange =(e) => {
+    //     fetch(config.POKEMON_URL + )
     // }
-    // // const handleChange =(e) => {
-    // //     fetch(config.POKEMON_URL + )
-    // // }
 
-    // const fetchDaily = () =>{
-    //     fetch(config.RANDOM_URL)
-    //         .then(response => response.json())
-    //         .then((data) => {
-    //             setDailyPokemon(data)
-    //         })
-    // }
-    // const fetchOptions = () =>{
-    //     fetch(config.NAMES_URL)
-    //         .then(response => response.json())
-    //         .then((data) => {
-    //             setPokeOptions(data)
-    //         })
-    // }
-    // useMemo(() => {
-    //     fetchDaily()
-    //     fetchOptions()
-    // }, [c])
+    const fetchDaily = () =>{
+        fetch(config.RANDOM_URL)
+            .then(response => response.json())
+            .then((data) => {
+                setDailyPokemon(data)
+            })
+    }
+    const fetchOptions = () =>{
+        fetch(config.NAMES_URL)
+            .then(response => response.json())
+            .then((data) => {
+                setPokeOptions(data)
+            })
+    }
+    useMemo(() => {
+        fetchDaily()
+        fetchOptions()
+    }, [c])
     
     // const fetchPokemon = () => {
     //     fetch(pokemonurl)
@@ -72,7 +72,7 @@ export default function Wordle () {
         <div id='answers'>
             <h2 id = 'guessTitle'>Guess Today's Pokemon! </h2>
             <h2>Today's Pokemon</h2>
-            {/* <p>{dailyPokemon.name}! types: {dailyPokemon.type1} {dailyPokemon.type2} attack: {dailyPokemon.attack}</p>
+            <p>{dailyPokemon.name}! types: {dailyPokemon.type1} {dailyPokemon.type2} attack: {dailyPokemon.attack}</p>
             <Typeahead
                 id="pokeInput"
                 labelKey="name"
@@ -86,7 +86,7 @@ export default function Wordle () {
                 Submit
             </Button>
         
-            <Guesses pokemon = {pokemon} trigger = {trigger} setTrigger = {setTrigger} daily = {dailyPokemon}/> */}
+            <Guesses pokemon = {pokemon} trigger = {trigger} setTrigger = {setTrigger} daily = {dailyPokemon}/>
         </div>
     )
 }
