@@ -7,11 +7,11 @@ import os
 app = Flask(__name__)
 load_dotenv()
 url = os.getenv('DATABASE_URL')
-conn = psycopg2.connect(url)
 
 class Pokemon(Resource):
     def get(self, pokeName):
         # Get the pokemon from the database
+        conn = psycopg2.connect(url)
         cur = conn.cursor()
         cur.execute("SELECT * FROM pokemon WHERE name = %s", (pokeName,))
         pokemon = cur.fetchone()
@@ -41,6 +41,7 @@ class Pokemon(Resource):
 class Random(Resource):
     def get(self):
         # Get a random pokemon from the database
+        conn = psycopg2.connect(url)
         cur = conn.cursor()
         cur.execute("SELECT * FROM pokemon ORDER BY RANDOM() LIMIT 1")
         pokemon = cur.fetchone()

@@ -7,7 +7,6 @@ import os
 app = Flask(__name__)
 load_dotenv()
 url = os.getenv('DATABASE_URL')
-conn = psycopg2.connect(url)
 
 class Users(Resource):
     def get(self):
@@ -17,6 +16,7 @@ class Users(Resource):
         argparse.add_argument("uid", type=int, help="User ID is required", required=True)
         args = argparse.parse_args()
         userID = args['uid']
+        conn = psycopg2.connect(url)
         cur = conn.cursor()
         cur.execute("SELECT * FROM Users WHERE uid = %s", (userID,))
         user = cur.fetchone()
@@ -27,6 +27,7 @@ class Users(Resource):
         # create new user
         # parse arguments
         content = request.json
+        conn = psycopg2.connect(url)
         cur = conn.cursor()
         cur.execute("""INSERT INTO Users (uid, username, email, number_of_pokemon, number_of_badges) 
 VALUES (%s, %s, %s, %s, %s);""", (content['uid'], content['username'], content['email'], content['number_of_pokemon'], content['number_of_badges']))
