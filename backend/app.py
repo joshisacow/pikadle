@@ -11,8 +11,6 @@ load_dotenv()
 app = Flask(__name__)
 api = Api(app)
 CORS(app)
-url = os.getenv('DATABASE_URL')
-conn = psycopg2.connect(url)
 
 # cur = conn.cursor()
 # cur.execute("""CREATE TABLE Users(
