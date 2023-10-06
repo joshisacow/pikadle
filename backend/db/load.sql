@@ -19,3 +19,8 @@ SET
     speed = @speed, 
     height = @height, 
     weight = @weight;
+
+-- Into Moves Table
+
+INSERT INTO Users (uid, username, email, number_of_pokemon, number_of_badges) 
+VALUES (%s, %s, %s, %s, %s);

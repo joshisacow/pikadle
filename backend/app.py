@@ -14,12 +14,22 @@ CORS(app)
 url = os.getenv('DATABASE_URL')
 conn = psycopg2.connect(url)
 
+# cur = conn.cursor()
+# cur.execute("""CREATE TABLE Users(
+#     uid INT PRIMARY KEY,
+#     username VARCHAR(255) NOT NULL,
+#     email VARCHAR(255),
+#     number_of_pokemon INT,
+#     number_of_badges INT
+# );""")
+# cur.close()
+
 @app.route('/')
 def get():
     return 'Pikadle API'
 
 import db.Pokemon as Pokemon
-
+import db.Users as Users
 class Main(Resource):
     def get(self):
         return "pikadle API", 200
@@ -28,6 +38,7 @@ api.add_resource(Main, '/')
 api.add_resource(Pokemon.Pokemon, '/pokemon/<string:pokeName>')
 api.add_resource(Pokemon.Random, '/random')
 api.add_resource(Pokemon.PokeNames, '/pokemon/names')
+api.add_resource(Users.Users, '/users')
 
 if __name__ == '__main__':
     app.run(port=8080, debug=True)
