@@ -25,3 +25,6 @@ Backend: \
     - pokemon and users are populated\
     - open api endpoints for a random pokemon, all pokemon names, and a specific pokemon based on name\
     - open api endpoints for user creation and getting user info
+
+Github Repo:\
+https://github.com/joshisacow/pikadle/tree/main
