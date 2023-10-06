@@ -32,7 +32,7 @@ function TypeColor({t1, t2, dt1, dt2}){
                 <p>{t2}</p>
             </div>
         )
-    }else if (counter == 1){
+    }else if (counter ==1){
         return(
             <div className = 'guessOK' id='pokeName'>
                 <p>{t1}</p>
