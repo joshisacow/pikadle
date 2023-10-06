@@ -25,8 +25,9 @@ class Main(Resource):
         return "pikadle API", 200
 
 api.add_resource(Main, '/')
-api.add_resource(Pokemon.Pokemon, '/pokemon/<int:pokeID>')
+api.add_resource(Pokemon.Pokemon, '/pokemon/<string:pokeName>')
 api.add_resource(Pokemon.Random, '/random')
+api.add_resource(Pokemon.PokeNames, '/pokemon/names')
 
 if __name__ == '__main__':
     app.run(port=8080, debug=True)

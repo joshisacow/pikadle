@@ -10,10 +10,10 @@ url = os.getenv('DATABASE_URL')
 conn = psycopg2.connect(url)
 
 class Pokemon(Resource):
-    def get(self, pokeID):
+    def get(self, pokeName):
         # Get the pokemon from the database
         cur = conn.cursor()
-        cur.execute("SELECT * FROM pokemon WHERE pokemon_id = %s", (pokeID,))
+        cur.execute("SELECT * FROM pokemon WHERE name = %s", (pokeName,))
         pokemon = cur.fetchone()
         cur.close()
         if pokemon:
@@ -62,6 +62,26 @@ class Random(Resource):
                 "name": str(pokemon[12])
                 # Add other fields as needed
             }
+            return pokemon_data, 200
+        else:
+            return {"message": "Pokemon not found"}, 404
+
+class PokeNames(Resource):
+    def get(self):
+        # Get a random pokemon from the database
+        cur = conn.cursor()
+        cur.execute("SELECT name FROM pokemon")
+        pokemon = cur.fetchall()
+        cur.close()
+        if pokemon:
+            pokemon_data = []
+            for x in pokemon:
+                pokemon_data.append(x[0])
+            # pokemon_data = {
+            #     "pokemon_id": int(pokemon[0][0]),
+            #     "name": str(pokemon[1])
+            #     # Add other fields as needed
+            # }
             return pokemon_data, 200
         else:
             return {"message": "Pokemon not found"}, 404
