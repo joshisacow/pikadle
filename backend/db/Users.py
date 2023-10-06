@@ -10,12 +10,18 @@ url = os.getenv('DATABASE_URL')
 conn = psycopg2.connect(url)
 
 class Users(Resource):
-    def get(self, userID):
+    def get(self):
         # get user info
+        # parse arguments
+        argparse = reqparse.RequestParser()
+        argparse.add_argument("uid", type=int, help="User ID is required", required=True)
+        args = argparse.parse_args()
+        userID = args['uid']
         cur = conn.cursor()
-        cur.execute("SELECT * FROM pokemon WHERE name = %s", (userID,))
-        pokemon = cur.fetchone()
+        cur.execute("SELECT * FROM Users WHERE uid = %s", (userID,))
+        user = cur.fetchone()
         cur.close()
+        return user, 200
 
     def post(self):
         # create new user
