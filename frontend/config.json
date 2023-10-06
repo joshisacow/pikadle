@@ -1,4 +1,5 @@
 {
     "POKEMON_URL": "http://127.0.0.1:8080/pokemon/",
-    "RANDOM_URL": "http://127.0.0.1:8080/random"
+    "RANDOM_URL": "http://127.0.0.1:8080/random",
+    "NAMES_URL": "http://127.0.0.1:8080/pokemon/names"
 }

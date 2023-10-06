@@ -83,3 +83,10 @@
     flex-direction: column;
     justify-content: center;
 }
+
+.dropdown-item{
+    display:block;
+}
+#pokeInput {
+    background-color: white;
+}
