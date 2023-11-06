@@ -7,15 +7,64 @@ import { NavLink } from 'react-router-dom';
 // username is the Display Name of the user, fetched from SHIB
 // netid is the Net ID of the user, fetched from SHIB
 const NavBar = () => {
+  const navStyle = {
+    backgroundColor: '#FFFFFF',
+    padding: '20px 0',
+  };
+
+  const linkStyle = {
+    textDecoration: 'none',
+    color: '#000000',
+    fontWeight: 'bold',
+    margin: '0 15px',
+    transition: 'color 0.3s',
+  };
+
+  const activeLinkStyle = {
+      color: '#66d9ff',
+  };
+
   return (
-    <nav>
-        <NavLink to = '/#'>
-            Home
-        </NavLink>
-        <NavLink to = '/user'>
-            User
-        </NavLink>
+    /** 
+    <nav style={navStyle}>
+      <NavLink to="/" exact style={linkStyle} activeStyle={activeLinkStyle}>
+        Home
+      </NavLink>
+      <NavLink to="/user" style={linkStyle} activeStyle={activeLinkStyle}>
+        User
+      </NavLink>
+      <NavLink to="/safari" style={linkStyle} activeStyle={activeLinkStyle}>
+        Safari
+      </NavLink>
     </nav>
+    */
+    <nav className="bg-white-400 p-4">
+    <div className="container mx-auto flex items-center justify-between">
+      <ul className="flex space-x-6 text-black">
+          <NavLink
+            to="/"
+            exact
+            className="hover:text-blue-400"
+          >
+            Home
+          </NavLink>
+          <NavLink
+            to="/user"
+            className="hover:text-blue-400"
+          >
+            User
+          </NavLink>
+          <NavLink
+            to="/safari"
+            className="hover:text-blue-400"
+          >
+            Safari
+          </NavLink>
+      </ul>
+    </div>
+  </nav>
+    );
+};
     // <div className="sidebar-sticky">
     //   <nav className="col-md-2 d-md-block bg-navblue sidebar">
     //     <div>
@@ -67,7 +116,5 @@ const NavBar = () => {
     //     </div>
     //   </nav>
     // </div>
-  );
-};
 
 export default NavBar;

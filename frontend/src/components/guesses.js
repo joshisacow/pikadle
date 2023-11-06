@@ -78,7 +78,7 @@ function TypeColor({t1, t2, dt1, dt2}){
         )
     }
 }
-
+//pokemon: the pokemon that is guessed, daily: actual pokemon
 export default function Guesses({pokemon, setTrigger, daily , trigger}) {
     const [guesses, setGuesses] = useState([])
         // const fetchPokemon = () => {

@@ -10,17 +10,24 @@ load_dotenv()
 url = os.getenv('DATABASE_URL')
 
 class Users(Resource):
-    def get(self):
+    def get(self, uid):
         # get user info
         # parse arguments
         args = request.args.get('uid')
         conn = psycopg2.connect(url)
         cur = conn.cursor()
-        cur.execute("SELECT * FROM Users WHERE uid = %s", (args,))
+        cur.execute("SELECT * FROM Users WHERE uid = %s", (uid,))
         user = cur.fetchone()
         cur.close()
-        
-        return user, 200
+        if user:
+            user_data = {
+                "username": str(user[1]),
+                "email":str(user[2]),
+                "number_of_pokemon":int(user[3]),
+                "number_of_badges":int(user[4])
+            }
+    
+        return user_data, 200
 
     def post(self):
         # create new user

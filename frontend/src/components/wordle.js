@@ -69,6 +69,26 @@ export default function Wordle () {
     //     // console.log("was triggered");
     //     // console.log("CURRENT USER, from get: ", userId);
     // }, [trigger])
+    return (
+        <div id='answers'>
+            <h2 id = 'guessTitle'>Guess Today's Pokemon! </h2>
+            <h2>Today's Pokemon</h2>
+            <p>{dailyPokemon.name}! types: {dailyPokemon.type1} {dailyPokemon.type2} attack: {dailyPokemon.attack}</p>
+            <Typeahead
+                id="pokeInput"
+                labelKey="name"
+                onChange={setPokeGuess}
+                options={pokeOptions}
+                placeholder="Choose your pokemon..."
+                selected={pokeGuess}
+            />
+            <Button id='submit' onClick ={handleClick}>
+                Submit
+            </Button>
+            <Guesses pokemon = {pokemon} trigger = {trigger} setTrigger = {setTrigger} daily = {dailyPokemon}/>
+        </div>
+    )
+=======
     if (allowGuesses){
         return (
             <div id='answers'>
