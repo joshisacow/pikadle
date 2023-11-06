@@ -4,18 +4,48 @@ import './wordle.css'
 
 function AttrColor({attr, dailyAttr}){
     if(attr == dailyAttr){
+        if (typeof attr === "number"){
+            return(
+                <div className='guessRight' id='pokeName'>
+                    <NumberArrows attr = {attr} dailyAttr={dailyAttr}/>
+                </div>
+            )
+        }
         return(
             <div className = 'guessRight' id='pokeName'>
                 <p>{attr}</p>
             </div>
         )
     }else {
+        if (typeof attr === "number"){
+            return(
+                <div className='guessWrong' id='pokeName'>
+                    <NumberArrows attr = {attr} dailyAttr={dailyAttr}/>
+                </div>
+            )
+        }
         return(
             <div className = 'guessWrong' id='pokeName'>
                 <p>{attr}</p>
             </div>
         )
     }
+}
+
+function NumberArrows({attr, dailyAttr}){
+    if (attr > dailyAttr){
+        return(
+            <div className = 'upArrow' id='pokeArrow'></div>
+        )
+    }
+    if (attr < dailyAttr){
+        return(
+            <div className='downArrow' id='pokeArrow'></div>
+        )
+    }
+    return(
+        <div className = 'square guessWrong' id='pokeSquare'></div>
+    )
 }
 function TypeColor({t1, t2, dt1, dt2}){
     let counter = 0;

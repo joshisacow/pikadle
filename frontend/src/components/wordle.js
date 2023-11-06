@@ -17,19 +17,20 @@ export default function Wordle () {
     const [trigger, setTrigger] = useState(false);
     const [c, setC] = useState(0)
     function handleSubmit(){}
-
-    let daily = {id: 1, pokemon: "pikachu", type1: "electric", type2: "water", health: 100, defense: 90, attack: 80, height: 70, weight: 60, speed: 50}
-    let poke2 = {id: 2, pokemon: "grah", type1: "water", type2: "none", health: 100, defense: 90, attack: 80, height: 70, weight: 60, speed: 50}
-
-    let guesses = [daily, poke2]
+    const [guessCount, setGuessCount] = useState(0);
+    const [allowGuesses, setAllowGuesses] = useState(true);
 
     const handleClick = async() => {
-        const response = await fetch(config.POKEMON_URL + pokeGuess[0])
+        setGuessCount(guessCount + 1)
+        if (guessCount == 5){
+            setAllowGuesses(false)
+        }
+        const response = await  fetch(config.POKEMON_URL + pokeGuess[0])
         const guess =await response.json();  
         setPokemon(guess)
         setTrigger(!trigger)
         console.log(pokemon)
-
+        console.log("guessCount", guessCount)
     }
     // const handleChange =(e) => {
     //     fetch(config.POKEMON_URL + )
@@ -87,4 +88,51 @@ export default function Wordle () {
             <Guesses pokemon = {pokemon} trigger = {trigger} setTrigger = {setTrigger} daily = {dailyPokemon}/>
         </div>
     )
+=======
+    if (allowGuesses){
+        return (
+            <div id='answers'>
+                <h2 id = 'guessTitle'>Guess Today's Pokemon! </h2>
+                <h2>Today's Pokemon</h2>
+                <p>{dailyPokemon.name}! types: {dailyPokemon.type1} {dailyPokemon.type2} attack: {dailyPokemon.attack}</p>
+                <Typeahead
+                    id="pokeInput"
+                    labelKey="name"
+                    onChange={setPokeGuess}
+                    options={pokeOptions}
+                    placeholder="Choose your pokemon..."
+                    selected={pokeGuess}
+                    
+                />
+                <Button id='submit' onClick ={handleClick}>
+                    Submit
+                </Button>
+            
+                <Guesses pokemon = {pokemon} trigger = {trigger} setTrigger = {setTrigger} daily = {dailyPokemon}/>
+            </div>
+        )
+    } else {
+        return (
+            <div id='answers'>
+                <h2 id = 'guessTitle'>Guess Today's Pokemon! </h2>
+                <h2>Today's Pokemon</h2>
+                <p>{dailyPokemon.name}! types: {dailyPokemon.type1} {dailyPokemon.type2} attack: {dailyPokemon.attack}</p>
+                <Typeahead
+                    id="pokeInput"
+                    labelKey="name"
+                    onChange={setPokeGuess}
+                    options={pokeOptions}
+                    placeholder="Choose your pokemon..."
+                    selected={pokeGuess}
+                    
+                />
+                <Button id='submit' disabled> 
+                    Submit
+                </Button>
+            
+                <Guesses pokemon = {pokemon} trigger = {trigger} setTrigger = {setTrigger} daily = {dailyPokemon}/>
+            </div>
+        )
+    }
+    
 }
