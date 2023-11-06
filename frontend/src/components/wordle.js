@@ -88,7 +88,6 @@ export default function Wordle () {
             <Guesses pokemon = {pokemon} trigger = {trigger} setTrigger = {setTrigger} daily = {dailyPokemon}/>
         </div>
     )
-=======
     if (allowGuesses){
         return (
             <div id='answers'>
