@@ -79,7 +79,7 @@ function TypeColor({t1, t2, dt1, dt2}){
     }
 }
 
-export default function Guesses({pokemon, setTrigger, daily , trigger}) {
+export default function Guesses({pokemon, setTrigger, daily , trigger, setCorrect}) {
     const [guesses, setGuesses] = useState([])
         // const fetchPokemon = () => {
     //     fetch(pokemonurl)
@@ -101,6 +101,12 @@ export default function Guesses({pokemon, setTrigger, daily , trigger}) {
         setGuesses(oldArray => [...oldArray, pokemon])
         console.log("hello")
     }, [trigger])
+    if (pokemon){
+        if (pokemon.name == daily.name){
+            setCorrect(true)
+        }
+    }
+    
     return(
         <div id='guesses'>
             <div id='attrTitles'>
