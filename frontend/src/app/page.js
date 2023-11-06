@@ -7,7 +7,7 @@ import User from '@/components/user.js'
 export default function Home() {
   return (
     <main>
-      <h1>Pikadle</h1>
+      <h1 class="text-4xl font-bold text-center my-8">Pikadle</h1>
       <Router>
         <NavBar />
         <Routes>
@@ -15,7 +15,6 @@ export default function Home() {
           <Route path="/user" element={<User />} />
         </Routes>
       </Router>
-      
     </main>
   )
 }

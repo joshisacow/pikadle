@@ -7,15 +7,34 @@ import { NavLink } from 'react-router-dom';
 // username is the Display Name of the user, fetched from SHIB
 // netid is the Net ID of the user, fetched from SHIB
 const NavBar = () => {
+  const navStyle = {
+    backgroundColor: '#FFFFFF',
+    padding: '20px 0',
+  };
+
+  const linkStyle = {
+    textDecoration: 'none',
+    color: '#000000',
+    fontWeight: 'bold',
+    margin: '0 15px',
+    transition: 'color 0.3s',
+  };
+
+  const activeLinkStyle = {
+      color: '#66d9ff',
+  };
+
   return (
-    <nav>
-        <NavLink to = '/#'>
-            Home
-        </NavLink>
-        <NavLink to = '/user'>
-            User
-        </NavLink>
+    <nav style={navStyle}>
+      <NavLink to="/" exact style={linkStyle} activeStyle={activeLinkStyle}>
+        Home
+      </NavLink>
+      <NavLink to="/user" style={linkStyle} activeStyle={activeLinkStyle}>
+        User
+      </NavLink>
     </nav>
+    );
+};
     // <div className="sidebar-sticky">
     //   <nav className="col-md-2 d-md-block bg-navblue sidebar">
     //     <div>
@@ -67,7 +86,5 @@ const NavBar = () => {
     //     </div>
     //   </nav>
     // </div>
-  );
-};
 
 export default NavBar;

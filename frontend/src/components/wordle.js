@@ -24,7 +24,7 @@ export default function Wordle () {
     let guesses = [daily, poke2]
 
     const handleClick = async() => {
-        const response = await  fetch(config.POKEMON_URL + pokeGuess[0])
+        const response = await fetch(config.POKEMON_URL + pokeGuess[0])
         const guess =await response.json();  
         setPokemon(guess)
         setTrigger(!trigger)
@@ -80,12 +80,10 @@ export default function Wordle () {
                 options={pokeOptions}
                 placeholder="Choose your pokemon..."
                 selected={pokeGuess}
-                
             />
             <Button id='submit' onClick ={handleClick}>
                 Submit
             </Button>
-        
             <Guesses pokemon = {pokemon} trigger = {trigger} setTrigger = {setTrigger} daily = {dailyPokemon}/>
         </div>
     )
