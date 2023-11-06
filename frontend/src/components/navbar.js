@@ -25,6 +25,7 @@ const NavBar = () => {
   };
 
   return (
+    /** 
     <nav style={navStyle}>
       <NavLink to="/" exact style={linkStyle} activeStyle={activeLinkStyle}>
         Home
@@ -32,7 +33,36 @@ const NavBar = () => {
       <NavLink to="/user" style={linkStyle} activeStyle={activeLinkStyle}>
         User
       </NavLink>
+      <NavLink to="/safari" style={linkStyle} activeStyle={activeLinkStyle}>
+        Safari
+      </NavLink>
     </nav>
+    */
+    <nav className="bg-white-400 p-4">
+    <div className="container mx-auto flex items-center justify-between">
+      <ul className="flex space-x-6 text-black">
+          <NavLink
+            to="/"
+            exact
+            className="hover:text-blue-400"
+          >
+            Home
+          </NavLink>
+          <NavLink
+            to="/user"
+            className="hover:text-blue-400"
+          >
+            User
+          </NavLink>
+          <NavLink
+            to="/safari"
+            className="hover:text-blue-400"
+          >
+            Safari
+          </NavLink>
+      </ul>
+    </div>
+  </nav>
     );
 };
     // <div className="sidebar-sticky">
