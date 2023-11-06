@@ -73,6 +73,12 @@
     align-items: center;
 }
 
+.guessWrong p {
+    margin-bottom: 0;   
+}
+.guessRight p {
+    margin-bottom: 0    ;
+}
 
 .guessOK{
     width: 100px;

@@ -81,32 +81,18 @@ function TypeColor({t1, t2, dt1, dt2}){
 
 export default function Guesses({pokemon, setTrigger, daily , trigger, setCorrect}) {
     const [guesses, setGuesses] = useState([])
-        // const fetchPokemon = () => {
-    //     fetch(pokemonurl)
-    //         .then((response) => response.json())
-    //         .then((data) => {
-    //   
-    //             setPokemon(data)
-    //         })
-    // }
-
-    // // set trigger for fetching SBOMs
-    // useEffect(() => {
-    //     fetchPokemon()
-    //     // debugger lines
-    //     // console.log("was triggered");
-    //     // console.log("CURRENT USER, from get: ", userId);
-    // }, [trigger])
     useEffect(() => {
         setGuesses(oldArray => [...oldArray, pokemon])
         console.log("hello")
     }, [trigger])
-    if (pokemon){
-        if (pokemon.name == daily.name){
-            setCorrect(true)
-        }
-    }
     
+    useEffect(()=> {
+        if (pokemon){
+            if (pokemon.name == daily.name){
+                setCorrect(true)
+            }
+        }
+    }, [trigger])
     return(
         <div id='guesses'>
             <div id='attrTitles'>
