@@ -33,7 +33,7 @@ export default function User () {
               },
             body: JSON.stringify({
                 uid: 40,
-                username: "fwe",
+                username: username,
                 email: "hello",
                 number_of_pokemon: 1,
                 number_of_badges: 1
