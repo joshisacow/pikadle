@@ -79,8 +79,7 @@ function TypeColor({t1, t2, dt1, dt2}){
     }
 }
 //pokemon: the pokemon that is guessed, daily: actual pokemon
-export default function Guesses({pokemon, setTrigger, daily , trigger}) {
-    const [guesses, setGuesses] = useState([])
+export default function Guesses({pokemon, daily , guesses}) {
         // const fetchPokemon = () => {
     //     fetch(pokemonurl)
     //         .then((response) => response.json())
@@ -97,10 +96,7 @@ export default function Guesses({pokemon, setTrigger, daily , trigger}) {
     //     // console.log("was triggered");
     //     // console.log("CURRENT USER, from get: ", userId);
     // }, [trigger])
-    useEffect(() => {
-        setGuesses(oldArray => [...oldArray, pokemon])
-        console.log("hello")
-    }, [trigger])
+    
     return(
         <div id='guesses'>
             <div id='attrTitles'>
@@ -134,7 +130,6 @@ export default function Guesses({pokemon, setTrigger, daily , trigger}) {
                         )
                     }
                     
-                   
                 }))
             }
         </div>
