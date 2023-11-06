@@ -71,7 +71,8 @@ CREATE TABLE hasAchievements (
 -- Create the Achievement table
 CREATE TABLE Achievement (
     achievement_name VARCHAR(255) PRIMARY KEY,
-    achievement_description VARCHAR(255)
+    achievement_description VARCHAR(255),
+    achievement_criteria INT
 );
 
 -- Create the History table
