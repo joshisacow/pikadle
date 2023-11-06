@@ -24,3 +24,16 @@ SET
 
 INSERT INTO Users (uid, username, email, number_of_pokemon, number_of_badges) 
 VALUES (%s, %s, %s, %s, %s);
+
+
+
+LOAD DATA INFILE '/Users/williamyun/pikadle/backend/db/data/pikadle_badges.csv'
+INTO TABLE achievement
+FIELDS TERMINATED BY ','
+LINES TERMINATED BY '\n'
+SET 
+    achievement_name = @achievement_name,
+    achievement_description = @Description, 
+    achievement_criteria = @Criteria; 
+
+
