@@ -55,7 +55,8 @@
     background-color: limegreen;
     display: flex;
     flex-direction: column;
-    justify-content: center;    
+    justify-content: center;   
+    align-items: center; 
 }
 
 
@@ -69,6 +70,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
 
 
@@ -89,4 +91,29 @@
 }
 #pokeInput {
     background-color: white;
+}
+
+.downArrow {
+    width: 0; 
+    height: 0; 
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-top: 20px solid #fff;
+    margin-top: 10px;
+}
+
+.upArrow {
+    width: 30px; 
+    height: 30px; 
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;  
+    border-bottom: 20px solid #fff;
+    margin-bottom: 10px;
+}
+
+
+.square {
+    width: 20px; 
+    height: 20px; 
+    border: 10px solid white;
 }
