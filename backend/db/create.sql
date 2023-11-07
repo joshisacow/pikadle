@@ -9,6 +9,7 @@ CREATE TABLE User (
     email VARCHAR(255),
     number_of_pokemon INT,
     number_of_badges INT,
+    current_badge VARCHAR(255)
 );
 
 -- Create the hasPokemon table
