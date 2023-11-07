@@ -1,5 +1,6 @@
 import { NextAuthOptions } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
+import { validate } from '@/app/auth/requests.js'
 
 export const options = {
     providers: [
@@ -10,11 +11,17 @@ export const options = {
                 password: { label: "Password", type: "password", placeholder: "password" }
             },
             async authorize(credentials) {
-                const user = { id: 1, name: 'ash', password: "pikachu" };
-                if (user && user.password === credentials.password && user.name === credentials.username) {
-                    return user
+                console.log(credentials);
+                const response = await validate(credentials.username, credentials.password);
+                console.log(response);
+                
+                if (response.status === 200) {
+                    return {
+                        id: response.id,
+                        name: response.name
+                    }
                 } else {
-                    return null
+                    return null;
                 }
             }
         }),

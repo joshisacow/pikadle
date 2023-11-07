@@ -61,7 +61,7 @@ const NavBar = () => {
             Safari
           </NavLink>
           <NavLink
-            to="/api/auth/signin"
+            to="/login"
             className="absolute top-8 right-10 text-lg font-medium bg-slate-500 p-2 text-white hover:bg-slate-600 rounded-lg active:bg-slate-700"
           >
             Login
