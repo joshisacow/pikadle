@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import NavBar from '@/components/navbar';
 import User from '@/components/user.js'
 import Safari from '@/components/safari.js'
+import Login from '@/components/Login'
 export default function Home() {
   return (
     <main>
