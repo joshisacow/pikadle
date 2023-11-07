@@ -67,16 +67,17 @@ class Auth(Resource):
 
         username = args['username']
         password = args['password']
+        # check if username already taken
         hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
         if not bcrypt.check_password_hash(hashed_password, password):
             return "Invalid password", 401
         uid = uuid.uuid1()
 
-        return [uid.int, username, hashed_password], 201
+        # return [uid.int, username, hashed_password], 201
         conn = psycopg2.connect(url)
         cur = conn.cursor()
-        cur.execute("""INSERT INTO Users (uid, username, email, number_of_pokemon, number_of_badges) 
-VALUES (%d, %s, %s, %d, %d);""", (uid.int, username, hashed_password, 0, 0))
+        cur.execute("""INSERT INTO Users (uid, username, password, number_of_pokemon, number_of_badges) 
+VALUES (%s, %s, %s, %s, %s);""", (str(uid), username, hashed_password, 0, 0))
         conn.commit()
         cur.close()
         return "success", 201
