@@ -35,8 +35,8 @@ class Users(Resource):
         content = request.json
         conn = psycopg2.connect(url)
         cur = conn.cursor()
-        cur.execute("""INSERT INTO Users (uid, username, email, number_of_pokemon, number_of_badges) 
-VALUES (%s, %s, %s, %s, %s);""", (content['uid'], content['username'], content['email'], content['number_of_pokemon'], content['number_of_badges']))
+        cur.execute("""INSERT INTO Users (uid, username, email, number_of_pokemon, number_of_badges, current_badge) 
+VALUES (%s, %s, %s, %s, %s);""", (content['uid'], content['username'], content['email'], content['number_of_pokemon'], content['number_of_badges'], content['current_badge']))
         conn.commit()
         cur.close()
         return content, 201
