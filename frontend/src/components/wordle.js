@@ -18,8 +18,10 @@ export default function Wordle () {
     const [pokeGuess, setPokeGuess] = useState("");
     const [pokemon, setPokemon] = useState();
     const [guessCount, setGuessCount] = useState(0);
+    const [trigger, setTrigger] = useState(false)
     const [allowGuesses, setAllowGuesses] = useState(true);
-    const [guesses, setGuesses] = useState([])
+    const [guesses, setGuesses] = useState([]);
+    const [correct, setCorrect] = useState(false)
 
     const handleClick = async() => {
         // check if duplicate guess
