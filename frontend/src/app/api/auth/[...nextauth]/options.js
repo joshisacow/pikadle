@@ -1,6 +1,6 @@
 import { NextAuthOptions } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
-import { validate } from '@/app/auth/requests.js'
+import { validate } from '@/auth/requests.js'
 
 export const options = {
     session: {

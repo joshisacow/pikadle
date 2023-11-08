@@ -1,8 +1,12 @@
 "use client"
 
 import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import config from '../../config'
 
 export default function Form() {
+    const router = useRouter();
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -10,7 +14,7 @@ export default function Form() {
             const response = await signIn('credentials', { 
                 username: data.get('username'), 
                 password: data.get('password'), 
-                callbackUrl: 'http://localhost:3000'
+                callbackUrl: config.BASE_URL
             });
             console.log(response);
         } catch (error) {
@@ -24,7 +28,7 @@ export default function Form() {
                 <input type="text" name="username" />
                 <input type="password" name="password" />
                 <button type="submit">Sign in</button>
-                <button>Sign up</button>
+                <button type="button" onClick={() => router.push("/register")}>Sign up</button>
             </form>
         </>
     )

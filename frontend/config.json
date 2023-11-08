@@ -3,7 +3,8 @@
     "RANDOM_URL": "http://127.0.0.1:8080/random",
     "NAMES_URL": "http://127.0.0.1:8080/pokemon/names",
     "USER_URL": "http://127.0.0.1:8080/users/",
-    "REGISTER_URL": "http://127.0.0.1:8080/auth",
+    "AUTH_URL": "http://127.0.0.1:8080/auth",
     "RANDOM_GIVEN_TYPE_URL": "http://127.0.0.1:8080/random/type/",
-    "TYPE_URL": "http://127.0.0.1:8080/random/type"
+    "TYPE_URL": "http://127.0.0.1:8080/random/type",
+    "BASE_URL": "http://localhost:3000"
 }

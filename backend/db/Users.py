@@ -34,7 +34,7 @@ class Users(Resource):
         return user_data, 200
     
 class Auth(Resource):
-    def delete(self):
+    def put(self):
         # validate login
         login_post_args = reqparse.RequestParser()
         login_post_args.add_argument("username", type=str, help="username is required", required=True)
