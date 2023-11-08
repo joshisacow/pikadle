@@ -2,6 +2,8 @@
 
 import React from 'react'
 import { register } from './requests'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const RegisterForm = () => {
     const handleSubmit = async (event) => {
@@ -9,7 +11,7 @@ const RegisterForm = () => {
         const data = new FormData(event.currentTarget);
         try {
             const response = await register(data.get('username'), data.get('password'));
-            console.log(response);
+            toast(response);
         } catch (error) {
             console.log(error);
         }
@@ -17,12 +19,13 @@ const RegisterForm = () => {
 
     return (
         <>
-            <h1>Sign up</h1>
+            <h1>Register</h1>
             <form onSubmit={handleSubmit}>
                 <input type="text" name="username" />
                 <input type="password" name="password" />
-                <button type="submit">Register</button>
+                <button type="submit">Sign up</button>
             </form>
+            <ToastContainer />
         </>
     )
 }
