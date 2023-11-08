@@ -6,3 +6,4 @@ Werkzeug==2.3.7
 psycopg2-binary
 flask-cors
 python-dotenv
+flask-bcrypt

@@ -1,12 +1,17 @@
-"use client"
+
 
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 
 // loggedIn is the state of being logged in or not
 // username is the Display Name of the user, fetched from SHIB
 // netid is the Net ID of the user, fetched from SHIB
 const NavBar = () => {
+
+  const { data: session, status } = useSession();
+
   const navStyle = {
     backgroundColor: '#FFFFFF',
     padding: '20px 0',
@@ -60,6 +65,23 @@ const NavBar = () => {
           >
             Safari
           </NavLink>
+          {!session && (
+            <NavLink
+              to="/login"
+              className="absolute top-8 right-10 text-lg font-medium bg-slate-500 p-2 text-white hover:bg-slate-600 rounded-lg active:bg-slate-700"
+            >
+              Login
+            </NavLink>
+          )}
+          {session && (
+            <button
+              onClick={() => signOut()}
+              className="absolute top-8 right-10 text-lg font-medium bg-slate-500 p-2 text-white hover:bg-slate-600 rounded-lg active:bg-slate-700"
+            >
+              Sign out
+            </button>
+          )}
+          
       </ul>
     </div>
   </nav>

@@ -2,9 +2,18 @@
 
 import { useEffect, useState, useMemo, useRef } from "react"
 import config from '../../config.json'
+import { useSession } from "next-auth/react";
+import { redirect } from 'next/navigation';
+
 
 
 export default function User () {
+        const { data: session, status } = useSession({
+          required: true,
+          onUnauthenticated() {
+            redirect("/login");
+          },
+        });
         const [userName, setUserName] = useState("");
         const [userData, setUserData] = useState(null);
         const [loading, setLoading] = useState(false);

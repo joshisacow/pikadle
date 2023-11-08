@@ -7,6 +7,12 @@ app = Flask(__name__)
 api = Api(app)
 CORS(app)
 
+# @app.after_request
+# def after_request(response):
+#     response.headers.add('Access-Control-Allow-Origin', '*')
+#     response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+#     response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
+#     return response
 
 # cur = conn.cursor()
 # cur.execute("""CREATE TABLE Users(
@@ -35,6 +41,7 @@ api.add_resource(Pokemon.PokeNames, '/pokemon/names')
 api.add_resource(Users.Users, '/users/<string:uid>')
 api.add_resource(Pokemon.RandomGivenFixedType, '/random/type/<string:type>')
 api.add_resource(Pokemon.TypeRandom, '/random/type')
+api.add_resource(Users.Auth, '/auth')
 
 if __name__ == '__main__':
     app.run(port=8080, debug=True)
