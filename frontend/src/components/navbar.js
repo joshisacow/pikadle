@@ -1,10 +1,10 @@
 "use client"
 
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
 import Link from 'next/link';
+import config from '../../config'
 
 // loggedIn is the state of being logged in or not
 // username is the Display Name of the user, fetched from SHIB
@@ -76,7 +76,7 @@ const NavBar = () => {
           )}
           {session && (
             <button
-              onClick={() => signOut()}
+              onClick={() => signOut({ callbackUrl: config.BASE_URL })}
               className="absolute top-8 right-10 text-lg font-medium bg-slate-500 p-2 text-white hover:bg-slate-600 rounded-lg active:bg-slate-700"
             >
               Sign out

@@ -2,6 +2,7 @@
 
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import config from '../../config'
 
 export default function Form() {
     const router = useRouter();
@@ -13,7 +14,7 @@ export default function Form() {
             const response = await signIn('credentials', { 
                 username: data.get('username'), 
                 password: data.get('password'), 
-                callbackUrl: 'http://localhost:3000'
+                callbackUrl: config.BASE_URL
             });
             console.log(response);
         } catch (error) {
