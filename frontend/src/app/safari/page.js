@@ -2,11 +2,11 @@
 //Safari Idea: 20 guesses to catch as many pokemon as possible
 //Each pokemon will be a certain type
 import { useEffect, useState, useMemo, useRef } from "react"
-import Guesses from './guesses.js'
+import Guesses from '../../components/guesses.js'
 import { Typeahead } from 'react-bootstrap-typeahead';
 import Form from 'react-bootstrap/Form';
-import './wordle.css'
-import config from '../../config.json'
+import '../../components/wordle.css';
+import config from '../../../config.json'
 import Button from 'react-bootstrap/Button'
 
 export default function Safari(){

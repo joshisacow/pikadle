@@ -16,9 +16,6 @@ export default function Wordle () {
     const [dailyPokemon, setDailyPokemon] = useState("");
     const [pokeGuess, setPokeGuess] = useState("");
     const [pokemon, setPokemon] = useState();
-
-    const [c, setC] = useState(0)
-    function handleSubmit(){}
     const [guessCount, setGuessCount] = useState(0);
     const [allowGuesses, setAllowGuesses] = useState(true);
     const [guesses, setGuesses] = useState([])

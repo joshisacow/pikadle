@@ -1,12 +1,18 @@
 "use client"
 
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
+import Link from 'next/link';
+import config from '../../config'
 
 // loggedIn is the state of being logged in or not
 // username is the Display Name of the user, fetched from SHIB
 // netid is the Net ID of the user, fetched from SHIB
 const NavBar = () => {
+
+  const { data: session, status } = useSession();
+
   const navStyle = {
     backgroundColor: '#FFFFFF',
     padding: '20px 0',
@@ -41,25 +47,42 @@ const NavBar = () => {
     <nav className="bg-white-400 p-4">
     <div className="container mx-auto flex items-center justify-between">
       <ul className="flex space-x-6 text-black">
-          <NavLink
-            to="/"
+          <Link
+            href="/"
             exact
             className="hover:text-blue-400"
           >
             Home
-          </NavLink>
-          <NavLink
-            to="/user"
+          </Link>
+          <Link
+            href="/user"
             className="hover:text-blue-400"
           >
             User
-          </NavLink>
-          <NavLink
-            to="/safari"
+          </Link>
+          <Link
+            href="/safari"
             className="hover:text-blue-400"
           >
             Safari
-          </NavLink>
+          </Link>
+          {!session && (
+            <Link
+              href="/login"
+              className="absolute top-8 right-10 text-lg font-medium bg-slate-500 p-2 text-white hover:bg-slate-600 rounded-lg active:bg-slate-700"
+            >
+              Login
+            </Link>
+          )}
+          {session && (
+            <button
+              onClick={() => signOut({ callbackUrl: config.BASE_URL })}
+              className="absolute top-8 right-10 text-lg font-medium bg-slate-500 p-2 text-white hover:bg-slate-600 rounded-lg active:bg-slate-700"
+            >
+              Sign out
+            </button>
+          )}
+          
       </ul>
     </div>
   </nav>

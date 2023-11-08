@@ -39,7 +39,6 @@ class Pokemon(Resource):
         
 class PokeNames(Resource):
     def get(self):
-        # Get a random pokemon from the database
         conn = psycopg2.connect(url)
         cur = conn.cursor()
         cur.execute("SELECT name FROM pokemon")
