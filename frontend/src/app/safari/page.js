@@ -5,8 +5,8 @@ import { useEffect, useState, useMemo, useRef } from "react"
 import Guesses from '../../components/guesses.js'
 import { Typeahead } from 'react-bootstrap-typeahead';
 import Form from 'react-bootstrap/Form';
-import './wordle.css'
-import config from '../../config.json'
+import '../../components/wordle.css';
+import config from '../../../config.json'
 import Button from 'react-bootstrap/Button'
 
 export default function Safari(){

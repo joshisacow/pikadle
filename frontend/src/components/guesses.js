@@ -96,42 +96,44 @@ export default function Guesses({pokemon, daily , guesses}) {
     //     // console.log("was triggered");
     //     // console.log("CURRENT USER, from get: ", userId);
     // }, [trigger])
-    
-    return(
-        <div id='guesses'>
-            <div id='attrTitles'>
-                <p>Pokemon</p>
-                <p>Type</p>
-                <p>Health</p>
-                <p>Attack</p>
-                <p>Defense</p>
-                <p>Height</p>
-                <p>Weight</p>
-                <p>Speed</p>
-            </div>
-            {
-                guesses.map((pokemon => {
-                    if (pokemon){
-                        return(
+    if (guesses){
+        return(
+            <div id='guesses'>
+                <div id='attrTitles'>
+                    <p>Pokemon</p>
+                    <p>Type</p>
+                    <p>Health</p>
+                    <p>Attack</p>
+                    <p>Defense</p>
+                    <p>Height</p>
+                    <p>Weight</p>
+                    <p>Speed</p>
+                </div>
+                {
+                    guesses.map((pokemon => {
+                        if (pokemon){
+                            return(
+                            
+                                <div className = 'guess'key = {pokemon.pokemon_id}>
+                                    
+                                    <AttrColor attr = {pokemon.name} dailyAttr = {daily.name}/>
+                                    <TypeColor t1 = {pokemon.type1} t2 = {pokemon.type2} dt1={daily.type1} dt2 = {daily.type2}/>
+                                    <AttrColor attr = {pokemon.health} dailyAttr = {daily.health}/>
+                                    <AttrColor attr = {pokemon.attack} dailyAttr = {daily.attack}/>
+        
+                                    <AttrColor attr = {pokemon.defense} dailyAttr = {daily.defense}/>
+                                    <AttrColor attr = {pokemon.height} dailyAttr = {daily.height}/>
+                                    <AttrColor attr = {pokemon.weight} dailyAttr = {daily.weight}/>
+                                    <AttrColor attr = {pokemon.speed} dailyAttr = {daily.speed}/>
+        
+                                </div>
+                            )
+                        }
                         
-                            <div className = 'guess'key = {pokemon.pokemon_id}>
-                                
-                                <AttrColor attr = {pokemon.name} dailyAttr = {daily.name}/>
-                                <TypeColor t1 = {pokemon.type1} t2 = {pokemon.type2} dt1={daily.type1} dt2 = {daily.type2}/>
-                                <AttrColor attr = {pokemon.health} dailyAttr = {daily.health}/>
-                                <AttrColor attr = {pokemon.attack} dailyAttr = {daily.attack}/>
+                    }))
+                }
+            </div>
+        )
+    }
     
-                                <AttrColor attr = {pokemon.defense} dailyAttr = {daily.defense}/>
-                                <AttrColor attr = {pokemon.height} dailyAttr = {daily.height}/>
-                                <AttrColor attr = {pokemon.weight} dailyAttr = {daily.weight}/>
-                                <AttrColor attr = {pokemon.speed} dailyAttr = {daily.speed}/>
-    
-                            </div>
-                        )
-                    }
-                    
-                }))
-            }
-        </div>
-    )
 }
