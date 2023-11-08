@@ -1,4 +1,4 @@
-import config from '../../../config'
+import config from '../../config'
 
 export const register = async (username, password) => {
     console.log(username, password);
