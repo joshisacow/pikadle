@@ -1,21 +1,93 @@
 "use client"
 
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
+import Link from 'next/link';
+import config from '../../config'
 
 // loggedIn is the state of being logged in or not
 // username is the Display Name of the user, fetched from SHIB
 // netid is the Net ID of the user, fetched from SHIB
 const NavBar = () => {
+
+  const { data: session, status } = useSession();
+
+  const navStyle = {
+    backgroundColor: '#FFFFFF',
+    padding: '20px 0',
+  };
+
+  const linkStyle = {
+    textDecoration: 'none',
+    color: '#000000',
+    fontWeight: 'bold',
+    margin: '0 15px',
+    transition: 'color 0.3s',
+  };
+
+  const activeLinkStyle = {
+      color: '#66d9ff',
+  };
+
   return (
-    <nav>
-        <NavLink to = '/#'>
-            Home
-        </NavLink>
-        <NavLink to = '/user'>
-            User
-        </NavLink>
+    /** 
+    <nav style={navStyle}>
+      <NavLink to="/" exact style={linkStyle} activeStyle={activeLinkStyle}>
+        Home
+      </NavLink>
+      <NavLink to="/user" style={linkStyle} activeStyle={activeLinkStyle}>
+        User
+      </NavLink>
+      <NavLink to="/safari" style={linkStyle} activeStyle={activeLinkStyle}>
+        Safari
+      </NavLink>
     </nav>
+    */
+    <nav className="bg-white-400 p-4">
+    <div className="container mx-auto flex items-center justify-between">
+      <ul className="flex space-x-6 text-black">
+          <Link
+            href="/"
+            exact
+            className="hover:text-blue-400"
+          >
+            Home
+          </Link>
+          <Link
+            href="/user"
+            className="hover:text-blue-400"
+          >
+            User
+          </Link>
+          <Link
+            href="/safari"
+            className="hover:text-blue-400"
+          >
+            Safari
+          </Link>
+          {!session && (
+            <Link
+              href="/login"
+              className="absolute top-8 right-10 text-lg font-medium bg-slate-500 p-2 text-white hover:bg-slate-600 rounded-lg active:bg-slate-700"
+            >
+              Login
+            </Link>
+          )}
+          {session && (
+            <button
+              onClick={() => signOut({ callbackUrl: config.BASE_URL })}
+              className="absolute top-8 right-10 text-lg font-medium bg-slate-500 p-2 text-white hover:bg-slate-600 rounded-lg active:bg-slate-700"
+            >
+              Sign out
+            </button>
+          )}
+          
+      </ul>
+    </div>
+  </nav>
+    );
+};
     // <div className="sidebar-sticky">
     //   <nav className="col-md-2 d-md-block bg-navblue sidebar">
     //     <div>
@@ -67,7 +139,5 @@ const NavBar = () => {
     //     </div>
     //   </nav>
     // </div>
-  );
-};
 
 export default NavBar;

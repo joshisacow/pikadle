@@ -8,27 +8,41 @@ import config from '../../config.json'
 import Button from 'react-bootstrap/Button'
 import EndModal from "./endModal.js";
 import 'bootstrap/dist/css/bootstrap.css'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { Toast } from "bootstrap";
 
 export default function Wordle () {
     const [pokeOptions, setPokeOptions] = useState([]);
     const [dailyPokemon, setDailyPokemon] = useState("");
     const [pokeGuess, setPokeGuess] = useState("");
     const [pokemon, setPokemon] = useState();
-
-    const [trigger, setTrigger] = useState(false);
-    const [c, setC] = useState(0)
     const [guessCount, setGuessCount] = useState(0);
-    const [correct, setCorrect] = useState(false)
+    const [allowGuesses, setAllowGuesses] = useState(true);
+    const [guesses, setGuesses] = useState([])
 
     const handleClick = async() => {
+        // check if duplicate guess
+        if (guesses.some(obj => obj.name === pokeGuess[0])) {
+            toast.error("You already guessed that pokemon!");
+            console.log("bye");
+            return; 
+        }
+
         setGuessCount(guessCount + 1)
-        const response = await  fetch(config.POKEMON_URL + pokeGuess[0])
-        const guess =await response.json();  
-        setPokemon(guess)
-        setTrigger(!trigger)
-        console.log(pokemon)
-        console.log("guessCount", guessCount)
+        if (guessCount == 5){
+            setAllowGuesses(false)
+        } 
+        
+        const response = await fetch(config.POKEMON_URL + pokeGuess[0]);
+        const guess = await response.json();  
+        setPokemon(guess);
+        // setTrigger(!trigger);
+        setGuesses(oldArray => [...oldArray, guess]);
+        console.log(pokemon);
+        console.log("guessCount", guessCount);
     }
+    
     // const handleChange =(e) => {
     //     fetch(config.POKEMON_URL + )
     // }
@@ -47,10 +61,16 @@ export default function Wordle () {
                 setPokeOptions(data)
             })
     }
-    useMemo(() => {
-        fetchDaily()
-        fetchOptions()
-    }, [c])
+    useEffect(() => {
+        console.log("hi");
+        if (dailyPokemon == "") {
+            fetchDaily();
+        }
+        if (pokeOptions.length == 0) {
+            fetchOptions();
+        }
+    }, [])
+
     
     return(
         <div id='answers'>
