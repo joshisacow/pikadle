@@ -5,6 +5,8 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import NavBar from '@/components/navbar';
 import User from '@/components/user.js'
 import Safari from '@/components/safari.js'
+import AchievementTable from '@/components/achievement';
+
 export default function Home() {
   return (
     <main>
@@ -15,6 +17,7 @@ export default function Home() {
           <Route path="/" element={<Wordle />} />
           <Route path="/user" element={<User />} />
           <Route path="/safari" element={<Safari />}/>
+          <Route path="/achievement" element={<AchievementTable />}/>
         </Routes>
       </Router>
     </main>

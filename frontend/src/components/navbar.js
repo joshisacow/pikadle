@@ -60,6 +60,12 @@ const NavBar = () => {
           >
             Safari
           </NavLink>
+          <NavLink
+            to="/achievement"
+            className="hover:text-blue-400"
+          >
+            Acheivement
+          </NavLink>
       </ul>
     </div>
   </nav>

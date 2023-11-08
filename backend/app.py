@@ -24,6 +24,8 @@ def get():
 
 import db.Pokemon as Pokemon
 import db.Users as Users
+import db.Achievements as Achievemnets
+
 class Main(Resource):
     def get(self):
         return "pikadle API", 200
@@ -35,6 +37,8 @@ api.add_resource(Pokemon.PokeNames, '/pokemon/names')
 api.add_resource(Users.Users, '/users/<string:uid>')
 api.add_resource(Pokemon.RandomGivenFixedType, '/random/type/<string:type>')
 api.add_resource(Pokemon.TypeRandom, '/random/type')
+api.add_resource(Achievemnets.Achievement, '/achievement')
+
 
 if __name__ == '__main__':
     app.run(port=8080, debug=True)
