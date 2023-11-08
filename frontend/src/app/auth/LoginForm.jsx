@@ -1,26 +1,31 @@
 "use client"
 
-import { FormEvent } from 'react';
 import { signIn } from 'next-auth/react';
 
 export default function Form() {
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        const target = event.target;
-        const email = target.email.value;
-        const password = target.password.value;
-
-        signIn('credentials', { 
-            email: FormData.get('email'), 
-            password: FormData.get('password'), 
-            redirect: false
-        });
+        const data = new FormData(event.currentTarget);
+        try {
+            const response = await signIn('credentials', { 
+                username: data.get('username'), 
+                password: data.get('password'), 
+                callbackUrl: 'http://localhost:3000'
+            });
+            console.log(response);
+        } catch (error) {
+            console.log(error);
+        }   
     };
     return (
-        <form onSubmit={handleSubmit}>
-            <input type="email" name="email" />
-            <input type="password" name="password" />
-            <button type="submit">Sign in</button>
-        </form>
+        <>
+            <h1>Login</h1>
+            <form onSubmit={handleSubmit}>
+                <input type="text" name="username" />
+                <input type="password" name="password" />
+                <button type="submit">Sign in</button>
+                <button>Sign up</button>
+            </form>
+        </>
     )
 }

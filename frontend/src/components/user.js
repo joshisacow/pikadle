@@ -11,7 +11,7 @@ export default function User () {
         const { data: session, status } = useSession({
           required: true,
           onUnauthenticated() {
-            redirect("/api/auth/signin?callbackUrl=/user");
+            redirect("/login");
           },
         });
         const [userName, setUserName] = useState("");

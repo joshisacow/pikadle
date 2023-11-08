@@ -34,7 +34,7 @@ class Users(Resource):
         return user_data, 200
     
 class Auth(Resource):
-    def get(self):
+    def delete(self):
         # validate login
         login_post_args = reqparse.RequestParser()
         login_post_args.add_argument("username", type=str, help="username is required", required=True)
@@ -49,14 +49,24 @@ class Auth(Resource):
         cur.execute("SELECT * FROM Users WHERE username = %s", (username,))
         user = cur.fetchone()
         cur.close()
-
-        # check password
-        if not bcrypt.check_password_hash(user[2], password):
-            return "Invalid credentials", 401
         
-        users_instance = Users()
-        user_data, status_code = users_instance.get(user[0])        
-        return user_data, status_code
+        # check user exists
+        if user:
+            user_data = {
+                "uid": str(user[0]),
+                "username": str(user[1]),
+                "password": str(user[2]),
+                "number_of_pokemon":int(user[3]),
+                "number_of_badges":int(user[4])
+            }
+        else:
+            return "Username doesn't exist", 401
+        
+        # check password
+        if not bcrypt.check_password_hash(user_data.get("password", ""), password):
+            return "Incorrect password", 401
+        
+        return user_data, 200
 
     def post(self):
         # register user
@@ -67,15 +77,22 @@ class Auth(Resource):
 
         username = args['username']
         password = args['password']
+
         # check if username already taken
+        conn = psycopg2.connect(url)
+        cur = conn.cursor() 
+        cur.execute("SELECT * FROM Users WHERE username = %s", (username,))
+        user = cur.fetchone()
+        if user:
+            cur.close()
+            return "Username already taken", 401
+
         hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
         if not bcrypt.check_password_hash(hashed_password, password):
             return "Invalid password", 401
         uid = uuid.uuid1()
 
-        # return [uid.int, username, hashed_password], 201
-        conn = psycopg2.connect(url)
-        cur = conn.cursor()
+        
         cur.execute("""INSERT INTO Users (uid, username, password, number_of_pokemon, number_of_badges) 
 VALUES (%s, %s, %s, %s, %s);""", (str(uid), username, hashed_password, 0, 0))
         conn.commit()

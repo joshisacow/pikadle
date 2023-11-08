@@ -3,6 +3,9 @@ import CredentialsProvider from "next-auth/providers/credentials"
 import { validate } from '@/app/auth/requests.js'
 
 export const options = {
+    session: {
+        strategy: "jwt",
+    },
     providers: [
         CredentialsProvider({
             name: 'Credentials',
@@ -12,17 +15,27 @@ export const options = {
             },
             async authorize(credentials) {
                 console.log(credentials);
-                const response = await validate(credentials.username, credentials.password);
-                console.log(response);
-                
-                if (response.status === 200) {
-                    return {
-                        id: response.id,
-                        name: response.name
+                console.log("authorize");
+                try {
+                    const response = await validate(credentials.username, credentials.password);
+                    if (response === "Incorrect password") {
+                        return null;
                     }
-                } else {
+                    return response;
+                } catch (error) {
+                    console.error(error);
                     return null;
                 }
+                
+                // console.log(response.status);
+                // if (response.status === 200) {
+                //     return {
+                //         id: response.uid,
+                //         name: response.username
+                //     }
+                // } else {
+                //     return "fail";
+                // }
             }
         }),
     ],
