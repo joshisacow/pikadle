@@ -3,7 +3,7 @@ import config from '../../../config'
 export const register = async (username, password) => {
     console.log(username, password);
 
-    const request = await fetch(config.REGISTER_URL, {
+    const request = await fetch(config.AUTH_URL, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
@@ -16,8 +16,8 @@ export const register = async (username, password) => {
 }
 
 export const validate = async (username, password) => {
-    const request = await fetch(config.REGISTER_URL, {
-        method: "DELETE",
+    const request = await fetch(config.AUTH_URL, {
+        method: "PUT",
         headers: {
             'Content-Type': 'application/json'
         },
