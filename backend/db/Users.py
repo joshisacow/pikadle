@@ -97,7 +97,7 @@ class Auth(Resource):
 VALUES (%s, %s, %s, %s, %s);""", (str(uid), username, hashed_password, 0, 0))
         conn.commit()
         cur.close()
-        return "success", 201
+        return "Success!", 201
         
         
 

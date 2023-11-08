@@ -3,6 +3,8 @@
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import config from '../../config'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Form() {
     const router = useRouter();
@@ -17,6 +19,7 @@ export default function Form() {
                 callbackUrl: config.BASE_URL
             });
             console.log(response);
+            toast(response);
         } catch (error) {
             console.log(error);
         }   
@@ -30,6 +33,7 @@ export default function Form() {
                 <button type="submit">Sign in</button>
                 <button type="button" onClick={() => router.push("/register")}>Sign up</button>
             </form>
+            <ToastContainer />
         </>
     )
 }

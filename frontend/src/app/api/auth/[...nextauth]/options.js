@@ -15,13 +15,13 @@ export const options = {
             },
             async authorize(credentials) {
                 console.log(credentials);
-                console.log("authorize");
                 try {
                     const response = await validate(credentials.username, credentials.password);
-                    if (response === "Incorrect password") {
+                    if (response.status !== 200) {
                         return null;
                     }
-                    return response;
+                    const data = await response.json();
+                    return data;
                 } catch (error) {
                     console.error(error);
                     return null;
