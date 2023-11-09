@@ -14,61 +14,137 @@ export default function User () {
       redirect("/login");
     },
   });
-  const [userName, setUserName] = useState("");
-  const [userData, setUserData] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const inputRef = useRef(null);
-  useEffect(() => {
-      if(userName) {
-          setLoading(true);
-          fetch(config.USER_URL + userName).then((response) => {
-              if (!response.ok) {
-                  throw new Error('User not found');
-              }
-              return response.json();
-              }).then((data) => {
-                setUserData(data);
-                setLoading(false);
-              }).catch((error) => {
-              console.error('Error fetching User data:', error);
-                setUserData(null);
-                setLoading(false);
-              });
-      }
-  }, [userName]);
-  const handleInputChange = (e) => {
-      setUserName(e.target.value);
-  };
+  const [userBadges, setUserBadges] = useState([])
+  const [userPokemon, setUserPokemon] = useState([])
 
-  return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-100">
-        <div className="shadow-md rounded p-6 max-w-xl w-full">
-          <h1 className="text-2xl font-bold mb-4">User Information</h1>
-          <div className="mb-4">
-            <input
-              type="text"
-              className="w-full px-3 py-2 border rounded-md"
-              placeholder="Enter a User ID"
-              ref={inputRef}
-              //onChange={handleInputChange}
-            />
-          </div>
-          <button
-            className="w-full py-2 px-4 text-white bg-blue-400 rounded-md hover:bg-blue-700"
-            onClick={() => setUserName(inputRef.current.value)}
-          >
-            Get Info
-          </button>
-          {loading && <p className="mt-4">Loading...</p>}
-          {userData && (
-            <div className="mt-4">
-              <h2 className="text-xl font-semibold">{userData.username}</h2>
-              <p>Number of Pokemon: {userData.number_of_pokemon}</p>
-              <p>Number of Badges: {userData.number_of_badges}</p>
-              <p>Email: {userData.email}</p>
-            </div>
-          )}
+  console.log(session)
+  if (session){
+    // const fetchBadges = () =>{
+    //   fetch(config.userbadges)
+    //       .then(response => response.json())
+    //       .then((data) => {
+    //           setUserBadges(data)
+    //       })
+    // const fetchUserPokemon = () =>{
+    //   fetch(config.userpokemon)
+    //       .then(response => response.json())
+    //       .then((data) => {
+    //           setUserPokemon(data)
+    //       })
+  
+    return(
+      <div>
+        <div id ="user-info">
+          <h2>Welcome {session.user.username}!</h2>
+        </div>
+        <div id = "badge-info">
+          <h3>User Badge Information</h3>
+          <p>You have {session.user.number_of_badges} badges.</p>
+          {/* <div id = "badge-display">
+            {userBadges.map((badge => {
+              if(badge){
+                return(
+                  <div id = {badge.id}>
+                    <p>Badge Name: {badge.badge_name}</p>
+                    <p>Badge Criteria: {badge.badge_description}</p>
+                  </div>
+                )
+              }
+            }))}
+          </div> */}
+        </div>
+        <div id = "user-pokemon-info">
+          <h3>User Pokemon Information</h3>
+          <p>You have {session.user.number_of_pokemon} pokemon</p>
+          {/* <div id = "pokemon-display">
+            {userPokemon.map((pokemon => {
+              if(pokemon){
+                return(
+                  <div id = {pokemon.id}>
+                    <p>Pokemon Name: {pokemon.name}</p>
+                    <p>Date Caught: {pokemon.date}</p>
+                    <p>Number of Guess Attempts: {pokemon.number_of_attempts}</p>
+                  </div>
+                )
+              }
+            }))}
+          </div> */}
         </div>
       </div>
-  );
+    )
+  }
+  
+//   user
+// : 
+// number_of_badges
+// : 
+// 0
+// number_of_pokemon
+// : 
+// 0
+// uid
+// : 
+// "05b9468c-7e9b-11ee-a5bf-f9d0ae8cd451"
+// username
+// : 
+// "olly"
+
+
+  // const [userName, setUserName] = useState("");
+  // const [userData, setUserData] = useState(null);
+  // const [loading, setLoading] = useState(false);
+  // const inputRef = useRef(null);
+  // useEffect(() => {
+  //     if(userName) {
+  //         setLoading(true);
+  //         fetch(config.USER_URL + userName).then((response) => {
+  //             if (!response.ok) {
+  //                 throw new Error('User not found');
+  //             }
+  //             return response.json();
+  //             }).then((data) => {
+  //               setUserData(data);
+  //               setLoading(false);
+  //             }).catch((error) => {
+  //             console.error('Error fetching User data:', error);
+  //               setUserData(null);
+  //               setLoading(false);
+  //             });
+  //     }
+  // }, [userName]);
+  // const handleInputChange = (e) => {
+  //     setUserName(e.target.value);
+  // };
+
+  // return (
+  //     <div className="min-h-screen flex items-center justify-center bg-gray-100">
+  //       <div className="shadow-md rounded p-6 max-w-xl w-full">
+  //         <h1 className="text-2xl font-bold mb-4">User Information</h1>
+  //         <div className="mb-4">
+  //           <input
+  //             type="text"
+  //             className="w-full px-3 py-2 border rounded-md"
+  //             placeholder="Enter a User ID"
+  //             ref={inputRef}
+  //             //onChange={handleInputChange}
+  //           />
+  //         </div>
+  //         <button
+  //           className="w-full py-2 px-4 text-white bg-blue-400 rounded-md hover:bg-blue-700"
+  //           onClick={() => setUserName(inputRef.current.value)}
+  //         >
+  //           Get Info
+  //         </button>
+  //         {loading && <p className="mt-4">Loading...</p>}
+  //         {userData && (
+  //           <div className="mt-4">
+  //             <h2 className="text-xl font-semibold">{userData.username}</h2>
+  //             <p>Number of Pokemon: {userData.number_of_pokemon}</p>
+  //             <p>Number of Badges: {userData.number_of_badges}</p>
+  //             <p>Email: {userData.email}</p>
+  //           </div>
+  //         )}
+  //       </div>
+  //     </div>
+  // );
 }
