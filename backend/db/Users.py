@@ -89,6 +89,7 @@ class Auth(Resource):
 
         hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
         if not bcrypt.check_password_hash(hashed_password, password):
+            cur.close()
             return "Invalid password", 401
         uid = uuid.uuid1()
 
