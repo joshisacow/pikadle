@@ -32,6 +32,8 @@ class Users(Resource):
             }
     
         return user_data, 200
+
+        
     
 class Auth(Resource):
     def put(self):

@@ -7,5 +7,6 @@
     "RANDOM_GIVEN_TYPE_URL": "http://127.0.0.1:8080/random/type/",
     "TYPE_URL": "http://127.0.0.1:8080/random/type",
     "BASE_URL": "http://localhost:3000",
-    "ACHIEVEMENT_URL": "http://127.0.0.1:8080/achievement"
+    "ACHIEVEMENT_URL": "http://127.0.0.1:8080/achievement",
+    "DAILY_URL": "http://127.0.0.1:8080/daily"
 }
