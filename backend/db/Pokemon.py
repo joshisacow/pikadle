@@ -140,6 +140,7 @@ class DailyPokemon(Resource):
         pokemon = Pokemon.getById(self, pokemonid)
         return pokemon
 
+#given the type of the day in safari, get a random pokemon of that type
 class RandomGivenFixedType(Resource):
     def get(self, type):
         #get a random pokemon of a fixed type from the database
@@ -169,6 +170,7 @@ class RandomGivenFixedType(Resource):
         else:
             return {"message": "Pokemon not found"}, 404
 
+#get a random type that will be the type of the day for the safari
 class TypeRandom(Resource):
     def get(self):
         #get a random type

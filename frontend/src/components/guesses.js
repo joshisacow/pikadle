@@ -79,7 +79,7 @@ function TypeColor({t1, t2, dt1, dt2}){
     }
 }
 //pokemon: the pokemon that is guessed, daily: actual pokemon
-export default function Guesses({pokemon, daily , guesses}) {
+export default function Guesses({pokemon, daily, guesses}) {
         // const fetchPokemon = () => {
     //     fetch(pokemonurl)
     //         .then((response) => response.json())
