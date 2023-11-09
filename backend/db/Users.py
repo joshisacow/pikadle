@@ -94,13 +94,43 @@ class Auth(Resource):
             cur.close()
             return "Invalid password", 401
         uid = uuid.uuid1()
-
-        
         cur.execute("""INSERT INTO Users (uid, username, password, number_of_pokemon, number_of_badges) 
 VALUES (%s, %s, %s, %s, %s);""", (str(uid), username, hashed_password, 0, 0))
         conn.commit()
         cur.close()
         return "Success!", 201
         
+
+class Badge(Resource):
+    def get(self, uid):
+        # get user badges
+        conn = psycopg2.connect(url)
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM user_badges WHERE user_id = %s", (uid,))
+        badges = cur.fetchall()
+        cur.close()
+        if badges:
+            badges_data = []
+            for badge in badges:
+                badges_data.append(int(badge[1]))
+            
+            return self.getBadgeInfo(badges_data)
+        else:
+            return "Badges not found", 404
+    
+    def getBadgeInfo(self, badges):
+        conn = psycopg2.connect(url)
+        cur = conn.cursor()
+        ret = []
+        for badge_id in badges:
+            cur.execute("SELECT badge_name, badge_description FROM badges WHERE badge_id = %s", (badge_id,))
+            badge = cur.fetchone()
+            badge_data = {
+                "badge_name": str(badge[0]),
+                "badge_description": str(badge[1])
+            }
+            ret.append(badge_data)
+        cur.close()
+        return ret
         
 
