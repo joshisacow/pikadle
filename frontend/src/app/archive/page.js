@@ -10,7 +10,6 @@ import EndModal from "@/components/endModal.js";
 import 'bootstrap/dist/css/bootstrap.css'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Toast } from "bootstrap";
 
 export default function Wordle () {
     const [date, setDate] = useState("");
@@ -84,9 +83,26 @@ export default function Wordle () {
 
     const maxDate = today.toISOString().split('T')[0];
 
+    const fetchDate = async (date) => {
+        const request = await fetch(config.DAILY_URL, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({"date": date})
+        })
+        const response = await request.json();
+        // validate response?
+        console.log(response);
+        return response;
+    }
+
+
     const handleDateChange = (event) => {
         setDate(event.target.value);
-      };
+        const currPokemon = fetchDate(event.target.value);
+
+    };
     return(
         <div id='answers'>
             <input type="date" id="datepicker" class="form-control" onChange = {handleDateChange} selected={date} max={maxDate}/>
