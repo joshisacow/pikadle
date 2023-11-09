@@ -85,6 +85,11 @@ class Random(Resource):
             return pokemon_data, 200
         else:
             return {"message": "Pokemon not found"}, 400
+        
+class Daily(Resource):
+    def get(self):
+        # get current daily pokemon
+        return 
 
 class RandomGivenFixedType(Resource):
     def get(self, type):

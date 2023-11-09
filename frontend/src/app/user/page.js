@@ -36,7 +36,6 @@ export default function User () {
               });
       }
   }, [userName]);
-  
   const handleInputChange = (e) => {
       setUserName(e.target.value);
   };
