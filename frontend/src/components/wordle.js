@@ -25,6 +25,8 @@ export default function Wordle () {
     const [guesses, setGuesses] = useState([]);
     const [correct, setCorrect] = useState(false)
 
+    const { data: session, status } = useSession();
+
     const handleClick = async() => {
         // check if duplicate guess
         if (guesses.some(obj => obj.name === pokeGuess[0])) {
@@ -38,43 +40,36 @@ export default function Wordle () {
             setAllowGuesses(false)
         } 
 
-        const { data: session, status } = useSession({
-          });
-        
         const response = await fetch(config.POKEMON_URL + pokeGuess[0]);
         const guess = await response.json();  
         setPokemon(guess);
         // setTrigger(!trigger);
         setGuesses(oldArray => [...oldArray, guess]);
         console.log(pokemon);
-        if (pokeGuess[0] === dailyPokemon.name) {
-            setCorrect(true);
-          
-            if (session) {
-              const uid = session.uid;
-              const pokemon_id = dailyPokemon.id;
-          
-              (async () => {
-                const pgp = require('pg-promise')();
-                const connection = process.env.DATABASE_URL;
-                const db = pgp(connection);
-          
-                try {
-                  const insertSql = `INSERT INTO user_pokemon (uid, pokemon_id) VALUES ('${uid}', ${pokemon_id})`;
-                  await db.query(insertSql);
-                  console.log('User Pokémon inserted successfully.');
-                } catch (error) {
-                  console.error('Error inserting user Pokémon:', error);
-                } finally {
-                  // Close the database connection
-                  db.$pool.end();
-                }
-              })();
+
+      
+   
+
+        if (pokeGuess[0] == dailyPokemon.name){
+            setCorrect(true)
+            if (session){
+                console.log(pokemon)
+                const uid = session.uid
+                const pokemon_id = dailyPokemon.id
+                const request = await fetch(config.CATCH_URL, {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({"uid": uid, "pokemon_id": pokemon_id})
+                })
+                console.log(request);
             }
-          }
+        }  
+        
+
         console.log("guessCount", guessCount);
-        
-        
+         
     }
     
     // const handleChange =(e) => {

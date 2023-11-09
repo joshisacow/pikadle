@@ -25,6 +25,7 @@ api.add_resource(Pokemon.RandomGivenFixedType, '/random/type/<string:type>')
 api.add_resource(Pokemon.TypeRandom, '/random/type')
 api.add_resource(Users.Users, '/users/<string:uid>')
 api.add_resource(Users.Auth, '/auth')
+api.add_resource(Pokemon.CatchPokemon, '/catch')
 
 
 if __name__ == '__main__':
