@@ -3,6 +3,8 @@ from flask_restful import Resource, reqparse
 import psycopg2
 from dotenv import load_dotenv
 import os
+import random
+from datetime import date, datetime
 
 app = Flask(__name__)
 load_dotenv()
@@ -86,10 +88,39 @@ class Random(Resource):
         else:
             return {"message": "Pokemon not found"}, 400
         
-class Daily(Resource):
+class DailyPokemon(Resource):
     def get(self):
         # get current daily pokemon
-        return 
+        epoch = datetime(2023, 11, 8)
+        today = date.today()
+        days = (today - epoch.date()).days
+        random.seed(days)
+        pokemonid = random.randint(1, 801)
+        conn = psycopg2.connect(url)
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM pokemon WHERE pokemon_id = %s", (pokemonid,))
+        pokemon = cur.fetchone()
+        cur.close()
+        if pokemon:
+            pokemon_data = {
+                "pokemon_id": int(pokemon[0]),
+                "generation": int(pokemon[1]),
+                "type1": str(pokemon[2]),
+                "type2": str(pokemon[3]),
+                "health": int(pokemon[4]),
+                "special_attack": int(pokemon[5]),
+                "attack": int(pokemon[6]),
+                "defense": int(pokemon[7]),
+                "special_defense": int(pokemon[8]),
+                "speed": int(pokemon[9]),
+                "height": float(pokemon[10]),
+                "weight": float(pokemon[11]),
+                "name": str(pokemon[12])
+                # Add other fields as needed
+            }
+            return pokemon_data, 200
+        else:
+            return {"message": "Pokemon not found"}, 400
 
 class RandomGivenFixedType(Resource):
     def get(self, type):

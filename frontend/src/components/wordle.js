@@ -53,7 +53,7 @@ export default function Wordle () {
     // }
     
     const fetchDaily = () =>{
-        fetch(config.RANDOM_URL)
+        fetch(config.DAILY_URL)
             .then(response => response.json())
             .then((data) => {
                 setDailyPokemon(data)
