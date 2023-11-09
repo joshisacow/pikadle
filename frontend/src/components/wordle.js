@@ -47,15 +47,34 @@ export default function Wordle () {
         // setTrigger(!trigger);
         setGuesses(oldArray => [...oldArray, guess]);
         console.log(pokemon);
-        if (pokeGuess[0] == dailyPokemon.name){
-            setCorrect(true)
+        if (pokeGuess[0] === dailyPokemon.name) {
+            setCorrect(true);
+          
             if (session) {
-                const uid = session.uid
-                const pokemon_id = dailyPokemon.id
-                const insertSql = `INSERT INTO user_pokemon (uid, pokemon_id) VALUES ('${uid}', ${pokemon_id})`;
+              const uid = session.uid;
+              const pokemon_id = dailyPokemon.id;
+          
+              (async () => {
+                const pgp = require('pg-promise')();
+                const connection = process.env.DATABASE_URL;
+                const db = pgp(connection);
+          
+                try {
+                  const insertSql = `INSERT INTO user_pokemon (uid, pokemon_id) VALUES ('${uid}', ${pokemon_id})`;
+                  await db.query(insertSql);
+                  console.log('User Pokémon inserted successfully.');
+                } catch (error) {
+                  console.error('Error inserting user Pokémon:', error);
+                } finally {
+                  // Close the database connection
+                  db.$pool.end();
+                }
+              })();
             }
-        }
+          }
         console.log("guessCount", guessCount);
+        
+        
     }
     
     // const handleChange =(e) => {
