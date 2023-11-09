@@ -119,7 +119,7 @@ export default function Wordle () {
             </Button>}
             <ToastContainer />
             <Guesses guesses={guesses} trigger = {trigger} setTrigger = {setTrigger} daily = {dailyPokemon} setCorrect = {setCorrect} correct = {correct}/>
-            {(guessCount ==6 || correct) &&<EndModal correct = {correct} pokemon = {pokemon.name} guesses={guessCount}/>} </div>}
+            {(guessCount ==6 || correct) &&<EndModal correct = {correct} pokemon = {dailyPokemon.name} guesses={guessCount}/>} </div>}
         </div>
     )
     
