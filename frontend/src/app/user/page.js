@@ -19,19 +19,24 @@ export default function User () {
 
   console.log(session)
   if (session){
-    // const fetchBadges = () =>{
-    //   fetch(config.userbadges)
-    //       .then(response => response.json())
-    //       .then((data) => {
-    //           setUserBadges(data)
-    //       })
+    const fetchBadges = () =>{
+      fetch(config.BADGE_URL)
+          .then(response => response.json())
+          .then((data) => {
+              setUserBadges(data)
+          })
+        }
     // const fetchUserPokemon = () =>{
     //   fetch(config.userpokemon)
     //       .then(response => response.json())
     //       .then((data) => {
     //           setUserPokemon(data)
     //       })
-  
+      
+    useEffect(() => {
+      fetchBadges();
+      console.log(userBadges)
+    })
     return(
       <div>
         <div id ="user-info">
@@ -40,7 +45,7 @@ export default function User () {
         <div id = "badge-info">
           <h3>User Badge Information</h3>
           <p>You have {session.user.number_of_badges} badges.</p>
-          {/* <div id = "badge-display">
+          <div id = "badge-display">
             {userBadges.map((badge => {
               if(badge){
                 return(
@@ -51,7 +56,7 @@ export default function User () {
                 )
               }
             }))}
-          </div> */}
+          </div>
         </div>
         <div id = "user-pokemon-info">
           <h3>User Pokemon Information</h3>
