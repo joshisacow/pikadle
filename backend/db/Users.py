@@ -33,6 +33,13 @@ class Users(Resource):
     
         return user_data, 200
     
+def UserBadge(Resource):
+    def get(self, uid):
+        args = request.args.get('uid')
+        conn = psycopg2.connect(url)
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM Badges WHERE badge_id IN (SELECT badge_id FROM user_badges WHERE user_id = %s)", (uid ))
+
 class Auth(Resource):
     def put(self):
         # validate login
