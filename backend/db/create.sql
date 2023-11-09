@@ -81,6 +81,14 @@ CREATE TABLE History (
     FOREIGN KEY (pokemon_id) REFERENCES Pokemon(pokemon_id)
 );
 
+-- Create the Users and Pokermon Table
+CREATE TABLE user_pokemon (
+    user_pokemon_id INT AUTO_INCREMENT PRIMARY KEY,
+    uid INT NOT NULL,
+    pokemon_id INT NOT NULL,
+    FOREIGN KEY (users_id) REFERENCES users(uid),
+    FOREIGN KEY (pokemon_id) REFERENCES pokemon(pokemon_id)
+);
 
 
 
