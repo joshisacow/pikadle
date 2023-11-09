@@ -32,7 +32,21 @@ class Users(Resource):
             }
     
         return user_data, 200
-    
+
+class UserPokemon(Resource):
+    def put(self):
+        register_post_args = reqparse.RequestParser()
+        register_post_args.add_argument("uid", type=str, required=True)
+        register_post_args.add_argument("number_of_pokemon", type=str, required=True)
+        args = register_post_args.parse_args()
+        uid = args["uid"]
+        number_of_pokemon = args["number_of_pokemon"]
+        conn = psycopg2.connect(url)
+        cur = conn.cursor()
+        cur.execute("UPDATE Users SET number_of_pokemon = %s WHERE uid=%s", (str(number_of_pokemon), str(uid)))
+        cur.close()
+        return 200
+
 class Auth(Resource):
     def put(self):
         # validate login
@@ -47,6 +61,7 @@ class Auth(Resource):
         conn = psycopg2.connect(url)
         cur = conn.cursor()
         cur.execute("SELECT * FROM Users WHERE username = %s", (username,))
+        conn.commit()
         user = cur.fetchone()
         cur.close()
         

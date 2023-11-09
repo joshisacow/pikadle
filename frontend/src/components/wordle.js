@@ -26,7 +26,7 @@ export default function Wordle () {
     const [correct, setCorrect] = useState(false)
 
     const { data: session, status } = useSession();
-
+    console.log(session)
     const handleClick = async() => {
         // check if duplicate guess
         if (guesses.some(obj => obj.name === pokeGuess[0])) {
@@ -53,9 +53,13 @@ export default function Wordle () {
         if (pokeGuess[0] == dailyPokemon.name){
             setCorrect(true)
             if (session){
-                console.log(pokemon)
-                const uid = session.uid
-                const pokemon_id = dailyPokemon.id
+                // console.log(pokemon)
+                const uid = session.user.uid
+                const pokemon_id = dailyPokemon.pokemon_id
+                var number_of_pokemon = session.user.number_of_pokemon + 1
+                console.log("number pokemon", number_of_pokemon)
+                // console.log(typeof number_of_pokemon)
+
                 const request = await fetch(config.CATCH_URL, {
                     method: "POST",
                     headers: {
@@ -63,7 +67,16 @@ export default function Wordle () {
                     },
                     body: JSON.stringify({"uid": uid, "pokemon_id": pokemon_id})
                 })
+                console.log(uid)
+                const request2 = await fetch(config.NUMBER_USER_POKEMON_URL, {
+                    method: "PUT",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ "number_of_pokemon": number_of_pokemon, "uid": uid})
+                })
                 console.log(request);
+                console.log(request2)
             }
         }  
         
