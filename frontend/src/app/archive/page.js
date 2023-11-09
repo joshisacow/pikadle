@@ -50,17 +50,6 @@ export default function Wordle () {
         console.log("guessCount", guessCount);
     }
     
-    // const handleChange =(e) => {
-    //     fetch(config.POKEMON_URL + )
-    // }
-    
-    const fetchDaily = () =>{
-        fetch(config.DAILY_URL)
-            .then(response => response.json())
-            .then((data) => {
-                setDailyPokemon(data)
-            })
-    }
     const fetchOptions = () =>{
         fetch(config.NAMES_URL)
             .then(response => response.json())
@@ -71,7 +60,7 @@ export default function Wordle () {
     useEffect(() => {
         console.log("hi");
         if (dailyPokemon == "") {
-            fetchDaily();
+            fetchDate();
         }
         if (pokeOptions.length == 0) {
             fetchOptions();
@@ -94,6 +83,7 @@ export default function Wordle () {
         const response = await request.json();
         // validate response?
         console.log(response);
+        setDailyPokemon(response)
         return response;
     }
 
