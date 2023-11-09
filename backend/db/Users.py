@@ -107,7 +107,7 @@ class Auth(Resource):
             cur.close()
             return "Invalid password", 401
         uid = uuid.uuid1()
-        cur.execute("""INSERT INTO Users (uid, username, password, number_of_pokemon, number_of_badges) 
+        cur.execute("""INSERT INTO Users (uid, username, password, number_of_pokemon, safari_score) 
 VALUES (%s, %s, %s, %s, %s);""", (str(uid), username, hashed_password, 0, 0))
         conn.commit()
         cur.close()

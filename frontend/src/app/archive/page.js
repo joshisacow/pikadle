@@ -100,7 +100,7 @@ export default function Wordle () {
             {date && <div>
                 <h2 id = 'guessTitle'>Guess the Pokemon for {date} </h2>
             <h2>Today's Pokemon</h2>
-            <p>{dailyPokemon.name}! types: {dailyPokemon.type1} {dailyPokemon.type2} attack: {dailyPokemon.attack}</p>
+            {/* <p>{dailyPokemon.name}! types: {dailyPokemon.type1} {dailyPokemon.type2} attack: {dailyPokemon.attack}</p> */}
             <Typeahead
                 id="pokeInput"
                 labelKey="name"
@@ -119,7 +119,7 @@ export default function Wordle () {
             </Button>}
             <ToastContainer />
             <Guesses guesses={guesses} trigger = {trigger} setTrigger = {setTrigger} daily = {dailyPokemon} setCorrect = {setCorrect} correct = {correct}/>
-            {(guessCount ==6 || correct) &&<EndModal correct = {correct} pokemon = {pokemon.name} guesses={guessCount}/>} </div>}
+            {(guessCount ==6 || correct) &&<EndModal correct = {correct} pokemon = {dailyPokemon.name} guesses={guessCount}/>} </div>}
         </div>
     )
     
