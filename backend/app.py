@@ -23,9 +23,9 @@ api.add_resource(Pokemon.Random, '/random')
 api.add_resource(Pokemon.PokeNames, '/pokemon/names')
 api.add_resource(Pokemon.RandomGivenFixedType, '/random/type/<string:type>')
 api.add_resource(Pokemon.TypeRandom, '/random/type')
+api.add_resource(Pokemon.DailyPokemon, '/daily')
 api.add_resource(Users.Users, '/users/<string:uid>')
 api.add_resource(Users.Auth, '/auth')
-
 
 if __name__ == '__main__':
     app.run(port=8080, debug=True)

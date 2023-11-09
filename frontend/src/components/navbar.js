@@ -49,7 +49,6 @@ const NavBar = () => {
       <ul className="flex space-x-6 text-black">
           <Link
             href="/"
-            exact
             className="hover:text-blue-400"
           >
             Home
