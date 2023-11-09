@@ -93,12 +93,15 @@ export default function Safari(){
 
 
     return (
-        <div id='answers'>
+        <div id='answers' className="relative">
             <h2>Safari Zone!</h2>
             <p>In Safari Mode, you get 30 tries to catch as many pokemon of a certain type!</p>
             <p>Try to catch more than you friends!</p>
             <p>Guesses Remaining: {30 - guessCount}</p>
-            <p>Score: {score} </p>
+            <div>
+                <span >Score:</span>
+                <span >{score}</span>
+            </div>
             <h3>Today's type: {pokeType} </h3>
             <h2>Today's Pokemon</h2>
             <p>{randomPokemon.name}! types: {randomPokemon.type1} {randomPokemon.type2} attack: {randomPokemon.attack}</p>
