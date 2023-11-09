@@ -21,6 +21,8 @@ export const options = {
                         return null;
                     }
                     const data = await response.json();
+                    delete data.password;
+                    console.log(data);
                     return data;
                 } catch (error) {
                     console.error(error);
@@ -39,4 +41,16 @@ export const options = {
             }
         }),
     ],
+    callbacks: {
+        async session({ session, token }) {
+            session.user = token.user;
+            return session;
+        },
+        async jwt({ token, user }) {
+            if (user) {
+            token.user = user;
+            }
+            return token;
+        },
+    },
 }
