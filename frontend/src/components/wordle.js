@@ -11,6 +11,8 @@ import 'bootstrap/dist/css/bootstrap.css'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Toast } from "bootstrap";
+import { useSession } from "next-auth/react";
+
 
 export default function Wordle () {
     const [pokeOptions, setPokeOptions] = useState([]);
@@ -35,6 +37,9 @@ export default function Wordle () {
         if (guessCount == 5){
             setAllowGuesses(false)
         } 
+
+        const { data: session, status } = useSession({
+          });
         
         const response = await fetch(config.POKEMON_URL + pokeGuess[0]);
         const guess = await response.json();  
@@ -44,6 +49,11 @@ export default function Wordle () {
         console.log(pokemon);
         if (pokeGuess[0] == dailyPokemon.name){
             setCorrect(true)
+            if (session) {
+                const uid = session.uid
+                const pokemon_id = dailyPokemon.id
+                const insertSql = `INSERT INTO user_pokemon (uid, pokemon_id) VALUES ('${uid}', ${pokemon_id})`;
+            }
         }
         console.log("guessCount", guessCount);
     }
