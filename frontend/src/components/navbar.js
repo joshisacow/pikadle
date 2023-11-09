@@ -65,6 +65,11 @@ const NavBar = () => {
           >
             Safari
           </Link>
+          <Link 
+            href = "/archive"
+            className = "hover:text-blue-400">
+              Archive
+            </Link>
           {!session && (
             <Link
               href="/login"
