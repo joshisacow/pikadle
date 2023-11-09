@@ -98,7 +98,7 @@ export default function Wordle () {
             {(guessCount == 6 || correct) && <Button id='submit' disabled> 
                 Submit
             </Button>}
-        
+            <ToastContainer />
             <Guesses guesses={guesses} trigger = {trigger} setTrigger = {setTrigger} daily = {dailyPokemon} setCorrect = {setCorrect} correct = {correct}/>
             {(guessCount ==6 || correct) &&<EndModal correct = {correct} pokemon = {pokemon.name} guesses={guessCount}/>}
         </div>
