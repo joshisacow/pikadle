@@ -22,7 +22,8 @@ Frontend: \
 Backend: \
     - populate user database with 50 users \
     - open routes for capturing pokemon, daily pokemon, type of pokemon, user badges \
-    - allow for user authentication routes on the backend \ 
+    - allow for user authentication routes on the backend \
+    
 Link to the demo video for milestone 4: https://drive.google.com/file/d/1ZBliyCXS1K7WZtCf2SKaMwTiI1BEZ2y4/view?usp=sharing
 
 MILESTONE 2 \
