@@ -33,12 +33,12 @@ function AttrColor({attr, dailyAttr}){
 }
 
 function NumberArrows({attr, dailyAttr}){
-    if (attr > dailyAttr){
+    if (attr < dailyAttr){
         return(
             <div className = 'upArrow' id='pokeArrow'></div>
         )
     }
-    if (attr < dailyAttr){
+    if (attr > dailyAttr){
         return(
             <div className='downArrow' id='pokeArrow'></div>
         )
@@ -111,29 +111,30 @@ export default function Guesses({pokemon, daily, guesses}) {
     //     // console.log("was triggered");
     //     // console.log("CURRENT USER, from get: ", userId);
     // }, [trigger])
-    const dailyname = daily.name.toLowerCase()
-    const [pokeSprite, setPokeSprite] = useState(null)
-    const fetchSprite = () => {
-        fetch(` https://pokeapi.co/api/v2/pokemon/${dailyname}`)
-            .then((response) => {
-                if (response.ok){
-                    return response.json()
-                }
-                throw new Error('PokeAPI not available')
-            })
-            .then((data) =>{
-                console.log(data.sprites.front_default)
-                setPokeSprite(data.sprites.front_default)
-            })
-    }
-    useEffect(()=>{
-        fetchSprite();
-    }, [])
+    // const dailyname = daily.name.toLowerCase()
+    // const [pokeSprite, setPokeSprite] = useState(null)
+    // const fetchSprite = () => {
+    //     fetch(` https://pokeapi.co/api/v2/pokemon/${dailyname}`)
+    //         .then((response) => {
+    //             if (response.ok){
+    //                 return response.json()
+    //             }
+    //             throw new Error('PokeAPI not available')
+    //         })
+    //         .then((data) =>{
+    //             console.log(data.sprites.front_default)
+    //             setPokeSprite(data.sprites.front_default)
+    //         })
+    // }
+    // useEffect(()=>{
+    //     fetchSprite();
+    // }, [])
     if (guesses){
         return(
             <div id='guesses'>
                 <div id='attrTitles'>
                     <p>Pokemon</p>
+                    <p>Generation</p>
                     <p>Type</p>
                     <p>Health</p>
                     <p>Attack</p>
@@ -144,13 +145,16 @@ export default function Guesses({pokemon, daily, guesses}) {
                 </div>
                 {
                     guesses.map((pokemon => {
+                        console.log(pokemon.name + pokemon.generation)
+                        console.log(daily.name + daily.generation)
                         if (pokemon){
                             return(
                             
                                 <div className = 'guess'key = {pokemon.pokemon_id}>
                                     
                                     <AttrColor attr = {pokemon.name} dailyAttr = {daily.name}/>
-                                    <SpriteAttr sprite={pokeSprite} daily={daily.name} guess={pokemon.name}></SpriteAttr>
+                                    <AttrColor attr = {pokemon.generation} dailyAttr = {daily.generation}/>
+                                    {/* <SpriteAttr sprite={pokeSprite} daily={daily.name} guess={pokemon.name}></SpriteAttr> */}
                                     <TypeColor t1 = {pokemon.type1} t2 = {pokemon.type2} dt1={daily.type1} dt2 = {daily.type2}/>
                                     <AttrColor attr = {pokemon.health} dailyAttr = {daily.health}/>
                                     <AttrColor attr = {pokemon.attack} dailyAttr = {daily.attack}/>
