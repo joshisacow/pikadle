@@ -1,3 +1,4 @@
+import './modal.css'
 import { useEffect, useState } from 'react'
 import Modal from 'react-bootstrap/Modal'
 
@@ -24,8 +25,6 @@ export default function EndModal ({correct, pokemon, guesses}){
     }
     let modalbody = ""
     let modaltitle = ""
-    console.log(guesses)
-    console.log(pokemon)
     if (correct){
         modalbody = "Congratulations on getting the pokemon in " + guesses + " guesses! The pokemon was " + pokemon 
         modaltitle = "Good job!"
@@ -45,7 +44,7 @@ export default function EndModal ({correct, pokemon, guesses}){
                 </div>
                 <div className="modal-body">
                     {modalbody}
-                    <img src={pokeSprite} alt="image unavailable"></img>
+                    <img src={pokeSprite} alt={pokemon + "!"}></img>
                 </div>
                 <div className="modal-footer">
                     <button type="button" className="btn btn-primary" data-dismiss="modal" onClick={handleClick}>Close</button>
