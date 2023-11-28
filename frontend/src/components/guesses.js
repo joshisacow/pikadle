@@ -33,12 +33,12 @@ function AttrColor({attr, dailyAttr}){
 }
 
 function NumberArrows({attr, dailyAttr}){
-    if (attr > dailyAttr){
+    if (attr < dailyAttr){
         return(
             <div className = 'upArrow' id='pokeArrow'></div>
         )
     }
-    if (attr < dailyAttr){
+    if (attr > dailyAttr){
         return(
             <div className='downArrow' id='pokeArrow'></div>
         )
@@ -78,29 +78,53 @@ function TypeColor({t1, t2, dt1, dt2}){
         )
     }
 }
+function SpriteAttr ({sprite, daily, guess}){
+    if(daily == guess){
+        return(
+            <div className = 'guessRight' id='sprite'>
+                <p>{daily}</p>
+                <img className='guessSprite'src={sprite} alt="N/A"></img>
+            </div>
+        )
+    }else {
+        return(
+            <div className = 'guessWrong' id='sprite'>
+                <p>{guess}</p>
+                <img className='guessSprite'src={sprite} alt = "N/A"></img>
+            </div>
+        )
+    }
+}
 //pokemon: the pokemon that is guessed, daily: actual pokemon
 export default function Guesses({pokemon, daily, guesses}) {
-        // const fetchPokemon = () => {
-    //     fetch(pokemonurl)
-    //         .then((response) => response.json())
-    //         .then((data) => {
-    //   
-    //             setPokemon(data)
-    //         })
-    // }
-
-    // // set trigger for fetching SBOMs
-    // useEffect(() => {
-    //     fetchPokemon()
-    //     // debugger lines
-    //     // console.log("was triggered");
-    //     // console.log("CURRENT USER, from get: ", userId);
-    // }, [trigger])
+    const guessname = guesses[guesses.length-1]
+    const [pokeSprite, setPokeSprite] = useState([])
+    let counter = 0;
+    const fetchSprite = () => {
+        fetch(` https://pokeapi.co/api/v2/pokemon/${guessname.name.toLowerCase()}`)
+            .then((response) => {
+                if (response.ok){
+                    return response.json()
+                }
+                throw new Error('PokeAPI not available')
+            })
+            .then((data) =>{
+                console.log(data.sprites.front_default)
+                setPokeSprite(oldArray => [...oldArray, data.sprites.front_default]);
+            })
+    }
+    useEffect(()=>{
+        if (guesses.length>0){
+            fetchSprite()
+        }
+    }, [guesses])
+    
     if (guesses){
         return(
             <div id='guesses'>
                 <div id='attrTitles'>
                     <p>Pokemon</p>
+                    <p>Generation</p>
                     <p>Type</p>
                     <p>Health</p>
                     <p>Attack</p>
@@ -110,13 +134,15 @@ export default function Guesses({pokemon, daily, guesses}) {
                     <p>Speed</p>
                 </div>
                 {
-                    guesses.map((pokemon => {
+                    guesses.map((pokemon, index) => {
+                        console.log(guessname)
+                        pokemon.sprite=pokeSprite[index]
                         if (pokemon){
                             return(
                             
                                 <div className = 'guess'key = {pokemon.pokemon_id}>
-                                    
-                                    <AttrColor attr = {pokemon.name} dailyAttr = {daily.name}/>
+                                    <SpriteAttr sprite={pokemon.sprite} daily={daily.name} guess={pokemon.name}></SpriteAttr>
+                                    <AttrColor attr = {pokemon.generation} dailyAttr = {daily.generation}/>
                                     <TypeColor t1 = {pokemon.type1} t2 = {pokemon.type2} dt1={daily.type1} dt2 = {daily.type2}/>
                                     <AttrColor attr = {pokemon.health} dailyAttr = {daily.health}/>
                                     <AttrColor attr = {pokemon.attack} dailyAttr = {daily.attack}/>
@@ -129,8 +155,7 @@ export default function Guesses({pokemon, daily, guesses}) {
                                 </div>
                             )
                         }
-                        
-                    }))
+                    })
                 }
             </div>
         )

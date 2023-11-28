@@ -86,7 +86,9 @@ export default function Wordle () {
         setDailyPokemon(response)
         return response;
     }
-
+    useEffect(()=>{
+        setGuesses([])
+    }, [date])
 
     const handleDateChange = (event) => {
         setDate(event.target.value);
