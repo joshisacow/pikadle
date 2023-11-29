@@ -136,3 +136,7 @@
 #submit{
     margin-top: 8px;
 }
+
+#datepicker {
+    width: 40%;
+}
