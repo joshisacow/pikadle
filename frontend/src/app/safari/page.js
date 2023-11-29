@@ -10,6 +10,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import config from '../../../config.json'
 import Button from 'react-bootstrap/Button'
 import EndModal from "../../components/safariEndModal.js";
+import 'bootstrap/dist/css/bootstrap.css'
+
 
 export default function Safari(){
     const [pokeOptions, setPokeOptions] = useState([]); //same as in wordle.js
@@ -21,7 +23,8 @@ export default function Safari(){
     const [guessCount, setGuessCount] = useState(0) //total number of guesses per day (30)
     const [score, setScore] = useState(0)
     const [isButtonDisabled, setButtonDisabled] = useState(false)
-   
+    const typeaheadRef = useRef(null)
+
     //const [trigger, setTrigger] = useState(false);
     //const [c, setC] = useState(0)
     function handleSubmit(){}
@@ -47,9 +50,10 @@ export default function Safari(){
             setGuesses(oldArray => [])
             setPokeGuess("")
             }
+            setPokeGuess("")
+            typeaheadRef.current.clear();
             setButtonDisabled(false)
-        }, 1000);
-        
+        }, 500);
     }
 
     const fetchRandomGivenType = (input) =>{
@@ -112,6 +116,7 @@ export default function Safari(){
                 options={pokeOptions}
                 placeholder="Choose your pokemon..."
                 selected={pokeGuess}
+                ref={typeaheadRef}
             />
             {(guessCount < 30) && <Button id='submit' onClick ={handleClick} disabled={isButtonDisabled}>
                 Submit
