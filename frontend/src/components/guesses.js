@@ -33,7 +33,14 @@ function AttrColor({attr, dailyAttr}){
 }
 
 function NumberArrows({attr, dailyAttr}){
-    if (attr < dailyAttr){
+    if (attr==0){
+        return(
+            <div >
+                <p>Attribute</p>
+                <p>Unavailable</p>
+            </div>
+        )
+    } else if (attr < dailyAttr){
         return(
             <div className = 'upArrow' id='pokeArrow'></div>
         )
@@ -116,6 +123,8 @@ export default function Guesses({pokemon, daily, guesses}) {
     useEffect(()=>{
         if (guesses.length>0){
             fetchSprite()
+        } else if (guesses.length==0){
+            setPokeSprite([])
         }
     }, [guesses])
     
