@@ -27,7 +27,6 @@ api.add_resource(Pokemon.DailyPokemon, '/daily')
 api.add_resource(Users.Users, '/users/<string:uid>')
 api.add_resource(Users.Auth, '/auth')
 api.add_resource(Pokemon.CatchPokemon, '/catch')
-api.add_resource(Users.UserPokemon, '/update_number')
 
 api.add_resource(Users.Badge, '/badge/<string:uid>')
 

@@ -8,7 +8,6 @@
     "TYPE_URL": "http://127.0.0.1:8080/random/type",
     "BASE_URL": "http://localhost:3000",
     "CATCH_URL": "http://127.0.0.1:8080/catch",
-    "NUMBER_USER_POKEMON_URL": "http://127.0.0.1:8080/update_number",
     "ACHIEVEMENT_URL": "http://127.0.0.1:8080/achievement",
     "DAILY_URL": "http://127.0.0.1:8080/daily",
     "BADGE_URL": "http://127.0.0.1:8080/badge"

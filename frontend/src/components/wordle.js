@@ -60,6 +60,9 @@ export default function Wordle () {
                 console.log("number pokemon", number_of_pokemon)
                 // console.log(typeof number_of_pokemon)
 
+                
+                console.log(uid)
+
                 const request = await fetch(config.CATCH_URL, {
                     method: "POST",
                     headers: {
@@ -67,16 +70,7 @@ export default function Wordle () {
                     },
                     body: JSON.stringify({"uid": uid, "pokemon_id": pokemon_id})
                 })
-                console.log(uid)
-                const request2 = await fetch(config.NUMBER_USER_POKEMON_URL, {
-                    method: "PUT",
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ "number_of_pokemon": number_of_pokemon, "uid": uid})
-                })
                 console.log(request);
-                console.log(request2)
             }
         }  
         
