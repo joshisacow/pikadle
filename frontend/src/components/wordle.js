@@ -29,6 +29,10 @@ export default function Wordle () {
     const { data: session, status } = useSession();
     console.log(session)
     const handleClick = async() => {
+        if (guesses == ""){
+            toast.error("Enter a pokemon")
+            return
+        }
         // check if duplicate guess
         if (guesses.some(obj => obj.name === pokeGuess[0])) {
             toast.error("You already guessed that pokemon!");
