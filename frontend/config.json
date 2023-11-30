@@ -10,5 +10,6 @@
     "CATCH_URL": "http://127.0.0.1:8080/catch",
     "ACHIEVEMENT_URL": "http://127.0.0.1:8080/achievement",
     "DAILY_URL": "http://127.0.0.1:8080/daily",
-    "BADGE_URL": "http://127.0.0.1:8080/badge"
+    "BADGE_URL": "http://127.0.0.1:8080/badge",
+    "CAUGHT_URL": "http://127.0.0.1:8080/caught/"
 }

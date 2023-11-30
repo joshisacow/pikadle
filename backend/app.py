@@ -13,6 +13,7 @@ def get():
 
 import db.Pokemon as Pokemon
 import db.Users as Users
+import db.User_pokemon as User_pokemon
 class Main(Resource):
     def get(self):
         return "pikadle API", 200
@@ -27,7 +28,7 @@ api.add_resource(Pokemon.DailyPokemon, '/daily')
 api.add_resource(Users.Users, '/users/<string:uid>')
 api.add_resource(Users.Auth, '/auth')
 api.add_resource(Pokemon.CatchPokemon, '/catch')
-
+api.add_resource(Pokemon.Caught, '/caught/<string:uid>')
 api.add_resource(Users.Badge, '/badge/<string:uid>')
 
 if __name__ == '__main__':

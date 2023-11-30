@@ -230,3 +230,18 @@ class CatchPokemon(Resource):
         conn.close()
         return "success", 201
 
+class Caught(Resource):
+    def get(self, uid):
+        # get all pokemon associated with user
+        # parse arguments
+        args = request.args.get('uid')
+        conn = psycopg2.connect(url)
+        cur = conn.cursor()
+        cur.execute("SELECT *.name FROM Pokemon WHERE pokemon_id IN (User_pokemon WHERE uid = %s)", (uid,))
+        pokemonall = cur.fetchall()
+        cur.close()
+        
+        if pokemonall:   
+            return pokemonall, 200
+        else: 
+            return {"message": "Pokemon not found"}, 400
