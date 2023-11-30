@@ -26,6 +26,8 @@ api.add_resource(Pokemon.TypeRandom, '/random/type')
 api.add_resource(Pokemon.DailyPokemon, '/daily')
 api.add_resource(Users.Users, '/users/<string:uid>')
 api.add_resource(Users.Auth, '/auth')
+api.add_resource(Pokemon.CatchPokemon, '/catch')
+
 api.add_resource(Users.Badge, '/badge/<string:uid>')
 
 if __name__ == '__main__':

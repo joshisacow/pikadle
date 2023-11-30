@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState, useMemo, useRef } from "react"
+import { useEffect, useState, useMemo, useRef, use } from "react"
 import config from '../../../config.json'
 import { useSession } from "next-auth/react";
 import { redirect } from 'next/navigation';
@@ -19,19 +19,18 @@ export default function User () {
 
   console.log(session)
   if (session){
-    // const fetchBadges = () =>{
-    //   fetch(config.userbadges)
-    //       .then(response => response.json())
-    //       .then((data) => {
-    //           setUserBadges(data)
-    //       })
-    // const fetchUserPokemon = () =>{
-    //   fetch(config.userpokemon)
-    //       .then(response => response.json())
-    //       .then((data) => {
-    //           setUserPokemon(data)
-    //       })
-  
+    const fetchUserInfo = () =>{
+      fetch(config.USER_URL + session.user.uid)
+          .then(response => response.json())
+          .then((data) => {
+              setUserPokemon(data.number_of_pokemon)
+              setUserBadges(data.number_of_badges )
+          })
+        }
+    useEffect( ()=>{
+      fetchUserInfo();
+    }, []
+    )
     return(
       <div>
         <div id ="user-info">
@@ -39,7 +38,7 @@ export default function User () {
         </div>
         <div id = "badge-info">
           <h3>User Badge Information</h3>
-          <p>You have {session.user.number_of_badges} badges.</p>
+          <p>You have {userBadges} badges.</p>
           {/* <div id = "badge-display">
             {userBadges.map((badge => {
               if(badge){
@@ -55,7 +54,7 @@ export default function User () {
         </div>
         <div id = "user-pokemon-info">
           <h3>User Pokemon Information</h3>
-          <p>You have {session.user.number_of_pokemon} pokemon</p>
+          <p>You have {userPokemon} pokemon</p>
           {/* <div id = "pokemon-display">
             {userPokemon.map((pokemon => {
               if(pokemon){

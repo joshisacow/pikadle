@@ -31,6 +31,10 @@ export default function Safari(){
 
 
     const handleClick = async() => {
+        if (guesses == ""){
+            toast.error("Enter a pokemon")
+            return
+        }
         if (guesses.some(obj => obj.name === pokeGuess[0])) {
             toast.error("You already guessed that pokemon!");
             console.log("bye");
@@ -48,7 +52,6 @@ export default function Safari(){
             setScore(score + 1)
             fetchRandomGivenType(pokeType)
             setGuesses(oldArray => [])
-            setPokeGuess("")
             }
             setPokeGuess("")
             typeaheadRef.current.clear();

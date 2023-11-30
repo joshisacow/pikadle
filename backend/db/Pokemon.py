@@ -191,3 +191,42 @@ class TypeRandom(Resource):
             return type[0]
         else:
             return {"message": "type not found"}, 404
+
+
+class CatchPokemon(Resource): 
+    def post(self): 
+        register_post_args = reqparse.RequestParser()
+        register_post_args.add_argument("uid", type=str, required=True)
+        register_post_args.add_argument("pokemon_id", type=str, required=True)
+        args = register_post_args.parse_args()
+
+        uid= args['uid']
+        pokemon_id = args['pokemon_id']
+
+        conn = psycopg2.connect(url)
+        cur = conn.cursor()
+    
+         # Use placeholders and a tuple to safely insert variables
+        cur.execute("INSERT INTO user_pokemon (uid, pokemon_id) VALUES (%s, %s)", (uid,pokemon_id))
+        conn.commit()
+        conn.close()
+        return "success", 201
+
+    def put(self): 
+        register_post_args = reqparse.RequestParser()
+        register_post_args.add_argument("uid", type=str, required=True)
+        register_post_args.add_argument("pokemon_id", type=str, required=True)
+        args = register_post_args.parse_args()
+
+        uid= args['uid']
+        pokemon_id = args['pokemon_id']
+
+        conn = psycopg2.connect(url)
+        cur = conn.cursor()
+    
+         # Use placeholders and a tuple to safely insert variables
+        cur.execute("INSERT INTO user_pokemon (uid, pokemon_id) VALUES (%s, %s)", (uid,pokemon_id))
+        conn.commit()
+        conn.close()
+        return "success", 201
+

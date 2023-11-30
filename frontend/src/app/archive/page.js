@@ -26,7 +26,10 @@ export default function Wordle () {
 
     const handleClick = async() => {
         // check if duplicate guess
-        
+        if (guesses == ""){
+            toast.error("Enter a pokemon")
+            return
+        }
 
         if (guesses.some(obj => obj.name === pokeGuess[0])) {
             toast.error("You already guessed that pokemon!");
@@ -49,6 +52,7 @@ export default function Wordle () {
             setCorrect(true)
         }
         console.log("guessCount", guessCount);
+        setPokeGuess("")
         typeaheadRef.current.clear();
     }
     
@@ -90,12 +94,16 @@ export default function Wordle () {
     }
     useEffect(()=>{
         setGuesses([])
+        setGuessCount(0)
     }, [date])
 
     const handleDateChange = (event) => {
         setDate(event.target.value);
         const currPokemon = fetchDate(event.target.value);
-
+        if (typeaheadRef.current){
+            setPokeGuess("")
+            typeaheadRef.current.clear()
+        }
     };
     return(
         <div id='answers'>
@@ -104,7 +112,7 @@ export default function Wordle () {
             {date && <div>
                 <h2 id = 'guessTitle'>Guess the Pokemon for {date} </h2>
             <h2>Today's Pokemon</h2>
-            <p>{dailyPokemon.name}! types: {dailyPokemon.type1} {dailyPokemon.type2} attack: {dailyPokemon.attack}</p>
+            {/* <p>{dailyPokemon.name}! types: {dailyPokemon.type1} {dailyPokemon.type2} attack: {dailyPokemon.attack}</p> */}
             <Typeahead
                 id="pokeInput"
                 labelKey="name"

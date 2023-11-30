@@ -10,6 +10,8 @@ import 'bootstrap/dist/css/bootstrap.css'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Toast } from "bootstrap";
+import { useSession } from "next-auth/react";
+
 
 export default function Wordle () {
     const [pokeOptions, setPokeOptions] = useState([]);
@@ -24,7 +26,13 @@ export default function Wordle () {
     const [pokeSprite, setPokeSprite] = useState(null)
     const typeaheadRef = useRef(null)
 
+    const { data: session, status } = useSession();
+    console.log(session)
     const handleClick = async() => {
+        if (guesses == ""){
+            toast.error("Enter a pokemon")
+            return
+        }
         // check if duplicate guess
         if (guesses.some(obj => obj.name === pokeGuess[0])) {
             toast.error("You already guessed that pokemon!");
@@ -43,7 +51,29 @@ export default function Wordle () {
         setGuesses(oldArray => [...oldArray, guess]);
         if (pokeGuess[0] == dailyPokemon.name){
             setCorrect(true)
-        }
+            if (session){
+                // console.log(pokemon)
+                const uid = session.user.uid
+                const pokemon_id = dailyPokemon.pokemon_id
+                var number_of_pokemon = session.user.number_of_pokemon + 1
+                console.log("number pokemon", number_of_pokemon)
+                // console.log(typeof number_of_pokemon)
+
+                
+                console.log(uid)
+
+                const request = await fetch(config.CATCH_URL, {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({"uid": uid, "pokemon_id": pokemon_id})
+                })
+                console.log(request);
+            }
+        }  
+        
+
         console.log("guessCount", guessCount);
         setPokeGuess("")
         typeaheadRef.current.clear();

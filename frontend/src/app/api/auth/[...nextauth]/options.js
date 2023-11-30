@@ -44,6 +44,7 @@ export const options = {
     callbacks: {
         async session({ session, token }) {
             session.user = token.user;
+            console.log(session)
             return session;
         },
         async jwt({ token, user }) {
