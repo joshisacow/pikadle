@@ -31,7 +31,7 @@ export default function Safari(){
 
 
     const handleClick = async() => {
-        if (guesses == ""){
+        if (pokeGuess == ""){
             toast.error("Enter a pokemon")
             return
         }
