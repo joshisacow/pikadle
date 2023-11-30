@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState, useMemo } from "react"
+import { useEffect, useState, useMemo, useRef } from "react"
 import Guesses from '@/components/guesses.js'
 import { Typeahead } from 'react-bootstrap-typeahead';
 import '@/components/wordle.css'
@@ -22,6 +22,7 @@ export default function Wordle () {
     const [allowGuesses, setAllowGuesses] = useState(true);
     const [guesses, setGuesses] = useState([]);
     const [correct, setCorrect] = useState(false)
+    const typeaheadRef = useRef(null)
 
     const handleClick = async() => {
         // check if duplicate guess
@@ -48,6 +49,7 @@ export default function Wordle () {
             setCorrect(true)
         }
         console.log("guessCount", guessCount);
+        typeaheadRef.current.clear();
     }
     
     const fetchOptions = () =>{
@@ -86,7 +88,9 @@ export default function Wordle () {
         setDailyPokemon(response)
         return response;
     }
-
+    useEffect(()=>{
+        setGuesses([])
+    }, [date])
 
     const handleDateChange = (event) => {
         setDate(event.target.value);
@@ -108,7 +112,7 @@ export default function Wordle () {
                 options={pokeOptions}
                 placeholder="Choose your pokemon..."
                 selected={pokeGuess}
-                
+                ref={typeaheadRef}
             />
             {(guessCount != 6 && !correct) && 
             <Button id='submit' onClick ={handleClick}>

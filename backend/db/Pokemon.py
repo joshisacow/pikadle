@@ -20,21 +20,29 @@ class Pokemon(Resource):
         cur.close()
         if pokemon:
             pokemon_data = {
-                "pokemon_id": int(pokemon[0]),
-                "generation": int(pokemon[1]),
-                "type1": str(pokemon[2]),
-                "type2": str(pokemon[3]),
-                "health": int(pokemon[4]),
-                "special_attack": int(pokemon[5]),
-                "attack": int(pokemon[6]),
-                "defense": int(pokemon[7]),
-                "special_defense": int(pokemon[8]),
-                "speed": int(pokemon[9]),
-                "height": float(pokemon[10]),
-                "weight": float(pokemon[11]),
-                "name": str(pokemon[12])
+                "pokemon_id": int(),
+                "generation": int(),
+                "type1": str(),
+                "type2": str(),
+                "health": int(),
+                "special_attack": int(),
+                "attack": int(),
+                "defense": int(),
+                "special_defense": int(),
+                "speed": int(),
+                "height": float(),
+                "weight": float(),
+                "name": str()
                 # Add other fields as needed
             }
+            for key, value in pokemon_data.items():
+                index = list(pokemon_data.keys()).index(key)
+                value_from_pokemon = pokemon[index]
+                # Check if the default value is not None before attempting conversion
+                if value_from_pokemon is not None:
+                    pokemon_data[key] = type(value)(value_from_pokemon)
+                else:
+                    pokemon_data[key] = value
             return pokemon_data, 200
         else:
             return {"message": "Pokemon not found"}, 404
