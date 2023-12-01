@@ -234,10 +234,10 @@ class Caught(Resource):
     def get(self, uid):
         # get all pokemon associated with user
         # parse arguments
-        args = request.args.get('uid')
+        # args = request.args.get('uid')
         conn = psycopg2.connect(url)
         cur = conn.cursor()
-        cur.execute("SELECT *.name FROM Pokemon WHERE pokemon_id IN (User_pokemon WHERE uid = %s)", (uid,))
+        cur.execute("SELECT name FROM Pokemon WHERE pokemon_id IN (SELECT pokemon_id FROM User_pokemon WHERE uid = %s)", (uid,))
         pokemonall = cur.fetchall()
         cur.close()
         

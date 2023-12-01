@@ -13,7 +13,6 @@ def get():
 
 import db.Pokemon as Pokemon
 import db.Users as Users
-import db.User_pokemon as User_pokemon
 class Main(Resource):
     def get(self):
         return "pikadle API", 200
