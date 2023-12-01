@@ -4,7 +4,7 @@ import { useEffect, useState, useMemo, useRef, use } from "react"
 import config from '../../../config.json'
 import { useSession } from "next-auth/react";
 import { redirect } from 'next/navigation';
-
+import "./page.css"
 
 
 export default function User () {
@@ -14,8 +14,11 @@ export default function User () {
       redirect("/login");
     },
   });
+  const [badgeCount, setBadgeCount] = useState(0)
+  const [pokeCount, setPokeCount] = useState(0)
   const [userBadges, setUserBadges] = useState([])
   const [userPokemon, setUserPokemon] = useState([])
+  const [pokeSprite, setPokeSprite] = useState({})
 
   console.log(session)
   if (session){
@@ -23,22 +26,56 @@ export default function User () {
       fetch(config.USER_URL + session.user.uid)
           .then(response => response.json())
           .then((data) => {
-              setUserPokemon(data.number_of_pokemon)
-              setUserBadges(data.number_of_badges )
+              setPokeCount(data.number_of_pokemon)
+              setBadgeCount(data.number_of_badges )
           })
         }
+    const fetchPokeDisplay = () => {
+      fetch(config.CAUGHT_URL + session.user.uid)
+        .then(response => response.json())
+        .then((data) => {
+          setUserPokemon(data)
+        })
+    }
+    const fetchSprite = (pokemon) => {
+      fetch(` https://pokeapi.co/api/v2/pokemon/${pokemon.toLowerCase()}`)
+          .then((response) => {
+              if (response.ok){
+                  return response.json()
+              }
+              throw new Error('PokeAPI not available')
+          })
+          .then((data) =>{
+            let updatedValue = {}
+            updatedValue[pokemon] = data.sprites.front_default
+              setPokeSprite(oldObject => ({
+                ...oldObject,
+                ...updatedValue
+              }));
+          })
+  }
     useEffect( ()=>{
       fetchUserInfo();
+      fetchPokeDisplay();
     }, []
     )
+    useEffect(() => {
+      if (userPokemon.length > 0){
+        for (let i = 0; i < userPokemon.length; i++){
+          console.log(userPokemon[i])
+          fetchSprite(userPokemon[i][0])
+        }
+      }
+    }, [userPokemon])
     return(
-      <div>
+      <div id='user-page'>
+          {console.log(pokeSprite)}
         <div id ="user-info">
           <h2>Welcome {session.user.username}!</h2>
         </div>
         <div id = "badge-info">
           <h3>User Badge Information</h3>
-          <p>You have {userBadges} badges.</p>
+          <p className='descriptions'>You have {badgeCount} badges.</p>
           {/* <div id = "badge-display">
             {userBadges.map((badge => {
               if(badge){
@@ -54,20 +91,21 @@ export default function User () {
         </div>
         <div id = "user-pokemon-info">
           <h3>User Pokemon Information</h3>
-          <p>You have {userPokemon} pokemon</p>
-          {/* <div id = "pokemon-display">
-            {userPokemon.map((pokemon => {
+          <p className="descriptions">You have {pokeCount} pokemon</p>
+          <div id = "pokemon-display">
+            {userPokemon.map((pokemon, id) => {
               if(pokemon){
                 return(
-                  <div id = {pokemon.id}>
-                    <p>Pokemon Name: {pokemon.name}</p>
-                    <p>Date Caught: {pokemon.date}</p>
-                    <p>Number of Guess Attempts: {pokemon.number_of_attempts}</p>
+                  <div className="pokesprite" id = {pokemon}>
+                    <p>{pokemon}</p>
+                    <img className='userpokeSprite'src={pokeSprite[pokemon]} alt="N/A"></img>
+                    {/* <p>Date Caught: {pokemon.date}</p>
+                    <p>Number of Guess Attempts: {pokemon.number_of_attempts}</p> */}
                   </div>
                 )
               }
-            }))}
-          </div> */}
+            })}
+          </div>
         </div>
       </div>
     )
