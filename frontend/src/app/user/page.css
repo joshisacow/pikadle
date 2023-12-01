@@ -19,6 +19,8 @@
     flex-flow: row wrap; 
     justify-content: center;
     align-items: center;
+    width: 100%;
+    text-align: center;
 }
 
 #user-pokemon-info {
@@ -47,9 +49,12 @@
 
 .pokesprite p {
     margin-bottom: 0;
-    margin-top: 25px;
 }
 
 .userpokeSprite {
-    width: 100%
+    width: 100%;
+    margin-bottom: 25px;
+}
+.pokename {
+    font-weight: 700;
 }

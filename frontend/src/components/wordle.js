@@ -55,6 +55,7 @@ export default function Wordle () {
                 // console.log(pokemon)
                 const uid = session.user.uid
                 const pokemon_id = dailyPokemon.pokemon_id
+                const attempts = guessCount + 1
                 var number_of_pokemon = session.user.number_of_pokemon + 1
                 console.log("number pokemon", number_of_pokemon)
                 // console.log(typeof number_of_pokemon)
@@ -67,7 +68,7 @@ export default function Wordle () {
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({"uid": uid, "pokemon_id": pokemon_id})
+                    body: JSON.stringify({"uid": uid, "pokemon_id": pokemon_id, "attempts": attempts})
                 })
                 console.log(request);
             }
@@ -112,7 +113,7 @@ export default function Wordle () {
         <div id='answers'>
             <h2 id = 'guessTitle'>Guess Today's Pokemon! </h2>
             <h2>Today's Pokemon</h2>
-            <p>{dailyPokemon.name}! types: {dailyPokemon.type1} {dailyPokemon.type2} attack: {dailyPokemon.attack}</p>
+            {/* <p>{dailyPokemon.name}! types: {dailyPokemon.type1} {dailyPokemon.type2} attack: {dailyPokemon.attack}</p> */}
             <Typeahead
                 id="pokeInput"
                 labelKey="name"

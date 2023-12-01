@@ -4,6 +4,7 @@ import psycopg2
 from dotenv import load_dotenv
 import os
 import random
+import json
 from datetime import date, datetime
 
 app = Flask(__name__)
@@ -210,7 +211,7 @@ class CatchPokemon(Resource):
         cur = conn.cursor()
     
          # Use placeholders and a tuple to safely insert variables
-        cur.execute("INSERT INTO user_pokemon (uid, pokemon_id, date, attempts) VALUES (%s, %s, %s, %d)", (uid,pokemon_id, today, attempts))
+        cur.execute("INSERT INTO user_pokemon (uid, pokemon_id, date, attempts) VALUES (%s, %s, %s, %s)", (uid,pokemon_id, today, attempts))
         conn.commit()
         conn.close()
         return "success", 201
@@ -240,11 +241,17 @@ class Caught(Resource):
         # args = request.args.get('uid')
         conn = psycopg2.connect(url)
         cur = conn.cursor()
-        cur.execute("SELECT name FROM Pokemon WHERE pokemon_id IN (SELECT pokemon_id FROM User_pokemon WHERE uid = %s)", (uid,))
-        pokemonall = cur.fetchall()
+        cur.execute("SELECT pokemon.name, user_pokemon.date, user_pokemon.attempts FROM pokemon JOIN user_pokemon ON pokemon.pokemon_id = user_pokemon.pokemon_id WHERE user_pokemon.uid = %s", (uid,))
+        pokemon_all = cur.fetchall()
+        columns = [desc[0] for desc in cur.description]
         cur.close()
-        
-        if pokemonall:   
-            return pokemonall, 200
+
+        pokemon_all = [dict(zip(columns, row)) for row in pokemon_all]
+
+        if pokemon_all:   
+            for record in pokemon_all:
+                if record['date']:
+                    record['date'] = record['date'].isoformat()
+            return pokemon_all, 200
         else: 
             return {"message": "Pokemon not found"}, 400
