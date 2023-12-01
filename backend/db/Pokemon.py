@@ -198,16 +198,19 @@ class CatchPokemon(Resource):
         register_post_args = reqparse.RequestParser()
         register_post_args.add_argument("uid", type=str, required=True)
         register_post_args.add_argument("pokemon_id", type=str, required=True)
+        register_post_args.add_argument("attempts", type=int, required=True)
         args = register_post_args.parse_args()
 
         uid= args['uid']
         pokemon_id = args['pokemon_id']
+        attempts = args['attempts']
+        today = date.today()
 
         conn = psycopg2.connect(url)
         cur = conn.cursor()
     
          # Use placeholders and a tuple to safely insert variables
-        cur.execute("INSERT INTO user_pokemon (uid, pokemon_id) VALUES (%s, %s)", (uid,pokemon_id))
+        cur.execute("INSERT INTO user_pokemon (uid, pokemon_id, date, attempts) VALUES (%s, %s, %s, %d)", (uid,pokemon_id, today, attempts))
         conn.commit()
         conn.close()
         return "success", 201
