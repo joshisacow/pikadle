@@ -113,7 +113,7 @@ export default function Wordle () {
         <div id='answers'>
             <h2 id = 'guessTitle'>Guess Today's Pokemon! </h2>
             <h2>Today's Pokemon</h2>
-            <p>{dailyPokemon.name}! types: {dailyPokemon.type1} {dailyPokemon.type2} attack: {dailyPokemon.attack}</p>
+            {/* <p>{dailyPokemon.name}! types: {dailyPokemon.type1} {dailyPokemon.type2} attack: {dailyPokemon.attack}</p> */}
             <Typeahead
                 id="pokeInput"
                 labelKey="name"
