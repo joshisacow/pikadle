@@ -29,7 +29,7 @@ export default function Wordle () {
     const { data: session, status } = useSession();
     console.log(session)
     const handleClick = async() => {
-        if (guesses == ""){
+        if (pokeGuess == ""){
             toast.error("Enter a pokemon")
             return
         }
