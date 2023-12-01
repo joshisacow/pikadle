@@ -34,6 +34,7 @@ export default function User () {
       fetch(config.CAUGHT_URL + session.user.uid)
         .then(response => response.json())
         .then((data) => {
+          console.log(data)
           setUserPokemon(data)
         })
     }
@@ -62,8 +63,8 @@ export default function User () {
     useEffect(() => {
       if (userPokemon.length > 0){
         for (let i = 0; i < userPokemon.length; i++){
-          console.log(userPokemon[i])
-          fetchSprite(userPokemon[i][0])
+          console.log(userPokemon[i].name)
+          fetchSprite(userPokemon[i].name)
         }
       }
     }, [userPokemon])
@@ -92,20 +93,22 @@ export default function User () {
         <div id = "user-pokemon-info">
           <h3>User Pokemon Information</h3>
           <p className="descriptions">You have {pokeCount} pokemon</p>
-          <div id = "pokemon-display">
+          {userPokemon.length > 0 && <div id = "pokemon-display">
             {userPokemon.map((pokemon, id) => {
               if(pokemon){
                 return(
-                  <div className="pokesprite" id = {pokemon}>
-                    <p>{pokemon}</p>
-                    <img className='userpokeSprite'src={pokeSprite[pokemon]} alt="N/A"></img>
+                  <div className="pokesprite" id = {id}>
+                    <p className="pokename">{pokemon.name}</p>
+                    <p>Date Caught: {pokemon.date ? pokemon.date: 'N/A'}</p>
+                    <p>Attempts: {pokemon.attempts ? pokemon.attempts: 'N/A'}</p>
+                    <img className='userpokeSprite'src={pokeSprite[pokemon.name]} alt="N/A"></img>
                     {/* <p>Date Caught: {pokemon.date}</p>
                     <p>Number of Guess Attempts: {pokemon.number_of_attempts}</p> */}
                   </div>
                 )
               }
             })}
-          </div>
+          </div>}
         </div>
       </div>
     )
