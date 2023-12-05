@@ -28,11 +28,14 @@ class Users(Resource):
                 "username": str(user[1]),
                 "email":str(user[2]),
                 "number_of_pokemon":int(user[3]),
-                "number_of_badges":int(user[4])
+                "safari_score": int(user[4])
+                # "number_of_badges":int(user[4])
             }
     
         return user_data, 200
 
+        
+    
 class Auth(Resource):
     def put(self):
         # validate login
@@ -47,7 +50,6 @@ class Auth(Resource):
         conn = psycopg2.connect(url)
         cur = conn.cursor()
         cur.execute("SELECT * FROM Users WHERE username = %s", (username,))
-        conn.commit()
         user = cur.fetchone()
         cur.close()
         
@@ -58,7 +60,8 @@ class Auth(Resource):
                 "username": str(user[1]),
                 "password": str(user[2]),
                 "number_of_pokemon":int(user[3]),
-                "number_of_badges":int(user[4])
+                "safari_score":int(user[4])
+                # "number_of_badges":int(user[4])
             }
         else:
             return "Username doesn't exist", 401
@@ -95,6 +98,8 @@ class Auth(Resource):
         uid = uuid.uuid1()
         cur.execute("""INSERT INTO Users (uid, username, password, number_of_pokemon, safari_score) 
 VALUES (%s, %s, %s, %s, %s);""", (str(uid), username, hashed_password, 0, 0))
+#         cur.execute("""INSERT INTO Users (uid, username, password, number_of_pokemon, number_of_badges) 
+# VALUES (%s, %s, %s, %s, %s);""", (str(uid), username, hashed_password, 0, 0))
         conn.commit()
         cur.close()
         return "Success!", 201
