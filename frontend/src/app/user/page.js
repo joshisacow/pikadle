@@ -75,7 +75,7 @@ export default function User () {
           <h2>Welcome {session.user.username}!</h2>
         </div>
         <div id = "badge-info">
-          <h3>User Badge Information</h3>
+          <h2>User Badge Information</h2>
           <p className='descriptions'>You have {badgeCount} badges.</p>
           {/* <div id = "badge-display">
             {userBadges.map((badge => {
@@ -91,7 +91,7 @@ export default function User () {
           </div> */}
         </div>
         <div id = "user-pokemon-info">
-          <h3>User Pokemon Information</h3>
+          <h2>User Pokemon Information</h2>
           <p className="descriptions">You have {pokeCount} pokemon</p>
           {userPokemon.length > 0 && <div id = "pokemon-display">
             {userPokemon.map((pokemon, id) => {

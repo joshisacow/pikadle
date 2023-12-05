@@ -55,6 +55,16 @@ function NumberArrows({attr, dailyAttr}){
     )
 }
 function TypeColor({t1, t2, dt1, dt2}){
+    let nonetype = false
+    if (t2 == ""){
+        t2 = "none";
+    }
+    if (dt2 == "None"){
+        dt2 = "none";
+    }
+    if (t2 ==dt2){
+        nonetype = true;
+    }
     let counter = 0;
     if (t1 == dt1 || t1 ==dt2){
         counter ++;
@@ -69,7 +79,7 @@ function TypeColor({t1, t2, dt1, dt2}){
                 <p>{t2}</p>
             </div>
         )
-    }else if (counter ==1){
+    }else if (counter ==1 && !nonetype){
         return(
             <div className = 'guessOK' id='pokeName'>
                 <p>{t1}</p>

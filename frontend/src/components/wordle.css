@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans&family=Press+Start+2P&display=swap');
+
 .guess {
     display: flex;
     flex-direction: row;
@@ -8,10 +11,11 @@
 }
 
 #guessTitle{
-    margin-bottom: 5%;
+    margin-bottom: 2%;
 }
 
 #answers {
+    font-family: 'Pixelify Sans';
     text-align: center;
     height: 70%;
     width: 100%;
@@ -42,6 +46,7 @@
 }
 
 .rbt {
+    width: 30%;
     text-align: start;
 }
 

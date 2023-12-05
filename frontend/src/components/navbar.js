@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
 import Link from 'next/link';
 import config from '../../config'
+import './wordle.css'
 
 // loggedIn is the state of being logged in or not
 // username is the Display Name of the user, fetched from SHIB
