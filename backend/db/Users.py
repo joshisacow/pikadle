@@ -23,13 +23,15 @@ class Users(Resource):
         cur.execute("SELECT * FROM Users WHERE uid = %s", (uid,))
         user = cur.fetchone()
         cur.close()
+        b = Badge()
+        badgearr = b.get(uid)
         if user:
             user_data = {
                 "username": str(user[1]),
                 "email":str(user[2]),
                 "number_of_pokemon":int(user[3]),
-                "safari_score": int(user[4])
-                # "number_of_badges":int(user[4])
+                "safari_score": int(user[4]),
+                "number_of_badges": len(badgearr)
             }
     
         return user_data, 200
