@@ -46,41 +46,41 @@ const NavBar = () => {
       </NavLink>
     </nav>
     */
-    <nav className="bg-white-400 p-4">
+    <nav className="bg-white-400">
     <div className="container mx-auto flex items-center justify-between">
       <ul className="flex space-x-6 text-black">
-        <button className='navbutton'>
-          <Link
-            href="/"
-            className="navlink hover:text-blue-400"
-          >
+        <Link
+          href="/"
+          className="navlink hover:text-blue-400"
+        >
+          <button className='navbutton'>
             Home
-          </Link>
-        </button>
-        <button className='navbutton'>
-          <Link
-            href="/user"
-            className="navlink hover:text-blue-400"
-          >
-            User
-          </Link>
-        </button>
-        <button className='navbutton'>
-          <Link
-            href="/safari"
-            className="navlink hover:text-blue-400"
-          >
+          </button>
+        </Link>
+        <Link
+          href="/user"
+          className="navlink hover:text-blue-400"
+        >
+          <button className='navbutton'>
+           User
+          </button>
+        </Link>
+        <Link
+          href="/safari"
+          className="navlink hover:text-blue-400"
+        >
+          <button className='navbutton'>
             Safari
-          </Link>
-        </button>
-        <button className='navbutton'>
-          <Link
+          </button>
+        </Link>
+        <Link
             href="/archive"
             className="navlink hover:text-blue-400"
           >
+          <button className='navbutton'>
             Archive
-          </Link>
-        </button>
+          </button>
+        </Link>
 
           {!session && (
             <Link

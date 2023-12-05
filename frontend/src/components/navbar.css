@@ -2,10 +2,22 @@
     color: white;
     text-decoration: none;
 }
+.navlink:hover {
+    color: white;
+}
 
 .navbutton {
     background-color: steelblue;
     width: 9vw;
     height: 4.5vh;
     border-radius: 5px;
+    min-width: fit-content;
+}
+
+.navbutton:hover{
+    background-color: burlywood;
+}
+
+nav {
+    padding: 5px 20px 20px 20px;
 }

@@ -96,6 +96,23 @@ function TypeColor({t1, t2, dt1, dt2}){
     }
 }
 function SpriteAttr ({sprite, daily, guess}){
+    if (sprite == "N/A"){
+        if(daily == guess){
+            return(
+                <div className = 'guessRight' id='sprite'>
+                    <p>{daily}</p>
+                    <p>Sprite N/A</p>
+                </div>
+            )
+        }else {
+            return(
+                <div className = 'guessWrong' id='sprite'>
+                    <p>{guess}</p>
+                    <p>Sprite N/A</p>
+                </div>
+            )
+        }
+    }
     if(daily == guess){
         return(
             <div className = 'guessRight' id='sprite'>
@@ -123,11 +140,13 @@ export default function Guesses({pokemon, daily, guesses}) {
                 if (response.ok){
                     return response.json()
                 }
-                throw new Error('PokeAPI not available')
+                setPokeSprite(oldArray => [...oldArray, "N/A"])
             })
             .then((data) =>{
-                console.log(data.sprites.front_default)
-                setPokeSprite(oldArray => [...oldArray, data.sprites.front_default]);
+                if (data){
+                    console.log(data.sprites.front_default)
+                    setPokeSprite(oldArray => [...oldArray, data.sprites.front_default]);
+                }
             })
     }
     useEffect(()=>{

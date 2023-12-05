@@ -40,3 +40,7 @@
 main {
   height: 100vh;
 }
+
+.logo {
+  font-size: 56px;
+}

@@ -14,7 +14,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className='body'>
-        <h1 className="text-4xl font-bold text-center my-8">Pikadle</h1>
+        <h1 className="logo text-4xl font-bold text-center my-8">Pikadle</h1>
         <AuthProvider>
           <NavBar />
           {children}
