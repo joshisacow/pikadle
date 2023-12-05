@@ -1,0 +1,25 @@
+#loginpage{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 40vh;
+}
+
+#loginform{
+    display:flex;
+    flex-direction: column;
+    width: 40vw;
+    height: 155px;
+    justify-content: space-between;
+}
+
+#logheader{
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+#loginform input{
+    color: black;
+    border-radius: 5px;
+    padding: 3px 5px;
+}
