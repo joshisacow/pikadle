@@ -33,7 +33,6 @@ export default function Wordle () {
 
         if (guesses.some(obj => obj.name === pokeGuess[0])) {
             toast.error("You already guessed that pokemon!");
-            console.log("bye");
             return; 
         }
 
@@ -47,11 +46,9 @@ export default function Wordle () {
         setPokemon(guess);
         // setTrigger(!trigger);
         setGuesses(oldArray => [...oldArray, guess]);
-        console.log(pokemon);
         if (pokeGuess[0] == dailyPokemon.name){
             setCorrect(true)
         }
-        console.log("guessCount", guessCount);
         setPokeGuess("")
         typeaheadRef.current.clear();
     }
@@ -64,7 +61,6 @@ export default function Wordle () {
             })
     }
     useEffect(() => {
-        console.log("hi");
         if (dailyPokemon == "") {
             fetchDate();
         }
@@ -72,7 +68,6 @@ export default function Wordle () {
             fetchOptions();
         }
     }, [])
-    console.log(date)
     const today = new Date();
     today.setDate(today.getDate() - 1); // Subtract one day
 
@@ -88,7 +83,6 @@ export default function Wordle () {
         })
         const response = await request.json();
         // validate response?
-        console.log(response);
         setDailyPokemon(response)
         return response;
     }

@@ -37,14 +37,13 @@ export default function Safari(){
         }
         if (guesses.some(obj => obj.name === pokeGuess[0])) {
             toast.error("You already guessed that pokemon!");
-            console.log("bye");
             return; 
         }
         const response = await fetch(config.POKEMON_URL + pokeGuess[0])
         const guess =await response.json();  
         setPokemon(guess)
         setGuessCount(guessCount + 1)
-        console.log(pokemon)
+        // console.log(pokemon)
         setGuesses(oldArray => [...oldArray, guess]);
         setButtonDisabled(true)
         setTimeout(() => {
@@ -83,7 +82,6 @@ export default function Safari(){
     }
 
     useEffect(() => {
-        console.log("hi");
         if (pokeType == "") {
             fetchType();
         }
