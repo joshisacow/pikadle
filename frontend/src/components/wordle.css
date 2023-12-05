@@ -48,6 +48,7 @@
 .rbt {
     width: 30%;
     text-align: start;
+    margin: 0 auto;
 }
 
 .guessRight{
@@ -101,6 +102,8 @@
 }
 #pokeInput {
     background-color: white;
+    width: 30%;
+    text-align: start;
 }
 
 .downArrow {

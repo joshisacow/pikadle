@@ -6,6 +6,7 @@ import { signOut } from "next-auth/react";
 import Link from 'next/link';
 import config from '../../config'
 import './wordle.css'
+import './navbar.css'
 
 // loggedIn is the state of being logged in or not
 // username is the Display Name of the user, fetched from SHIB
@@ -48,29 +49,39 @@ const NavBar = () => {
     <nav className="bg-white-400 p-4">
     <div className="container mx-auto flex items-center justify-between">
       <ul className="flex space-x-6 text-black">
+        <button className='navbutton'>
           <Link
             href="/"
-            className="hover:text-blue-400"
+            className="navlink hover:text-blue-400"
           >
             Home
           </Link>
+        </button>
+        <button className='navbutton'>
           <Link
             href="/user"
-            className="hover:text-blue-400"
+            className="navlink hover:text-blue-400"
           >
             User
           </Link>
+        </button>
+        <button className='navbutton'>
           <Link
             href="/safari"
-            className="hover:text-blue-400"
+            className="navlink hover:text-blue-400"
           >
             Safari
           </Link>
-          <Link 
-            href = "/archive"
-            className = "hover:text-blue-400">
-              Archive
-            </Link>
+        </button>
+        <button className='navbutton'>
+          <Link
+            href="/archive"
+            className="navlink hover:text-blue-400"
+          >
+            Archive
+          </Link>
+        </button>
+
           {!session && (
             <Link
               href="/login"
