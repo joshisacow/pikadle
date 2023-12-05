@@ -86,6 +86,23 @@ function TypeColor({t1, t2, dt1, dt2}){
     }
 }
 function SpriteAttr ({sprite, daily, guess}){
+    if (sprite == "N/A"){
+        if(daily == guess){
+            return(
+                <div className = 'guessRight' id='sprite'>
+                    <p>{daily}</p>
+                    <p>Sprite N/A</p>
+                </div>
+            )
+        }else {
+            return(
+                <div className = 'guessWrong' id='sprite'>
+                    <p>{guess}</p>
+                    <p>Sprite N/A</p>
+                </div>
+            )
+        }
+    }
     if(daily == guess){
         return(
             <div className = 'guessRight' id='sprite'>
@@ -113,6 +130,7 @@ export default function Guesses({pokemon, daily, guesses}) {
                 if (response.ok){
                     return response.json()
                 }
+                setPokeSprite(oldArray => [...oldArray, "N/A"])
                 throw new Error('PokeAPI not available')
             })
             .then((data) =>{
