@@ -134,7 +134,6 @@ export default function Guesses({pokemon, daily, guesses}) {
                 throw new Error('PokeAPI not available')
             })
             .then((data) =>{
-                console.log(data.sprites.front_default)
                 setPokeSprite(oldArray => [...oldArray, data.sprites.front_default]);
             })
     }
@@ -162,7 +161,7 @@ export default function Guesses({pokemon, daily, guesses}) {
                 </div>
                 {
                     guesses.map((pokemon, index) => {
-                        console.log(guessname)
+                        // console.log(guessname)
                         pokemon.sprite=pokeSprite[index]
                         if (pokemon){
                             return(

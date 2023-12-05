@@ -19,22 +19,26 @@ export default function User () {
   const [userBadges, setUserBadges] = useState([])
   const [userPokemon, setUserPokemon] = useState([])
   const [pokeSprite, setPokeSprite] = useState({})
-
-  console.log(session)
   if (session){
     const fetchUserInfo = () =>{
       fetch(config.USER_URL + session.user.uid)
           .then(response => response.json())
           .then((data) => {
-              setPokeCount(data.number_of_pokemon)
-              setBadgeCount(data.number_of_badges )
+              setPokeCount(data.number_of_pokemon);
+              setBadgeCount(data.number_of_badges);
+
+              // iterate through badges and set state
+              const newUserBadges = [];
+              for (let i = 0; i < data.number_of_badges; i++){
+                newUserBadges.push(data.badge_array[i]);
+              }
+              setUserBadges(newUserBadges);
           })
         }
     const fetchPokeDisplay = () => {
       fetch(config.CAUGHT_URL + session.user.uid)
         .then(response => response.json())
         .then((data) => {
-          console.log(data)
           setUserPokemon(data)
         })
     }
@@ -63,32 +67,15 @@ export default function User () {
     useEffect(() => {
       if (userPokemon.length > 0){
         for (let i = 0; i < userPokemon.length; i++){
-          console.log(userPokemon[i].name)
+          // console.log(userPokemon[i].name)
           fetchSprite(userPokemon[i].name)
         }
       }
     }, [userPokemon])
     return(
       <div id='user-page'>
-          {console.log(pokeSprite)}
         <div id ="user-info">
           <h2>Welcome {session.user.username}!</h2>
-        </div>
-        <div id = "badge-info">
-          <h3>User Badge Information</h3>
-          <p className='descriptions'>You have {badgeCount} badges.</p>
-          {/* <div id = "badge-display">
-            {userBadges.map((badge => {
-              if(badge){
-                return(
-                  <div id = {badge.id}>
-                    <p>Badge Name: {badge.badge_name}</p>
-                    <p>Badge Criteria: {badge.badge_description}</p>
-                  </div>
-                )
-              }
-            }))}
-          </div> */}
         </div>
         <div id = "user-pokemon-info">
           <h3>User Pokemon Information</h3>
@@ -108,6 +95,22 @@ export default function User () {
                 )
               }
             })}
+          </div>}
+        </div>
+        <div id = "badge-info">
+          <h3>User Badge Information</h3>
+          <p className='descriptions'>You have {badgeCount} badges.</p>
+          {userBadges && <div id = "badge-display">
+            {userBadges.map((badge => {
+              if(badge){
+                return(
+                  <div id = {badge.badge_id}>
+                    <p>Badge Name: {badge.badge_name}</p>
+                    <p>Badge Criteria: {badge.badge_description}</p>
+                  </div>
+                )
+              }
+            }))}
           </div>}
         </div>
       </div>

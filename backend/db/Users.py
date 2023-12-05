@@ -23,17 +23,24 @@ class Users(Resource):
         cur.execute("SELECT * FROM Users WHERE uid = %s", (uid,))
         user = cur.fetchone()
         cur.close()
+
+        # fetch badge information
         b = Badge()
         badgearr = b.get(uid)
+        # no badges found
+        print(badgearr)
+        if badgearr[0] == 404:
+            badgearr = []
         if user:
             user_data = {
                 "username": str(user[1]),
                 "email":str(user[2]),
-                "number_of_pokemon":int(user[3]),
+                "number_of_pokemon": int(user[3]),
                 "safari_score": int(user[4]),
-                "number_of_badges": len(badgearr)
+                "number_of_badges": len(badgearr),
+                "badge_array": badgearr,
             }
-    
+
         return user_data, 200
 
         
@@ -122,18 +129,19 @@ class Badge(Resource):
             
             return self.getBadgeInfo(badges_data)
         else:
-            return "Badges not found", 404
+            return [404]
     
     def getBadgeInfo(self, badges):
         conn = psycopg2.connect(url)
         cur = conn.cursor()
         ret = []
         for badge_id in badges:
-            cur.execute("SELECT badge_name, badge_description FROM badges WHERE badge_id = %s", (badge_id,))
+            cur.execute("SELECT badge_id, badge_name, badge_description FROM badges WHERE badge_id = %s", (badge_id,))
             badge = cur.fetchone()
             badge_data = {
-                "badge_name": str(badge[0]),
-                "badge_description": str(badge[1])
+                "badge_id": str(badge[0]),
+                "badge_name": str(badge[1]),
+                "badge_description": str(badge[2])
             }
             ret.append(badge_data)
         cur.close()
