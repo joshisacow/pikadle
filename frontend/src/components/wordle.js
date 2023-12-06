@@ -19,12 +19,11 @@ export default function Wordle () {
     const [pokeGuess, setPokeGuess] = useState("");
     const [pokemon, setPokemon] = useState();
     const [guessCount, setGuessCount] = useState(0);
-    const [trigger, setTrigger] = useState(false)
+    const [trigger, setTrigger] = useState(false);
     const [allowGuesses, setAllowGuesses] = useState(true);
     const [guesses, setGuesses] = useState([]);
-    const [correct, setCorrect] = useState(false)
-    const [pokeSprite, setPokeSprite] = useState(null)
-    const typeaheadRef = useRef(null)
+    const [correct, setCorrect] = useState(false);
+    const typeaheadRef = useRef(null);
 
     const { data: session, status } = useSession();
     const handleClick = async() => {
@@ -40,7 +39,7 @@ export default function Wordle () {
 
         setGuessCount(guessCount + 1)
         if (guessCount == 5){
-            setAllowGuesses(false)
+            updateLatestDate();
         } 
         const response = await fetch(config.POKEMON_URL + pokeGuess[0]);
         const guess = await response.json();  
@@ -54,12 +53,6 @@ export default function Wordle () {
                 const uid = session.user.uid
                 const pokemon_id = dailyPokemon.pokemon_id
                 const attempts = guessCount + 1
-                var number_of_pokemon = session.user.number_of_pokemon + 1
-                // console.log("number pokemon", number_of_pokemon)
-                // console.log(typeof number_of_pokemon)
-
-                
-                // console.log(uid)
 
                 const request = await fetch(config.CATCH_URL, {
                     method: "POST",
@@ -74,13 +67,9 @@ export default function Wordle () {
         
 
         // console.log("guessCount", guessCount);
-        setPokeGuess("")
+        setPokeGuess("");
         typeaheadRef.current.clear();
     }
-    
-    // const handleChange =(e) => {
-    //     fetch(config.POKEMON_URL + )
-    // }
     
     const fetchDaily = () =>{
         fetch(config.DAILY_URL)
@@ -96,6 +85,33 @@ export default function Wordle () {
                 setPokeOptions(data)
             })
     }
+    const checkIfAvailable = () => {
+        // check if user has already guessed today
+        if (session) {
+            fetch(config.SITE_URL + "canguess/" + session.user.uid)
+                .then(response => response.json())
+                .then((data) => {
+                    setAllowGuesses(data)
+                })
+        }
+    }
+
+    const updateLatestDate = async () => {
+        // update latest attempted date in db
+        date = new Date();
+        if (session) {
+            const request = await fetch(config.SITE_URL + "canguess/" + session.user.uid, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({"date": date})
+            })
+            const response = await request.json();
+            console.log(response);
+        }
+    }
+
     useEffect(() => {
         if (dailyPokemon == "") {
             fetchDaily();
@@ -105,33 +121,44 @@ export default function Wordle () {
         }
     }, [])
 
-    
+    useEffect(() => {
+        checkIfAvailable();
+    }, [session])
+
     return(
         <div id='answers'>
-            <div id='wordleheader'>
-                <h2 id = 'guessTitle'>Guess Today's Pokemon! </h2>
-                <Typeahead
-                    id="pokeInput"
-                    labelKey="name"
-                    onChange={setPokeGuess}
-                    options={pokeOptions}
-                    placeholder="Choose your pokemon..."
-                    selected={pokeGuess}
-                    ref={typeaheadRef}
-                />
-                {(guessCount != 6 && !correct) && 
-                <Button id='submit' onClick ={handleClick}>
-                    Submit
-                </Button>}
-                {(guessCount == 6 || correct) && <Button id='submit' disabled> 
-                    Submit
-                </Button>}
-            </div>
-            {/* <h2>Today's Pokemon</h2> */}
-            {/* <p>{dailyPokemon.name}! types: {dailyPokemon.type1} {dailyPokemon.type2} attack: {dailyPokemon.attack}</p> */}
-            <ToastContainer />
-            <Guesses guesses={guesses} trigger = {trigger} setTrigger = {setTrigger} daily = {dailyPokemon} setCorrect = {setCorrect} correct = {correct}/>
-            {(guessCount ==6 || correct) &&<EndModal correct = {correct} pokemon = {dailyPokemon.name} guesses={guessCount}/>}
+            {allowGuesses ?
+                <>
+                    <div id='wordleheader'>
+                        <h2 id = 'guessTitle'>Guess Today's Pokemon! </h2>
+                        <Typeahead
+                            id="pokeInput"
+                            labelKey="name"
+                            onChange={setPokeGuess}
+                            options={pokeOptions}
+                            placeholder="Choose your pokemon..."
+                            selected={pokeGuess}
+                            ref={typeaheadRef}
+                        />
+                        {(guessCount != 6 && !correct) && 
+                        <Button id='submit' onClick ={handleClick}>
+                            Submit
+                        </Button>}
+                        {(guessCount == 6 || correct) && <Button id='submit' disabled> 
+                            Submit
+                        </Button>}
+                    </div>
+                    {/* <h2>Today's Pokemon</h2> */}
+                    {/* <p>{dailyPokemon.name}! types: {dailyPokemon.type1} {dailyPokemon.type2} attack: {dailyPokemon.attack}</p> */}
+                    <ToastContainer />
+                    <Guesses guesses={guesses} trigger = {trigger} setTrigger = {setTrigger} daily = {dailyPokemon} setCorrect = {setCorrect} correct = {correct}/>
+                    {(guessCount ==6 || correct) &&<EndModal correct = {correct} pokemon = {dailyPokemon.name} guesses={guessCount}/>}
+                </> 
+                :
+                <div id='wordleheader'>
+                    <h2 id = 'guessTitle'>Check back tomorrow! </h2>
+                </div>
+            }
         </div>
     )
     

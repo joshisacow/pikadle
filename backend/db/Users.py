@@ -6,7 +6,7 @@ import os
 import json
 from flask_bcrypt import Bcrypt
 import uuid
-from flask_cors import CORS
+from datetime import date, datetime
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
@@ -17,7 +17,6 @@ class Users(Resource):
     def get(self, uid):
         # get user info
         # parse arguments
-        args = request.args.get('uid')
         conn = psycopg2.connect(url)
         cur = conn.cursor()
         cur.execute("SELECT * FROM Users WHERE uid = %s", (uid,))
@@ -28,7 +27,6 @@ class Users(Resource):
         b = Badge()
         badgearr = b.get(uid)
         # no badges found
-        print(badgearr)
         if badgearr[0] == 404:
             badgearr = []
         if user:
@@ -43,6 +41,38 @@ class Users(Resource):
 
         return user_data, 200
 
+
+# determine if user has completed the daily wordle already
+class CanGuess(Resource):
+    def get(self, uid):
+        conn = psycopg2.connect(url)
+        cur = conn.cursor()
+        cur.execute("SELECT last_guess_date FROM Users WHERE uid = %s", (uid,))
+        user = cur.fetchone()
+        cur.close()
+
+        # determine if user can attempt daily
+        today = date.today()
+        can_attempt = True
+        if user[0] is not None:
+            if today <= user[0]:
+                can_attempt = False
+
+        return can_attempt, 200
+    
+    def post(self, uid):
+        date_post_args = reqparse.RequestParser()
+        date_post_args.add_argument("date", type=str, help="date is required", required=True)
+        args = date_post_args.parse_args()
+
+        # update last attempted date
+        conn = psycopg2.connect(url)
+        cur = conn.cursor()
+        cur.execute("UPDATE users SET last_guess_date=%s WHERE uid=%s", (args['date'], uid,))
+        conn.commit()
+        cur.close()
+
+        return args['date'], 200
         
     
 class Auth(Resource):
@@ -63,14 +93,11 @@ class Auth(Resource):
         cur.close()
         
         # check user exists
-        if user:
+        if user:    
             user_data = {
                 "uid": str(user[0]),
                 "username": str(user[1]),
                 "password": str(user[2]),
-                "number_of_pokemon":int(user[3]),
-                "safari_score":int(user[4])
-                # "number_of_badges":int(user[4])
             }
         else:
             return "Username doesn't exist", 401
@@ -79,6 +106,7 @@ class Auth(Resource):
         if not bcrypt.check_password_hash(user_data.get("password", ""), password):
             return "Incorrect password", 401
         
+        del user_data["password"]
         return user_data, 200
 
     def post(self):
@@ -107,8 +135,6 @@ class Auth(Resource):
         uid = uuid.uuid1()
         cur.execute("""INSERT INTO Users (uid, username, password, number_of_pokemon, safari_score) 
 VALUES (%s, %s, %s, %s, %s);""", (str(uid), username, hashed_password, 0, 0))
-#         cur.execute("""INSERT INTO Users (uid, username, password, number_of_pokemon, number_of_badges) 
-# VALUES (%s, %s, %s, %s, %s);""", (str(uid), username, hashed_password, 0, 0))
         conn.commit()
         cur.close()
         return "Success!", 201
