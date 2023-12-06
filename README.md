@@ -1,12 +1,7 @@
 # Pikadle
 
-## Team Members and Roles
-
-Chris - Users Guru: responsible for Account info\
-Josh -   Matching Guru: matches Pokemon attributes to the heatmap of closeness\
-Justin - Capture Guru: responsible for updating "captures" and the pokedex\
-Olivia - Pokemon Information Guru: responsible for Pokemon information\
-Will - Leaderboard Guru: Updates gym "leader" board, gathering Pokemon data 
+## Team Members
+Josh, Olivia, Chris, Will, Justin
 
 MILESTONE 4
 
@@ -45,6 +40,3 @@ Backend: \
     - pokemon and users are populated\
     - open api endpoints for a random pokemon, all pokemon names, and a specific pokemon based on name\
     - open api endpoints for user creation and getting user info
-
-Github Repo:\
-https://github.com/joshisacow/pikadle/tree/main
