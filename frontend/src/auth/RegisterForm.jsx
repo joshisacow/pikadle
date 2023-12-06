@@ -18,15 +18,15 @@ const RegisterForm = () => {
     };
 
     return (
-        <>
-            <h1>Register</h1>
-            <form onSubmit={handleSubmit}>
-                <input type="text" name="username" />
-                <input type="password" name="password" />
+        <div id="registerpage">
+            <h1 id="registerheader">Register</h1>
+            <form id= 'registerform' onSubmit={handleSubmit}>
+                <input type="text" name="username" placeholder='username'/>
+                <input type="password" name="password" placeholder='password'/>
                 <button type="submit">Sign up</button>
             </form>
             <ToastContainer />
-        </>
+        </div>
     )
 }
 
