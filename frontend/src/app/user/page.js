@@ -1,10 +1,11 @@
 "use client"
 
-import { useEffect, useState, useMemo, useRef, use } from "react"
+import { useEffect, useState } from "react"
 import config from '../../../config.json'
 import { useSession } from "next-auth/react";
 import { redirect } from 'next/navigation';
-import "./page.css"
+import Image from 'next/image';
+import "./page.css";
 
 
 export default function User () {
@@ -84,8 +85,9 @@ export default function User () {
         <h2 id='welcome'>Welcome {session.user.username}!</h2>
       </div>
       <div id = "user-pokemon-info">
-        <h2>User Pokemon Information</h2>
+        <h2 className="font-bold text-xl">User Pokemon Information</h2>
         <p className="descriptions">You have {pokeCount} pokemon.</p>
+        <p className="safari-score">Safari High Score: {session.user.safari_score} </p>
         {userPokemon.length > 0 && <div id = "pokemon-display">
           {userPokemon.map((pokemon, id) => {
             if(pokemon){
@@ -104,15 +106,19 @@ export default function User () {
         </div>}
       </div>
       <div id = "badge-info">
-        <h3>User Badge Information</h3>
+        <h2 className="font-bold text-xl">User Badge Information</h2>
         <p className='descriptions'>You have {badgeCount} badges.</p>
         {userBadges && <div id = "badge-display">
           {userBadges.map((badge => {
             if(badge){
               return(
-                <div id = {badge.badge_id}>
-                  <p>Badge Name: {badge.badge_name}</p>
-                  <p>Badge Criteria: {badge.badge_description}</p>
+                <div id = {badge.badge_id} className = "badge-box" >
+                  {/* <img className='badgeSprite'src={badge.badge_sprite}></img> */}
+                  <Image src={"/trophy.svg"} width="40" height="40" className="badge-sprite" />
+                  <div className="badge-description">
+                    <p className="text-lg font-semibold">{badge.badge_name}</p>
+                    <p>{badge.badge_description}</p>
+                  </div>
                 </div>
               )
             }
