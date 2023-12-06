@@ -9,7 +9,6 @@ import EndModal from "./endModal.js";
 import 'bootstrap/dist/css/bootstrap.css'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Toast } from "bootstrap";
 import { useSession } from "next-auth/react";
 
 
@@ -131,22 +130,25 @@ export default function Wordle () {
                 <>
                     <div id='wordleheader'>
                         <h2 id = 'guessTitle'>Guess Today's Pokemon! </h2>
-                        <Typeahead
-                            id="pokeInput"
-                            labelKey="name"
-                            onChange={setPokeGuess}
-                            options={pokeOptions}
-                            placeholder="Choose your pokemon..."
-                            selected={pokeGuess}
-                            ref={typeaheadRef}
-                        />
-                        {(guessCount != 6 && !correct) && 
-                        <Button id='submit' onClick ={handleClick}>
-                            Submit
-                        </Button>}
-                        {(guessCount == 6 || correct) && <Button id='submit' disabled> 
-                            Submit
-                        </Button>}
+                        <div className="flex items-center">
+                            <Typeahead
+                                id="pokeInput"
+                                labelKey="name"
+                                onChange={setPokeGuess}
+                                options={pokeOptions}
+                                placeholder="Choose your pokemon..."
+                                selected={pokeGuess}
+                                ref={typeaheadRef}
+                                />
+                            {(guessCount != 6 && !correct) && 
+                            <Button id='submit' onClick ={handleClick}>
+                                Submit
+                            </Button>}
+                            {(guessCount == 6 || correct) && 
+                            <Button id='submit' disabled> 
+                                Submit
+                            </Button>}
+                        </div>
                     </div>
                     {/* <h2>Today's Pokemon</h2> */}
                     {/* <p>{dailyPokemon.name}! types: {dailyPokemon.type1} {dailyPokemon.type2} attack: {dailyPokemon.attack}</p> */}

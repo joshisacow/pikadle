@@ -106,7 +106,7 @@
 }
 #pokeInput {
     background-color: white;
-    width: 30%;
+    width: 100%;
     text-align: start;
 }
 
@@ -147,13 +147,18 @@
 }
 
 #submit{
-    margin-top: 2%;
     background-color: rgb(70, 137, 137);
     border: 2px outset lightseagreen;
+    /* margin-left: -20px; */
+    margin-right: 2rem;
 }
 
 #submit:hover{
     background-color: rgb(57, 123, 123);
+}
+
+#submit:active{
+    background-color: rgba(70, 137, 137, 0.7);
 }
 
 #datepicker {
