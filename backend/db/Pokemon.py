@@ -210,7 +210,7 @@ class CatchPokemon(Resource):
         conn = psycopg2.connect(url)
         cur = conn.cursor()
     
-         # Use placeholders and a tuple to safely insert variables
+        # Use placeholders and a tuple to safely insert variables
         cur.execute("INSERT INTO user_pokemon (uid, pokemon_id, date, attempts) VALUES (%s, %s, %s, %s)", (uid,pokemon_id, today, attempts))
         conn.commit()
         conn.close()
@@ -228,7 +228,7 @@ class CatchPokemon(Resource):
         conn = psycopg2.connect(url)
         cur = conn.cursor()
     
-         # Use placeholders and a tuple to safely insert variables
+        # Use placeholders and a tuple to safely insert variables
         cur.execute("INSERT INTO user_pokemon (uid, pokemon_id) VALUES (%s, %s)", (uid,pokemon_id))
         conn.commit()
         conn.close()
