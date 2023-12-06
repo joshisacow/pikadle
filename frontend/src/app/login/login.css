@@ -3,11 +3,19 @@
     flex-direction: column;
     align-items: center;
     height: 40vh;
+    width: 45vw;
+    margin: 30px auto;
+    background-color: #343a4d;
+    border-radius: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border: 3px groove black;
 }
 
 #loginform{
     display:flex;
     flex-direction: column;
+    align-items: center;
     width: 40vw;
     height: 155px;
     justify-content: space-between;
@@ -22,4 +30,21 @@
     color: black;
     border-radius: 5px;
     padding: 3px 5px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
+    width: 100%;
 }
+
+#loginform button {
+    width: 40%;
+    background-color: darkgray;
+    border-radius: 4px;
+    border-style: outset;
+    border-width: 2px;
+}
+
+#loginform button:hover {
+    background-color: gray;
+}
+

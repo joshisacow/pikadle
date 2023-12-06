@@ -85,7 +85,7 @@ const NavBar = () => {
           {!session && (
             <Link
               href="/login"
-              className="absolute top-8 right-10 text-lg font-medium bg-slate-500 p-2 text-white hover:bg-slate-600 rounded-lg active:bg-slate-700"
+              className="loginbutton absolute top-8 right-10 text-lg font-medium text-white rounded-lg"
             >
               Login
             </Link>
@@ -93,7 +93,7 @@ const NavBar = () => {
           {session && (
             <button
               onClick={() => signOut({ callbackUrl: config.BASE_URL })}
-              className="absolute top-8 right-10 text-lg font-medium bg-slate-500 p-2 text-white hover:bg-slate-600 rounded-lg active:bg-slate-700"
+              className="loginbutton absolute top-8 right-10 text-lg font-medium text-white rounded-lg"
             >
               Sign out
             </button>
