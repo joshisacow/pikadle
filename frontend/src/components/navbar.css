@@ -16,7 +16,8 @@
 }
 
 .navbutton:hover{
-    background-color: burlywood;
+    background-color: rgb(38, 95, 142);
+    border-color: rgb(128, 168, 201);
 }
 
 nav {

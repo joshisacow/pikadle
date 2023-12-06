@@ -107,9 +107,11 @@ export default function Wordle () {
     };
     return(
         <div id='answers'>
+            {!date && <p>Select a Date to Guess a Previous Date's Pokemon</p>}
             <input type="date" id="datepicker" class="form-control" onChange = {handleDateChange} selected={date} max={maxDate}/>
 
-            {date && <div>
+            {date && <div id='archivewordle'>
+                <div id='wordleheader'>
                 <h2 id = 'guessTitle'>Guess the Pokemon for {date} </h2>
             <h2>Today's Pokemon</h2>
             {/* <p>{dailyPokemon.name}! types: {dailyPokemon.type1} {dailyPokemon.type2} attack: {dailyPokemon.attack}</p> */}
@@ -129,6 +131,7 @@ export default function Wordle () {
             {(guessCount == 6 || correct) && <Button id='submit' disabled> 
                 Submit
             </Button>}
+            </div>
             <ToastContainer />
             <Guesses guesses={guesses} trigger = {trigger} setTrigger = {setTrigger} daily = {dailyPokemon} setCorrect = {setCorrect} correct = {correct}/>
             {(guessCount ==6 || correct) &&<EndModal correct = {correct} pokemon = {dailyPokemon.name} guesses={guessCount}/>} </div>}
