@@ -92,6 +92,10 @@
     flex-direction: column;
 }
 
+.badge-description p {
+    margin-bottom: 0;
+}
+
 .pokesprite {
     flex: 0 1 16%;
     display: flex;
