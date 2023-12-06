@@ -133,6 +133,7 @@
     width: 20px; 
     height: 20px; 
     border: 10px solid white;
+    background-color: white;
 }
 
 #exampleModalCenter {
