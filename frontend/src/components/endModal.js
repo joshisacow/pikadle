@@ -13,7 +13,7 @@ export default function EndModal ({correct, pokemon, guesses}){
                 throw new Error('PokeAPI not available')
             })
             .then((data) =>{
-                console.log(data.sprites.front_default)
+                // console.log(data.sprites.front_default)
                 setPokeSprite(data.sprites.front_default)
             })
     }

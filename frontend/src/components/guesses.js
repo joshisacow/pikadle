@@ -173,7 +173,7 @@ export default function Guesses({pokemon, daily, guesses}) {
                 </div>
                 {
                     guesses.map((pokemon, index) => {
-                        console.log(guessname)
+                        // console.log(guessname)
                         pokemon.sprite=pokeSprite[index]
                         if (pokemon){
                             return(

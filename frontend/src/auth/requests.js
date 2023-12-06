@@ -1,7 +1,7 @@
 import config from '../../config'
 
 export const register = async (username, password) => {
-    console.log(username, password);
+    // console.log(username, password);
 
     const request = await fetch(config.AUTH_URL, {
         method: "POST",

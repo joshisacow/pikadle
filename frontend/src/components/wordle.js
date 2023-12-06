@@ -27,7 +27,6 @@ export default function Wordle () {
     const typeaheadRef = useRef(null)
 
     const { data: session, status } = useSession();
-    console.log(session)
     const handleClick = async() => {
         if (pokeGuess == ""){
             toast.error("Enter a pokemon")
@@ -36,7 +35,6 @@ export default function Wordle () {
         // check if duplicate guess
         if (guesses.some(obj => obj.name === pokeGuess[0])) {
             toast.error("You already guessed that pokemon!");
-            console.log("bye");
             return; 
         }
 
@@ -57,11 +55,11 @@ export default function Wordle () {
                 const pokemon_id = dailyPokemon.pokemon_id
                 const attempts = guessCount + 1
                 var number_of_pokemon = session.user.number_of_pokemon + 1
-                console.log("number pokemon", number_of_pokemon)
+                // console.log("number pokemon", number_of_pokemon)
                 // console.log(typeof number_of_pokemon)
 
                 
-                console.log(uid)
+                // console.log(uid)
 
                 const request = await fetch(config.CATCH_URL, {
                     method: "POST",
@@ -75,7 +73,7 @@ export default function Wordle () {
         }  
         
 
-        console.log("guessCount", guessCount);
+        // console.log("guessCount", guessCount);
         setPokeGuess("")
         typeaheadRef.current.clear();
     }
@@ -99,7 +97,6 @@ export default function Wordle () {
             })
     }
     useEffect(() => {
-        console.log("hi");
         if (dailyPokemon == "") {
             fetchDaily();
         }
