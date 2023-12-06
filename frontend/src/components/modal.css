@@ -9,3 +9,13 @@
     width: 20vw;
     height: 20vw;
 }
+
+#modal-content {
+    background-color: #7b8aa4;
+    border: 3px outset black; 
+}
+
+#closebutton {
+    background-color: rgb(70, 137, 137);
+    border: 2px outset lightseagreen;
+}

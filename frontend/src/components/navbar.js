@@ -5,6 +5,8 @@ import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
 import Link from 'next/link';
 import config from '../../config'
+import './wordle.css'
+import './navbar.css'
 
 // loggedIn is the state of being logged in or not
 // username is the Display Name of the user, fetched from SHIB
@@ -44,36 +46,46 @@ const NavBar = () => {
       </NavLink>
     </nav>
     */
-    <nav className="bg-white-400 p-4">
+    <nav className="bg-white-400">
     <div className="container mx-auto flex items-center justify-between">
       <ul className="flex space-x-6 text-black">
-          <Link
-            href="/"
-            className="hover:text-blue-400"
-          >
+        <Link
+          href="/"
+          className="navlink hover:text-blue-400"
+        >
+          <button className='navbutton'>
             Home
-          </Link>
-          <Link
-            href="/user"
-            className="hover:text-blue-400"
-          >
-            User
-          </Link>
-          <Link
-            href="/safari"
-            className="hover:text-blue-400"
-          >
+          </button>
+        </Link>
+        <Link
+          href="/user"
+          className="navlink hover:text-blue-400"
+        >
+          <button className='navbutton'>
+           User
+          </button>
+        </Link>
+        <Link
+          href="/safari"
+          className="navlink hover:text-blue-400"
+        >
+          <button className='navbutton'>
             Safari
-          </Link>
-          <Link 
-            href = "/archive"
-            className = "hover:text-blue-400">
-              Archive
-            </Link>
+          </button>
+        </Link>
+        <Link
+            href="/archive"
+            className="navlink hover:text-blue-400"
+          >
+          <button className='navbutton'>
+            Archive
+          </button>
+        </Link>
+
           {!session && (
             <Link
               href="/login"
-              className="absolute top-8 right-10 text-lg font-medium bg-slate-500 p-2 text-white hover:bg-slate-600 rounded-lg active:bg-slate-700"
+              className="loginbutton absolute top-8 right-10 text-lg font-medium text-white rounded-lg"
             >
               Login
             </Link>
@@ -81,7 +93,7 @@ const NavBar = () => {
           {session && (
             <button
               onClick={() => signOut({ callbackUrl: config.BASE_URL })}
-              className="absolute top-8 right-10 text-lg font-medium bg-slate-500 p-2 text-white hover:bg-slate-600 rounded-lg active:bg-slate-700"
+              className="loginbutton absolute top-8 right-10 text-lg font-medium text-white rounded-lg"
             >
               Sign out
             </button>

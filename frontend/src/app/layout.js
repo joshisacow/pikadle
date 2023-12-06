@@ -13,8 +13,8 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <h1 class="text-4xl font-bold text-center my-8">Pikadle</h1>
+      <body className='body'>
+        <h1 className="logo text-4xl font-bold text-center my-8">Pikadle</h1>
         <AuthProvider>
           <NavBar />
           {children}

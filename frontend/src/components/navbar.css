@@ -1,0 +1,36 @@
+.navlink {
+    color: white;
+    text-decoration: none;
+}
+.navlink:hover {
+    color: white;
+}
+
+.navbutton {
+    background-color: steelblue;
+    width: 9vw;
+    height: 4.5vh;
+    border-radius: 5px;
+    min-width: fit-content;
+    border: 2px outset lightskyblue;
+}
+
+.navbutton:hover{
+    background-color: rgb(38, 95, 142);
+    border-color: rgb(128, 168, 201);
+}
+
+nav {
+    padding: 5px 20px 20px 20px;
+}
+
+.loginbutton {
+    padding: 8px 12px;
+    text-decoration: none;
+    background-color: rgb(169, 142, 107);
+    border: 2px outset burlywood;
+}
+.loginbutton:hover {
+    background-color: rgb(126, 101, 68);
+    border-color: rgb(184, 140, 83);
+}

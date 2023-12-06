@@ -48,18 +48,19 @@ export default function User () {
               if (response.ok){
                   return response.json()
               }
-              throw new Error('PokeAPI not available')
           })
           .then((data) =>{
-            let updatedValue = {}
-            updatedValue[pokemon] = data.sprites.front_default
-              setPokeSprite(oldObject => ({
-                ...oldObject,
-                ...updatedValue
-              }));
+            if (data){
+              let updatedValue = {}
+              updatedValue[pokemon] = data.sprites.front_default
+                setPokeSprite(oldObject => ({
+                  ...oldObject,
+                  ...updatedValue
+                }));
+          }
           })
   }
-    useEffect( ()=>{
+    useEffect(()=>{
       fetchUserInfo();
       fetchPokeDisplay();
     }, []
@@ -75,11 +76,11 @@ export default function User () {
     return(
       <div id='user-page'>
         <div id ="user-info">
-          <h2>Welcome {session.user.username}!</h2>
+          <h2 id='welcome'>Welcome {session.user.username}!</h2>
         </div>
         <div id = "user-pokemon-info">
-          <h3>User Pokemon Information</h3>
-          <p className="descriptions">You have {pokeCount} pokemon</p>
+          <h2>User Pokemon Information</h2>
+          <p className="descriptions">You have {pokeCount} pokemon.</p>
           {userPokemon.length > 0 && <div id = "pokemon-display">
             {userPokemon.map((pokemon, id) => {
               if(pokemon){

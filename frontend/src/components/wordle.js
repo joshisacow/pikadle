@@ -108,25 +108,27 @@ export default function Wordle () {
     
     return(
         <div id='answers'>
-            <h2 id = 'guessTitle'>Guess Today's Pokemon! </h2>
-            <h2>Today's Pokemon</h2>
+            <div id='wordleheader'>
+                <h2 id = 'guessTitle'>Guess Today's Pokemon! </h2>
+                <Typeahead
+                    id="pokeInput"
+                    labelKey="name"
+                    onChange={setPokeGuess}
+                    options={pokeOptions}
+                    placeholder="Choose your pokemon..."
+                    selected={pokeGuess}
+                    ref={typeaheadRef}
+                />
+                {(guessCount != 6 && !correct) && 
+                <Button id='submit' onClick ={handleClick}>
+                    Submit
+                </Button>}
+                {(guessCount == 6 || correct) && <Button id='submit' disabled> 
+                    Submit
+                </Button>}
+            </div>
+            {/* <h2>Today's Pokemon</h2> */}
             {/* <p>{dailyPokemon.name}! types: {dailyPokemon.type1} {dailyPokemon.type2} attack: {dailyPokemon.attack}</p> */}
-            <Typeahead
-                id="pokeInput"
-                labelKey="name"
-                onChange={setPokeGuess}
-                options={pokeOptions}
-                placeholder="Choose your pokemon..."
-                selected={pokeGuess}
-                ref={typeaheadRef}
-            />
-            {(guessCount != 6 && !correct) && 
-            <Button id='submit' onClick ={handleClick}>
-                Submit
-            </Button>}
-            {(guessCount == 6 || correct) && <Button id='submit' disabled> 
-                Submit
-            </Button>}
             <ToastContainer />
             <Guesses guesses={guesses} trigger = {trigger} setTrigger = {setTrigger} daily = {dailyPokemon} setCorrect = {setCorrect} correct = {correct}/>
             {(guessCount ==6 || correct) &&<EndModal correct = {correct} pokemon = {dailyPokemon.name} guesses={guessCount}/>}

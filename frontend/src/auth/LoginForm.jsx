@@ -25,15 +25,15 @@ export default function Form() {
         }   
     };
     return (
-        <>
-            <h1>Login</h1>
-            <form onSubmit={handleSubmit}>
-                <input type="text" name="username" />
-                <input type="password" name="password" />
-                <button type="submit">Sign in</button>
-                <button type="button" onClick={() => router.push("/register")}>Sign up</button>
+        <div id="loginpage">
+            <h1 id="logheader">Login</h1>
+            <form id="loginform" onSubmit={handleSubmit}>
+                <input id="username" type="text" name="username" placeholder='username'/>
+                <input id="password" type="password" name="password" placeholder='password'/>
+                <button id = "signin"type="submit">Sign in</button>
+                <button id = "signup"type="button" onClick={() => router.push("/register")}>Sign up</button>
             </form>
             <ToastContainer />
-        </>
+        </div>
     )
 }
