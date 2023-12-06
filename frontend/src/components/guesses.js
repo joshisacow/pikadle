@@ -144,7 +144,6 @@ export default function Guesses({pokemon, daily, guesses}) {
             })
             .then((data) =>{
                 if (data){
-                    console.log(data.sprites.front_default)
                     setPokeSprite(oldArray => [...oldArray, data.sprites.front_default]);
                 }
             })
@@ -173,7 +172,6 @@ export default function Guesses({pokemon, daily, guesses}) {
                 </div>
                 {
                     guesses.map((pokemon, index) => {
-                        // console.log(guessname)
                         pokemon.sprite=pokeSprite[index]
                         if (pokemon){
                             return(

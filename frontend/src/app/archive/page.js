@@ -107,7 +107,7 @@ export default function Wordle () {
             {date && <div id='archivewordle'>
                 <div id='wordleheader'>
                 <h2 id = 'guessTitle'>Guess the Pokemon for {date} </h2>
-            <h2>Today's Pokemon</h2>
+            {/* <h2>Today's Pokemon</h2> */}
             {/* <p>{dailyPokemon.name}! types: {dailyPokemon.type1} {dailyPokemon.type2} attack: {dailyPokemon.attack}</p> */}
             <Typeahead
                 id="pokeInput"
