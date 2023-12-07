@@ -139,13 +139,15 @@ export default function Wordle () {
                                 ref={typeaheadRef}
                                 />
                             {(guessCount != config.MAX_COUNT && !correct) && 
-                            <Button id='submit' onClick ={handleClick}>
-                                Submit
-                            </Button>}
+                                <Button id='submit' onClick ={handleClick}>
+                                    Submit
+                                </Button>
+                            }
                             {(guessCount == config.MAX_COUNT || correct) && 
-                            <Button id='submit' disabled> 
-                                Submit
-                            </Button>}
+                                <Button id='submit' disabled> 
+                                    Submit
+                                </Button>
+                            }
                         </div>
                     </div>
                     {/* <h2>Today's Pokemon</h2> */}
