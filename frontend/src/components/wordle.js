@@ -48,10 +48,13 @@ export default function Wordle () {
         if (pokeGuess[0] == dailyPokemon.name){
             setCorrect(true)
             if (session){
-                // console.log(pokemon)
+                // successful guess
                 const uid = session.user.uid
                 const pokemon_id = dailyPokemon.pokemon_id
                 const attempts = guessCount + 1
+
+                // should set can guess to false
+                updateLatestDate();
 
                 const request = await fetch(config.CATCH_URL, {
                     method: "POST",
@@ -97,14 +100,9 @@ export default function Wordle () {
 
     const updateLatestDate = async () => {
         // update latest attempted date in db
-        const date = new Date();
         if (session) {
             const request = await fetch(config.SITE_URL + "canguess/" + session.user.uid, {
                 method: "POST",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({"date": date})
             })
             const response = await request.json();
             console.log(response);

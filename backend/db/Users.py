@@ -6,7 +6,7 @@ import os
 import json
 from flask_bcrypt import Bcrypt
 import uuid
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
@@ -61,18 +61,16 @@ class CanGuess(Resource):
         return can_attempt, 200
     
     def post(self, uid):
-        date_post_args = reqparse.RequestParser()
-        date_post_args.add_argument("date", type=str, help="date is required", required=True)
-        args = date_post_args.parse_args()
+        # update last attempted date to today
+        today = date.today()
 
         # update last attempted date
         conn = psycopg2.connect(url)
         cur = conn.cursor()
-        cur.execute("UPDATE users SET last_guess_date=%s WHERE uid=%s", (args['date'], uid,))
+        cur.execute("UPDATE users SET last_guess_date=%s WHERE uid=%s", (today, uid,))
         conn.commit()
         cur.close()
-
-        return args['date'], 200
+        return "success", 200
         
     
 class Auth(Resource):
