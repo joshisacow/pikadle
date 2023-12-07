@@ -12,5 +12,6 @@
     "DAILY_URL": "http://127.0.0.1:8080/daily",
     "BADGE_URL": "http://127.0.0.1:8080/badge",
     "CAUGHT_URL": "http://127.0.0.1:8080/caught/",
-    "SITE_URL": "http://127.0.0.1:8080/"
+    "SITE_URL": "http://127.0.0.1:8080/",
+    "MAX_COUNT": 10
 }

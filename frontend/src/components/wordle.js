@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect, useState, useMemo, useRef } from "react"
+import React, { useEffect, useState, useRef } from "react"
 import Guesses from './guesses.js'
 import { Typeahead } from 'react-bootstrap-typeahead';
 import './wordle.css'
@@ -37,7 +37,7 @@ export default function Wordle () {
         }
 
         setGuessCount(guessCount + 1)
-        if (guessCount == 5){
+        if (guessCount == config.MAX_COUNT - 1){
             updateLatestDate();
         } 
         const response = await fetch(config.POKEMON_URL + pokeGuess[0]);
@@ -97,7 +97,7 @@ export default function Wordle () {
 
     const updateLatestDate = async () => {
         // update latest attempted date in db
-        date = new Date();
+        const date = new Date();
         if (session) {
             const request = await fetch(config.SITE_URL + "canguess/" + session.user.uid, {
                 method: "POST",
@@ -140,11 +140,11 @@ export default function Wordle () {
                                 selected={pokeGuess}
                                 ref={typeaheadRef}
                                 />
-                            {(guessCount != 6 && !correct) && 
+                            {(guessCount != config.MAX_COUNT && !correct) && 
                             <Button id='submit' onClick ={handleClick}>
                                 Submit
                             </Button>}
-                            {(guessCount == 6 || correct) && 
+                            {(guessCount == config.MAX_COUNT || correct) && 
                             <Button id='submit' disabled> 
                                 Submit
                             </Button>}
@@ -154,7 +154,7 @@ export default function Wordle () {
                     {/* <p>{dailyPokemon.name}! types: {dailyPokemon.type1} {dailyPokemon.type2} attack: {dailyPokemon.attack}</p> */}
                     <ToastContainer />
                     <Guesses guesses={guesses} trigger = {trigger} setTrigger = {setTrigger} daily = {dailyPokemon} setCorrect = {setCorrect} correct = {correct}/>
-                    {(guessCount ==6 || correct) &&<EndModal correct = {correct} pokemon = {dailyPokemon.name} guesses={guessCount}/>}
+                    {(guessCount == config.MAX_COUNT || correct) &&<EndModal correct = {correct} pokemon = {dailyPokemon.name} guesses={guessCount}/>}
                 </> 
                 :
                 <div id='wordleheader'>
