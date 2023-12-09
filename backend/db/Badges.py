@@ -87,7 +87,7 @@ class NewBadge(Resource):
         else:
             # new badges
             for badge_id in diff:
-                cur.execute("INSERT INTO user_badges (user_id, pokemon_id) VALUES (%s, %s)", (uid,pokemon_id))
+                cur.execute("INSERT INTO user_badges (user_id, badge_id) VALUES (%s, %s)", (uid,badge_id))
         cur.close()
         return True
         # badgesmet = [dict(zip(columns, row)) for row in badgesmet]
