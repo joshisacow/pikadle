@@ -29,6 +29,7 @@ class Badge:
 
 class UserBadge(Resource):
     def get(self, uid):
+        
         # get all badges associated with user
         # parse arguments
         # args = request.args.get('uid')
@@ -50,6 +51,44 @@ class UserBadge(Resource):
         else: 
             return {"message": "Badge not found"}, 400
 
-    def post(self, uid, type, score){
+class NewBadge(Resource):
+    def post(self):
+        register_post_args = reqparse.RequestParser()
+        register_post_args.add_argument("uid", type=str, required=True)
+        register_post_args.add_argument("gametype", type=str, required=True)
+        register_post_args.add_argument("score", type=int, required=True)
+        args = register_post_args.parse_args()
+
+        uid= args['uid']
+        gametype = args['gametype']
+        score = args['score']
+
+        conn = psycopg2.connect(url)
+        cur = conn.cursor()
+        if gametype == "p":
+            cur.execute("SELECT number_of_pokemon FROM users WHERE uid = %s", (uid,))
+            pokecounttuple = cur.fetchone()
+            pokecount = pokecounttuple[0] + 1
+            cur.execute("SELECT badge_id FROM badges WHERE type = %s AND badge_criteria <= %s", (gametype, pokecount))
+            badgesmet = cur.fetchall()
+        else: 
+            cur.execute("SELECT badge_id FROM badges WHERE type = %s AND badge_criteria <= %s", (gametype, score))
+            badgesmet = cur.fetchall()
+        cur.execute("SELECT badge_id FROM user_badges WHERE user_id = %s", (uid,))
+        currentbadges = cur.fetchall()
         
-    }
+        # find diff between two sets
+        badgesmet, currentbadges = set(badgesmet), set(currentbadges)
+        diff = badgesmet.difference(currentbadges)
+        if not diff:
+            # no new badges
+            cur.close()
+            return False
+        else:
+            # new badges
+            for badge_id in diff:
+                cur.execute("INSERT INTO user_badges (user_id, pokemon_id) VALUES (%s, %s)", (uid,pokemon_id))
+        cur.close()
+        return True
+        # badgesmet = [dict(zip(columns, row)) for row in badgesmet]
+    

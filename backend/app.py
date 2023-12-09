@@ -33,6 +33,7 @@ api.add_resource(Users.Badge, '/badge/<string:uid>')
 api.add_resource(Users.CanGuess, '/canguess/<string:uid>')
 api.add_resource(Badges.UserBadge, '/userbadge/<string:uid>')
 api.add_resource(Users.UserSafari, '/safariscore')
+api.add_resource(Badges.NewBadge, '/newbadge')
 
 if __name__ == '__main__':
     app.run(port=8080, debug=True)
