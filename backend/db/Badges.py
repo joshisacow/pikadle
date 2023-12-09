@@ -36,6 +36,7 @@ class UserBadge(Resource):
         cur = conn.cursor()
         cur.execute("SELECT * FROM user_badges WHERE user_badges.user_id = %s", (uid,))
         badges = cur.fetchall()
+        columns = [desc[0] for desc in cur.description]
         cur.close()
 
         badges = [dict(zip(columns, row)) for row in badges]

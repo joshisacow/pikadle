@@ -21,7 +21,7 @@ export default function User () {
   const [userPokemon, setUserPokemon] = useState([]);
   const [safariScore, setSafariScore] = useState(0);
   const [pokeSprite, setPokeSprite] = useState({});
-  const [badges, setBadges] = useState({})
+  const [badges, setBadges] = useState([])
 
   const fetchUserInfo = () =>{
     if (session) {
@@ -61,6 +61,7 @@ export default function User () {
       fetch(config.USERBADGE_URL + session.user.uid)
         .then(response => response.json())
         .then((data) => {
+          setBadges(data)
           console.log(data)
         })
     }
@@ -88,7 +89,7 @@ export default function User () {
   useEffect(()=>{
     fetchUserInfo();
     fetchPokeDisplay();
-    // fetchUserBadge();
+    fetchUserBadge();
   }, [session]);
 
   return session ? (
@@ -121,7 +122,7 @@ export default function User () {
         <h2 className="font-bold text-xl">User Badge Information</h2>
         <p className='descriptions'>You have {badgeCount} badges.</p>
         {userBadges && <div id = "badge-display">
-          {userBadges.map((badge => {
+          {userBadges.map((badge, id) => {
             if(badge){
               return(
                 <div id = {badge.badge_id} className = "badge-box" >
@@ -130,11 +131,12 @@ export default function User () {
                   <div className="badge-description">
                     <p className="text-lg font-semibold">{badge.badge_name}</p>
                     <p>{badge.badge_description}</p>
+                    <p>Date acheived: {badges[id].date}</p>
                   </div>
                 </div>
               )
             }
-          }))}
+          })}
         </div>}
       </div>
     </div>
