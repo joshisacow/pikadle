@@ -4,6 +4,7 @@ import psycopg2
 from dotenv import load_dotenv
 import os
 import json
+from datetime import date, datetime
 
 app = Flask(__name__)
 load_dotenv()
@@ -83,12 +84,13 @@ class NewBadge(Resource):
         if not diff:
             # no new badges
             cur.close()
-            return False
+            return False, 404
         else:
             # new badges
+            today = date.today()
             for badge_id in diff:
-                cur.execute("INSERT INTO user_badges (user_id, badge_id) VALUES (%s, %s)", (uid,badge_id))
+                cur.execute("INSERT INTO user_badges (user_id, badge_id, date) VALUES (%s, %s, %s)", (uid, badge_id, today))
+        conn.commit()
         cur.close()
-        return True
-        # badgesmet = [dict(zip(columns, row)) for row in badgesmet]
+        return True, 200
     

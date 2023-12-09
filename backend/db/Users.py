@@ -150,7 +150,7 @@ class Badge(Resource):
             badges_data = []
             for badge in badges:
                 badges_data.append(int(badge[1]))
-            
+                # TODO: Add dates for badges            
             return self.getBadgeInfo(badges_data)
         else:
             return [404]
