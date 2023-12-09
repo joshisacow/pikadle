@@ -160,12 +160,13 @@ class Badge(Resource):
         cur = conn.cursor()
         ret = []
         for badge_id in badges:
-            cur.execute("SELECT badge_id, badge_name, badge_description FROM badges WHERE badge_id = %s", (badge_id,))
+            cur.execute("SELECT badge_id, badge_name, badge_description, sprite FROM badges WHERE badge_id = %s", (badge_id,))
             badge = cur.fetchone()
             badge_data = {
                 "badge_id": str(badge[0]),
                 "badge_name": str(badge[1]),
-                "badge_description": str(badge[2])
+                "badge_description": str(badge[2]),
+                "sprite": str(badge[3])
             }
             ret.append(badge_data)
         cur.close()

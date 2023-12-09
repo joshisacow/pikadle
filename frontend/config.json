@@ -13,5 +13,6 @@
     "BADGE_URL": "http://127.0.0.1:8080/badge",
     "CAUGHT_URL": "http://127.0.0.1:8080/caught/",
     "SITE_URL": "http://127.0.0.1:8080/",
+    "USERBADGE_URL": "http://127.0.0.1:8080/userbadge/",
     "MAX_COUNT": 10
 }

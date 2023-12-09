@@ -10,10 +10,11 @@ load_dotenv()
 url = os.getenv('DATABASE_URL')
 
 class Badge:
-    def __init__(self, name, description, criteria):
+    def __init__(self, name, description, criteria, sprite):
         self.name = name
         self.description = description
         self.criteria = criteria
+        self.sprite = sprite
         self.is_unlocked = False
 
     def unlock(self, user_progress):
@@ -26,3 +27,25 @@ class Badge:
     
 
 
+class UserBadge(Resource):
+    def get(self, uid):
+        # get all badges associated with user
+        # parse arguments
+        # args = request.args.get('uid')
+        conn = psycopg2.connect(url)
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM user_badges WHERE user_badges.user_id = %s", (uid,))
+        badges = cur.fetchall()
+        columns = [desc[0] for desc in cur.description]
+        cur.close()
+
+        badges = [dict(zip(columns, row)) for row in badges]
+
+        if badges:   
+            for b in badges:
+                if b['date']:
+                    b['date'] = b['date'].isoformat()
+        if badges:
+            return badges, 200
+        else: 
+            return {"message": "Badge not found"}, 400
