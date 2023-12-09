@@ -13,6 +13,7 @@ def get():
 
 import db.Pokemon as Pokemon
 import db.Users as Users
+import db.Badges as Badges
 class Main(Resource):
     def get(self):
         return "pikadle API", 200
@@ -30,6 +31,7 @@ api.add_resource(Users.Users, '/users/<string:uid>')
 api.add_resource(Users.Auth, '/auth')
 api.add_resource(Users.Badge, '/badge/<string:uid>')
 api.add_resource(Users.CanGuess, '/canguess/<string:uid>')
+api.add_resource(Badges.UserBadge, '/userbadge/<string:uid>')
 
 if __name__ == '__main__':
     app.run(port=8080, debug=True)

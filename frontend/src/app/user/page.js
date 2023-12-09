@@ -21,6 +21,7 @@ export default function User () {
   const [userPokemon, setUserPokemon] = useState([]);
   const [safariScore, setSafariScore] = useState(0);
   const [pokeSprite, setPokeSprite] = useState({});
+  const [badges, setBadges] = useState({})
 
   const fetchUserInfo = () =>{
     if (session) {
@@ -30,7 +31,6 @@ export default function User () {
           setPokeCount(data.number_of_pokemon);
           setBadgeCount(data.number_of_badges);
           setSafariScore(data.safari_score);
-
           // iterate through badges and set state
           const newUserBadges = [];
           for (let i = 0; i < data.number_of_badges; i++){
@@ -56,6 +56,15 @@ export default function User () {
       })
     } 
   }
+  const fetchUserBadge = () => {
+    if (session) {
+      fetch(config.USERBADGE_URL + session.user.uid)
+        .then(response => response.json())
+        .then((data) => {
+          console.log(data)
+        })
+    }
+  }
   const fetchSprite = (pokemon) => {
     fetch(` https://pokeapi.co/api/v2/pokemon/${pokemon.toLowerCase()}`)
         .then((response) => {
@@ -79,6 +88,7 @@ export default function User () {
   useEffect(()=>{
     fetchUserInfo();
     fetchPokeDisplay();
+    // fetchUserBadge();
   }, [session]);
 
   return session ? (
@@ -116,7 +126,7 @@ export default function User () {
               return(
                 <div id = {badge.badge_id} className = "badge-box" >
                   {/* <img className='badgeSprite'src={badge.badge_sprite}></img> */}
-                  <Image src={"/trophy.svg"} width="40" height="40" className="badge-sprite" />
+                  <img src={badge.sprite} width="40" height="40" className="badge-sprite" />
                   <div className="badge-description">
                     <p className="text-lg font-semibold">{badge.badge_name}</p>
                     <p>{badge.badge_description}</p>
