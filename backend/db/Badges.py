@@ -49,3 +49,7 @@ class UserBadge(Resource):
             return badges, 200
         else: 
             return {"message": "Badge not found"}, 400
+
+    def post(self, uid, type, score){
+        
+    }
