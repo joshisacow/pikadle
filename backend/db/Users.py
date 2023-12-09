@@ -147,4 +147,33 @@ class Badge(Resource):
         cur.close()
         return ret
         
+class UserSafari(Resource):
+    def get(self, uid):
+        conn = psycopg2.connect(url)
+        cur = conn.cursor()
+        cur.execute("SELECT safari_score FROM users WHERE users.uid = %s", (uid,))
+        safari_score = cur.fetchone()
+        #print(safari_score)
+        cur.close()
+        if safari_score:
+            return safari_score[0]
+        else:
+            return 0
+
+    def post(self):
+        register_post_args = reqparse.RequestParser()
+        register_post_args.add_argument("uid", type=str, required=True)
+        register_post_args.add_argument("score", type=int, required=True)
+        args = register_post_args.parse_args()
+
+        uid= args['uid']
+        score = args['score']
+
+        conn = psycopg2.connect(url)
+        cur = conn.cursor()
+        highest_score = max(score, self.get(uid))
+        cur.execute("UPDATE users SET safari_score = %s WHERE users.uid = %s", (score,uid))
+        conn.commit()
+        conn.close()
+        return "success", 201
 

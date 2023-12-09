@@ -5,13 +5,14 @@ import { useEffect, useState, useMemo, useRef } from "react"
 import Guesses from '../../components/guesses.js'
 import { Typeahead } from 'react-bootstrap-typeahead';
 import Form from 'react-bootstrap/Form';
-import '../../components/wordle.css';
+import '../../components/wordle.css'
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import config from '../../../config.json'
 import Button from 'react-bootstrap/Button'
 import EndModal from "../../components/safariEndModal.js";
 import 'bootstrap/dist/css/bootstrap.css'
-
+import { useSession } from "next-auth/react";
 
 export default function Safari(){
     const [pokeOptions, setPokeOptions] = useState([]); //same as in wordle.js
@@ -24,7 +25,9 @@ export default function Safari(){
     const [score, setScore] = useState(0)
     const [isButtonDisabled, setButtonDisabled] = useState(false)
     const typeaheadRef = useRef(null)
+    const total_guesses = 10
 
+    const { data: session, status } = useSession();
     //const [trigger, setTrigger] = useState(false);
     //const [c, setC] = useState(0)
     function handleSubmit(){}
@@ -88,46 +91,60 @@ export default function Safari(){
         if (pokeOptions.length == 0) {
             fetchOptions();
         }
-    }, [])//immediately get a random type, not set for daily
+    }, [])//get daily type
 
     useEffect(() =>{
         fetchRandomGivenType(pokeType);
     }, [pokeType])//when type is set, get a random pokemon of that type
 
-
+    useEffect(() =>{
+        if(guessCount >= total_guesses){
+            if(session){
+                const uid = session.user.uid
+                const request = fetch(config.UPDATE_SAFARI_URL, {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({"uid": uid, "score": score})
+                })
+                console.log(request);
+                console.log(uid);
+                console.log(score);
+            }
+        }
+    }, [guessCount])
 
 
     return (
         <div id='answers' className="relative">
-            <h2>Safari Zone!</h2>
+            <h1>Safari Zone!</h1>
             <p>In Safari Mode, you get 30 tries to catch as many pokemon of a certain type!</p>
             <p>Try to catch more than you friends!</p>
-            <p>Guesses Remaining: {30 - guessCount}</p>
-            <div>
-                <span >Score:</span>
-                <span >{score}</span>
-            </div>
             <h3>Today's type: {pokeType} </h3>
-            <h2>Today's Pokemon</h2>
-            <p>{randomPokemon.name}! types: {randomPokemon.type1} {randomPokemon.type2} attack: {randomPokemon.attack}</p>
-            <Typeahead
-                id="pokeInput"
-                labelKey="name"
-                onChange={setPokeGuess}
-                options={pokeOptions}
-                placeholder="Choose your pokemon..."
-                selected={pokeGuess}
-                ref={typeaheadRef}
-            />
-            {(guessCount < 30) && <Button id='submit' onClick ={handleClick} disabled={isButtonDisabled}>
-                Submit
-            </Button>}
-            {(guessCount >= 30) && <Button id='submit'> 
-                Submit
-            </Button>}
+            <div id='wordleheader'>
+                <p>Guesses Remaining: {total_guesses - guessCount}</p>
+                <p>Score: {score}</p>
+            
+                <Typeahead
+                    id="pokeInput"
+                    labelKey="name"
+                    onChange={setPokeGuess}
+                    options={pokeOptions}
+                    placeholder="Choose your pokemon..."
+                    selected={pokeGuess}
+                    ref={typeaheadRef}
+                />
+                {(guessCount < total_guesses) && <Button id='submit' onClick ={handleClick} disabled={isButtonDisabled}>
+                    Submit
+                </Button>}
+                {(guessCount >= total_guesses) && <Button id='submit'> 
+                    Submit
+                </Button>}
+            </div>
             <ToastContainer/>
             <Guesses pokemon = {pokemon} daily = {randomPokemon} guesses = {guesses}/>
-            {(guessCount==30)&&<EndModal score = {score}></EndModal>}
+            {(guessCount==total_guesses)&&<EndModal score = {score}></EndModal>}
         </div>
     )
 }
