@@ -48,7 +48,7 @@ const NavBar = () => {
     */
     <nav className="bg-white-400">
     <div className="container mx-auto flex items-center justify-between">
-      <ul className="flex space-x-6 text-black">
+      <ul className="flex space-x-6 text-black linklist">
         <Link
           href="/"
           className="navlink hover:text-blue-400"

@@ -6,7 +6,7 @@ import os
 import json
 from flask_bcrypt import Bcrypt
 import uuid
-from flask_cors import CORS
+from datetime import date, datetime, timedelta
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
@@ -17,7 +17,6 @@ class Users(Resource):
     def get(self, uid):
         # get user info
         # parse arguments
-        args = request.args.get('uid')
         conn = psycopg2.connect(url)
         cur = conn.cursor()
         cur.execute("SELECT * FROM Users WHERE uid = %s", (uid,))
@@ -28,7 +27,6 @@ class Users(Resource):
         b = Badge()
         badgearr = b.get(uid)
         # no badges found
-        print(badgearr)
         if badgearr[0] == 404:
             badgearr = []
         if user:
@@ -43,6 +41,36 @@ class Users(Resource):
 
         return user_data, 200
 
+
+# determine if user has completed the daily wordle already
+class CanGuess(Resource):
+    def get(self, uid):
+        conn = psycopg2.connect(url)
+        cur = conn.cursor()
+        cur.execute("SELECT last_guess_date FROM Users WHERE uid = %s", (uid,))
+        user = cur.fetchone()
+        cur.close()
+
+        # determine if user can attempt daily
+        today = date.today()
+        can_attempt = True
+        if user[0] is not None:
+            if today <= user[0]:
+                can_attempt = False
+
+        return can_attempt, 200
+    
+    def post(self, uid):
+        # update last attempted date to today
+        today = date.today()
+
+        # update last attempted date
+        conn = psycopg2.connect(url)
+        cur = conn.cursor()
+        cur.execute("UPDATE users SET last_guess_date=%s WHERE uid=%s", (today, uid,))
+        conn.commit()
+        cur.close()
+        return "success", 200
         
     
 class Auth(Resource):
@@ -63,14 +91,11 @@ class Auth(Resource):
         cur.close()
         
         # check user exists
-        if user:
+        if user:    
             user_data = {
                 "uid": str(user[0]),
                 "username": str(user[1]),
                 "password": str(user[2]),
-                "number_of_pokemon":int(user[3]),
-                "safari_score":int(user[4])
-                # "number_of_badges":int(user[4])
             }
         else:
             return "Username doesn't exist", 401
@@ -79,6 +104,7 @@ class Auth(Resource):
         if not bcrypt.check_password_hash(user_data.get("password", ""), password):
             return "Incorrect password", 401
         
+        del user_data["password"]
         return user_data, 200
 
     def post(self):
@@ -107,8 +133,6 @@ class Auth(Resource):
         uid = uuid.uuid1()
         cur.execute("""INSERT INTO Users (uid, username, password, number_of_pokemon, safari_score) 
 VALUES (%s, %s, %s, %s, %s);""", (str(uid), username, hashed_password, 0, 0))
-#         cur.execute("""INSERT INTO Users (uid, username, password, number_of_pokemon, number_of_badges) 
-# VALUES (%s, %s, %s, %s, %s);""", (str(uid), username, hashed_password, 0, 0))
         conn.commit()
         cur.close()
         return "Success!", 201
@@ -136,12 +160,13 @@ class Badge(Resource):
         cur = conn.cursor()
         ret = []
         for badge_id in badges:
-            cur.execute("SELECT badge_id, badge_name, badge_description FROM badges WHERE badge_id = %s", (badge_id,))
+            cur.execute("SELECT badge_id, badge_name, badge_description, sprite FROM badges WHERE badge_id = %s", (badge_id,))
             badge = cur.fetchone()
             badge_data = {
                 "badge_id": str(badge[0]),
                 "badge_name": str(badge[1]),
-                "badge_description": str(badge[2])
+                "badge_description": str(badge[2]),
+                "sprite": str(badge[3])
             }
             ret.append(badge_data)
         cur.close()
@@ -153,7 +178,7 @@ class UserSafari(Resource):
         cur = conn.cursor()
         cur.execute("SELECT safari_score FROM users WHERE users.uid = %s", (uid,))
         safari_score = cur.fetchone()
-        #print(safari_score)
+        print(safari_score)
         cur.close()
         if safari_score:
             return safari_score[0]
@@ -172,7 +197,9 @@ class UserSafari(Resource):
         conn = psycopg2.connect(url)
         cur = conn.cursor()
         highest_score = max(score, self.get(uid))
-        cur.execute("UPDATE users SET safari_score = %s WHERE users.uid = %s", (score,uid))
+        print(score)
+        print(self.get(uid))
+        cur.execute("UPDATE users SET safari_score = %s WHERE users.uid = %s", (highest_score,uid))
         conn.commit()
         conn.close()
         return "success", 201

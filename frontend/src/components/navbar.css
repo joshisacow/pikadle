@@ -4,6 +4,7 @@
 }
 .navlink:hover {
     color: white;
+    margin: auto;
 }
 
 .navbutton {
@@ -13,6 +14,7 @@
     border-radius: 5px;
     min-width: fit-content;
     border: 2px outset lightskyblue;
+    margin: 2px 35px;
 }
 
 .navbutton:hover{
@@ -33,4 +35,15 @@ nav {
 .loginbutton:hover {
     background-color: rgb(126, 101, 68);
     border-color: rgb(184, 140, 83);
+}
+.linklist {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content:space-around;
+    margin: 0 auto 10px auto;
+    background-color: rgb(117, 154, 183);
+    padding: 8px 0px;
+    border-radius: 8px;
+    border: 3px outset lightblue;
 }

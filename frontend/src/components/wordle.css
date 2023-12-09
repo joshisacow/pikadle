@@ -52,7 +52,6 @@
 .rbt {
     width: 23vw;
     text-align: start;
-    margin: 0 auto;
 }
 
 .guessRight{
@@ -106,7 +105,7 @@
 }
 #pokeInput {
     background-color: white;
-    width: 30%;
+    width: 100%;
     text-align: start;
 }
 
@@ -133,6 +132,7 @@
     width: 20px; 
     height: 20px; 
     border: 10px solid white;
+    background-color: white;
 }
 
 #exampleModalCenter {
@@ -146,13 +146,16 @@
 }
 
 #submit{
-    margin-top: 2%;
     background-color: rgb(70, 137, 137);
     border: 2px outset lightseagreen;
 }
 
 #submit:hover{
     background-color: rgb(57, 123, 123);
+}
+
+#submit:active{
+    background-color: rgba(70, 137, 137, 0.7);
 }
 
 #datepicker {
@@ -172,4 +175,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.inputs {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 80%;
+    margin: 0 auto;
 }

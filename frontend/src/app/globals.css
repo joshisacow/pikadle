@@ -43,4 +43,17 @@ main {
 
 .logo {
   font-size: 56px;
+  margin-right: 8px;
+  margin-left: 8px;
+}
+
+.logoball {
+  width: 5vw
+}
+
+header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }

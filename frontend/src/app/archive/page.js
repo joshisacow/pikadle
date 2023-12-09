@@ -16,10 +16,8 @@ export default function Wordle () {
     const [pokeOptions, setPokeOptions] = useState([]);
     const [dailyPokemon, setDailyPokemon] = useState("");
     const [pokeGuess, setPokeGuess] = useState("");
-    const [pokemon, setPokemon] = useState();
     const [guessCount, setGuessCount] = useState(0);
     const [trigger, setTrigger] = useState(false)
-    const [allowGuesses, setAllowGuesses] = useState(true);
     const [guesses, setGuesses] = useState([]);
     const [correct, setCorrect] = useState(false)
     const typeaheadRef = useRef(null)
@@ -37,13 +35,13 @@ export default function Wordle () {
         }
 
         setGuessCount(guessCount + 1)
-        if (guessCount == 5){
-            setAllowGuesses(false)
-        } 
+        // if (guessCount == 5){
+        //     setAllowGuesses(false)
+        // } 
         
         const response = await fetch(config.POKEMON_URL + pokeGuess[0]);
         const guess = await response.json();  
-        setPokemon(guess);
+        // setPokemon(guess);
         // setTrigger(!trigger);
         setGuesses(oldArray => [...oldArray, guess]);
         if (pokeGuess[0] == dailyPokemon.name){
@@ -93,7 +91,7 @@ export default function Wordle () {
 
     const handleDateChange = (event) => {
         setDate(event.target.value);
-        const currPokemon = fetchDate(event.target.value);
+        fetchDate(event.target.value);
         if (typeaheadRef.current){
             setPokeGuess("")
             typeaheadRef.current.clear()
@@ -106,29 +104,34 @@ export default function Wordle () {
 
             {date && <div id='archivewordle'>
                 <div id='wordleheader'>
-                <h2 id = 'guessTitle'>Guess the Pokemon for {date} </h2>
-            <h2>Today's Pokemon</h2>
+                    <h2 id = 'guessTitle'>Guess the Pokemon for {date} </h2>
+            {/* <h2>Today's Pokemon</h2> */}
             {/* <p>{dailyPokemon.name}! types: {dailyPokemon.type1} {dailyPokemon.type2} attack: {dailyPokemon.attack}</p> */}
-            <Typeahead
-                id="pokeInput"
-                labelKey="name"
-                onChange={setPokeGuess}
-                options={pokeOptions}
-                placeholder="Choose your pokemon..."
-                selected={pokeGuess}
-                ref={typeaheadRef}
-            />
-            {(guessCount != 6 && !correct) && 
-            <Button id='submit' onClick ={handleClick}>
-                Submit
-            </Button>}
-            {(guessCount == 6 || correct) && <Button id='submit' disabled> 
-                Submit
-            </Button>}
-            </div>
+                    <div className="inputs">
+                        <Typeahead
+                            id="pokeInput"
+                            labelKey="name"
+                            onChange={setPokeGuess}
+                            options={pokeOptions}
+                            placeholder="Choose your pokemon..."
+                            selected={pokeGuess}
+                            ref={typeaheadRef}
+                            />
+                        {(guessCount != config.MAX_COUNT && !correct) && 
+                            <Button id='submit' onClick ={handleClick}>
+                                Submit
+                            </Button>
+                        }
+                        {(guessCount == config.MAX_COUNT || correct) && 
+                            <Button id='submit' disabled> 
+                                Submit
+                            </Button>
+                        }
+                    </div>
+                </div>
             <ToastContainer />
             <Guesses guesses={guesses} trigger = {trigger} setTrigger = {setTrigger} daily = {dailyPokemon} setCorrect = {setCorrect} correct = {correct}/>
-            {(guessCount ==6 || correct) &&<EndModal correct = {correct} pokemon = {dailyPokemon.name} guesses={guessCount}/>} </div>}
+            {(guessCount == config.MAX_COUNT || correct) &&<EndModal correct = {correct} pokemon = {dailyPokemon.name} guesses={guessCount}/>} </div>}
         </div>
     )
     

@@ -17,6 +17,16 @@
     border: 3px groove black;
 }
 
+#badge-display {
+    align-self: center;
+    display: flex;
+    flex-flow: column wrap; 
+    justify-content: center;
+    align-items: center stretch;
+    width: 100%;
+    text-align: center;
+}
+
 #pokemon-display {
     align-self: center;
     display: flex;
@@ -45,8 +55,45 @@
 #badge-info h2{
     width: 95%;
 }
+
+
+
 .descriptions {
     width: 95%;
+}
+
+.safari-score {
+    width: 95%;
+}
+
+.badge-box {
+    flex: 0 1 16%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background-color: slategray;
+    margin:5px;
+    border-radius: 5px;
+    padding: 3px;
+    align-items: start;
+}
+
+.badge-sprite {
+    position: absolute;
+    margin-left: 3rem;
+    top: 50%;    
+    transform: translateY(-50%);
+}
+
+.badge-description {
+    align-items: start;
+    margin-left: 10rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.badge-description p {
+    margin-bottom: 0;
 }
 
 .pokesprite {
@@ -58,6 +105,7 @@
     margin:5px;
     border-radius: 5px;
     padding: 3px;
+    border: 2px outset black;
 }
 
 .pokesprite p {
@@ -67,7 +115,10 @@
 .userpokeSprite {
     width: 100%;
     height: 100%;   
-    margin: 3px;
+    margin: 5px;
+    border: 2px inset black;
+    border-radius: 5px;
+    background-color: #bac9dc;
     /* margin-bottom: 25px; */
 }
 .pokename {

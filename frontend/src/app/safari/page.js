@@ -25,7 +25,7 @@ export default function Safari(){
     const [score, setScore] = useState(0)
     const [isButtonDisabled, setButtonDisabled] = useState(false)
     const typeaheadRef = useRef(null)
-    const total_guesses = 10
+    const total_guesses = 1
 
     const { data: session, status } = useSession();
     //const [trigger, setTrigger] = useState(false);
