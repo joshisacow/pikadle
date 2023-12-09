@@ -128,7 +128,7 @@ export default function Wordle () {
                 <>
                     <div id='wordleheader'>
                         <h2 id = 'guessTitle'>Guess Today's Pokemon! </h2>
-                        <div className="flex items-center">
+                        <div className="inputs">
                             <Typeahead
                                 id="pokeInput"
                                 labelKey="name"

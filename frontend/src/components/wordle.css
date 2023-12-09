@@ -52,7 +52,6 @@
 .rbt {
     width: 23vw;
     text-align: start;
-    margin: 0 auto;
 }
 
 .guessRight{
@@ -149,8 +148,6 @@
 #submit{
     background-color: rgb(70, 137, 137);
     border: 2px outset lightseagreen;
-    /* margin-left: -20px; */
-    margin-right: 2rem;
 }
 
 #submit:hover{
@@ -178,4 +175,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.inputs {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 80%;
+    margin: 0 auto;
 }

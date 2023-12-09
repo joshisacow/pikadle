@@ -107,7 +107,7 @@ export default function Wordle () {
                     <h2 id = 'guessTitle'>Guess the Pokemon for {date} </h2>
             {/* <h2>Today's Pokemon</h2> */}
             {/* <p>{dailyPokemon.name}! types: {dailyPokemon.type1} {dailyPokemon.type2} attack: {dailyPokemon.attack}</p> */}
-                    <div className="flex items-center">
+                    <div className="inputs">
                         <Typeahead
                             id="pokeInput"
                             labelKey="name"
