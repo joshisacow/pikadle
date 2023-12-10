@@ -21,7 +21,6 @@ export default function User () {
   const [userPokemon, setUserPokemon] = useState([]);
   const [safariScore, setSafariScore] = useState(0);
   const [pokeSprite, setPokeSprite] = useState({});
-  const [badges, setBadges] = useState([])
 
   const fetchUserInfo = () =>{
     if (session) {
@@ -56,16 +55,7 @@ export default function User () {
       })
     } 
   }
-  const fetchUserBadge = () => {
-    if (session) {
-      fetch(config.USERBADGE_URL + session.user.uid)
-        .then(response => response.json())
-        .then((data) => {
-          setBadges(data)
-          console.log(data)
-        })
-    }
-  }
+
   const fetchSprite = (pokemon) => {
     fetch(` https://pokeapi.co/api/v2/pokemon/${pokemon.toLowerCase()}`)
         .then((response) => {
@@ -89,7 +79,6 @@ export default function User () {
   useEffect(()=>{
     fetchUserInfo();
     fetchPokeDisplay();
-    fetchUserBadge();
   }, [session]);
 
   return session ? (
@@ -131,7 +120,7 @@ export default function User () {
                   <div className="badge-description">
                     <p className="text-lg font-semibold">{badge.badge_name}</p>
                     <p>{badge.badge_description}</p>
-                    <p>Date acheived: {badges[id].date}</p>
+                    <p>Date achieved: {badge.date}</p>
                   </div>
                 </div>
               )
