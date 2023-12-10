@@ -55,7 +55,7 @@ export default function Wordle () {
 
                 // should set can guess to false
                 updateLatestDate();
-                const req2 = await fetch(config.BASE_URL + "badge/" + uid, {
+                const req2 = await fetch(config.SITE_URL + "badge/" + uid, {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json'

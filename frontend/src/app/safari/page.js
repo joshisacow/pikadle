@@ -25,7 +25,7 @@ export default function Safari(){
     const [score, setScore] = useState(0)
     const [isButtonDisabled, setButtonDisabled] = useState(false)
     const typeaheadRef = useRef(null)
-    const total_guesses = 1
+    const total_guesses = 30
 
     const { data: session, status } = useSession();
     //const [trigger, setTrigger] = useState(false);
@@ -71,12 +71,12 @@ export default function Safari(){
                     body: JSON.stringify({"uid": uid, "score": score})
                 })
                 const setscore = score + 1;
-                const req2 = await fetch(config.NEWBADGE_URL, {
+                const req2 = await fetch(config.SITE_URL + "badge/" + uid, {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({"uid": uid, "gametype": "s", "score": setscore})
+                    body: JSON.stringify({"gametype": "s", "score": setscore})
                 })
                 console.log(setscore)
                 // console.log(request);

@@ -59,7 +59,7 @@ class CanGuess(Resource):
             if today <= user[0]:
                 can_attempt = False
 
-        return can_attempt, 200
+        return True, 200
     
     def post(self, uid):
         # update last attempted date to today
