@@ -55,7 +55,13 @@ export default function Wordle () {
 
                 // should set can guess to false
                 updateLatestDate();
-
+                const req2 = await fetch(config.SITE_URL + "badge/" + uid, {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({"gametype": "p", "score": 1})
+                })
                 const request = await fetch(config.CATCH_URL, {
                     method: "POST",
                     headers: {
@@ -63,7 +69,11 @@ export default function Wordle () {
                     },
                     body: JSON.stringify({"uid": uid, "pokemon_id": pokemon_id, "attempts": attempts})
                 })
-                console.log(request);
+                console.log(request)
+                console.log(req2);
+                if (req2.ok ) {
+                    toast("You've unlocked a badge! Check your user page to see it.")
+                }
             }
         }  
         

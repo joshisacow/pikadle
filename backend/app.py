@@ -29,10 +29,9 @@ api.add_resource(Pokemon.CatchPokemon, '/catch')
 api.add_resource(Pokemon.Caught, '/caught/<string:uid>')
 api.add_resource(Users.Users, '/users/<string:uid>')
 api.add_resource(Users.Auth, '/auth')
-api.add_resource(Users.Badge, '/badge/<string:uid>')
 api.add_resource(Users.CanGuess, '/canguess/<string:uid>')
-api.add_resource(Badges.UserBadge, '/userbadge/<string:uid>')
 api.add_resource(Users.UserSafari, '/safariscore')
+api.add_resource(Badges.Badge, '/badge/<string:uid>')
 
 if __name__ == '__main__':
     app.run(port=8080, debug=True)

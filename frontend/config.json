@@ -15,5 +15,6 @@
     "UPDATE_SAFARI_URL": "http://127.0.0.1:8080/safariscore",
     "SITE_URL": "http://127.0.0.1:8080/",
     "USERBADGE_URL": "http://127.0.0.1:8080/userbadge/",
+    "NEWBADGE_URL": "http://127.0.0.1:8080/newbadge",
     "MAX_COUNT": 10
 }
