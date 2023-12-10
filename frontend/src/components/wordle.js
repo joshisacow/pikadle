@@ -69,8 +69,6 @@ export default function Wordle () {
                     },
                     body: JSON.stringify({"uid": uid, "pokemon_id": pokemon_id, "attempts": attempts})
                 })
-                console.log(request)
-                console.log(req2);
                 if (req2.ok ) {
                     toast("You've unlocked a badge! Check your user page to see it.")
                 }
@@ -115,7 +113,6 @@ export default function Wordle () {
                 method: "POST",
             })
             const response = await request.json();
-            console.log(response);
         }
     }
 
