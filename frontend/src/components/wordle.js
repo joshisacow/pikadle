@@ -71,7 +71,9 @@ export default function Wordle () {
                 })
                 console.log(request)
                 console.log(req2);
-                // if (req2.ok )
+                if (req2.ok ) {
+                    toast("You've unlocked a badge! Check your user page to see it.")
+                }
             }
         }  
         

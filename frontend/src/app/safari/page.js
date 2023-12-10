@@ -58,7 +58,36 @@ export default function Safari(){
             setPokeGuess("")
             typeaheadRef.current.clear();
             setButtonDisabled(false)
-        }, 500);
+        }
+        , 500);
+        if(guessCount + 1>= total_guesses){
+            if(session){
+                const uid = session.user.uid
+                const request = fetch(config.UPDATE_SAFARI_URL, {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({"uid": uid, "score": score})
+                })
+                const setscore = score + 1;
+                const req2 = await fetch(config.NEWBADGE_URL, {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({"uid": uid, "gametype": "s", "score": setscore})
+                })
+                console.log(setscore)
+                // console.log(request);
+                console.log(uid);
+                console.log(score);
+                console.log(req2);
+                if (req2.ok ) {
+                    toast("You've unlocked a badge! Check your user page to see it.")
+                }
+            }
+        }
     }
 
     const fetchRandomGivenType = (input) =>{
@@ -98,21 +127,7 @@ export default function Safari(){
     }, [pokeType])//when type is set, get a random pokemon of that type
 
     useEffect(() =>{
-        if(guessCount >= total_guesses){
-            if(session){
-                const uid = session.user.uid
-                const request = fetch(config.UPDATE_SAFARI_URL, {
-                    method: "POST",
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({"uid": uid, "score": score})
-                })
-                console.log(request);
-                console.log(uid);
-                console.log(score);
-            }
-        }
+        
     }, [guessCount])
 
 
@@ -125,7 +140,7 @@ export default function Safari(){
             <div id='wordleheader'>
                 <p>Guesses Remaining: {total_guesses - guessCount}</p>
                 <p>Score: {score}</p>
-            
+                <p>{randomPokemon.name}</p>
                 <Typeahead
                     id="pokeInput"
                     labelKey="name"

@@ -77,10 +77,13 @@ class NewBadge(Resource):
             badgesmet = cur.fetchall()
         cur.execute("SELECT badge_id FROM user_badges WHERE user_id = %s", (uid,))
         currentbadges = cur.fetchall()
-        
+        print(badgesmet)
+        print(gametype)
+        print(score)
         # find diff between two sets
         badgesmet, currentbadges = set(badgesmet), set(currentbadges)
         diff = badgesmet.difference(currentbadges)
+        print(diff)
         if not diff:
             # no new badges
             cur.close()
