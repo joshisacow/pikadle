@@ -3,6 +3,19 @@
 ## Team Members
 Josh, Olivia, Chris, Will, Justin
 
+FINAL SUBMISSION
+Since the last milestone, we've finished our minimal viable product of our app and went further.
+Frontend: \
+    - hit PokeAPI for pokemon sprites\
+    - develop user display for our badges and pokemon caught\
+    - finish css of website for a retro style\
+    - increase daily guesses allowed
+Backend: \
+    - open routes for unlocking badge and storing safari high scores
+    - add necessary columns (date, attempts, etc.) to tables (user_pokemon, user_badges)
+
+Overall, lots of bug fixing as well!
+
 MILESTONE 4
 
 Since the last milestone, we've finished a working prototype of the app.
