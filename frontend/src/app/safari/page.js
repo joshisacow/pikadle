@@ -41,7 +41,6 @@ export default function Safari(){
         const guess =await response.json();  
         setPokemon(guess)
         setGuessCount(guessCount + 1)
-        // console.log(pokemon)
         setGuesses(oldArray => [...oldArray, guess]);
         setButtonDisabled(true)
         setTimeout(() => {
@@ -57,15 +56,15 @@ export default function Safari(){
         , 500);
         if(guessCount + 1>= config.SAFARI_MAX_GUESS){
             if(session){
+                const setscore = score + 1;
                 const uid = session.user.uid
                 const request = fetch(config.UPDATE_SAFARI_URL, {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({"uid": uid, "score": score})
+                    body: JSON.stringify({"uid": uid, "score": setscore})
                 })
-                const setscore = score + 1;
                 const req2 = await fetch(config.SITE_URL + "badge/" + uid, {
                     method: "POST",
                     headers: {
@@ -73,11 +72,6 @@ export default function Safari(){
                     },
                     body: JSON.stringify({"gametype": "s", "score": setscore})
                 })
-                console.log(setscore)
-                // console.log(request);
-                console.log(uid);
-                console.log(score);
-                console.log(req2);
                 if (req2.ok ) {
                     toast("You've unlocked a badge! Check your user page to see it.")
                 }
@@ -90,6 +84,7 @@ export default function Safari(){
             .then(response => response.json())
             .then((data) => {
                 setRandomPokemon(data)
+                console.log(data.name)
             })
     }
     
