@@ -69,7 +69,9 @@ export default function Wordle () {
                     },
                     body: JSON.stringify({"uid": uid, "pokemon_id": pokemon_id, "attempts": attempts})
                 })
+                console.log(request)
                 console.log(req2);
+                // if (req2.ok )
             }
         }  
         
