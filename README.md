@@ -16,6 +16,9 @@ Backend: \
 
 Overall, lots of bug fixing as well!
 
+Video: https://drive.google.com/file/d/1_1tbKww7vHF8zD-Qbg6G41iQBmX3MQWG/view?usp=drive_link
+Github: https://github.com/joshisacow/pikadle
+
 MILESTONE 4
 
 Since the last milestone, we've finished a working prototype of the app.
