@@ -7,7 +7,7 @@ MILESTONE 4
 
 Since the last milestone, we've finished a working prototype of the app.
 Frontend: \
-    - implement modals that pop up after 6 guesses or correct guess \
+    - implement modals that pop up after 10 guesses or correct guess \
     - allow login and sign up functionalities\
     - create a user-page that displays user information if logged in\
     - allow for capturing functionalities for daily wordle\
@@ -20,10 +20,6 @@ Backend: \
     - allow for user authentication routes on the backend \
     
 Link to the demo video for milestone 4: https://drive.google.com/file/d/1ZBliyCXS1K7WZtCf2SKaMwTiI1BEZ2y4/view?usp=sharing
-
-MILESTONE 2 \
-
-Since the last milestone, as a group, we've begun to dive deeper into the technicalities of the project. The whole group worked on designing the relational schema of the database. Josh and Olivia also began to think about the tech stack that the project will utilize. Overall, we have a much better direction of how the project will go.
 
 MILESTONE 3
 
@@ -40,3 +36,7 @@ Backend: \
     - pokemon and users are populated\
     - open api endpoints for a random pokemon, all pokemon names, and a specific pokemon based on name\
     - open api endpoints for user creation and getting user info
+
+MILESTONE 2 
+
+Since the last milestone, as a group, we've begun to dive deeper into the technicalities of the project. The whole group worked on designing the relational schema of the database. Josh and Olivia also began to think about the tech stack that the project will utilize. Overall, we have a much better direction of how the project will go.
