@@ -4,63 +4,58 @@ import psycopg2
 from dotenv import load_dotenv
 import os
 import json
-from datetime import date, datetime
+from datetime import date
 
 app = Flask(__name__)
 load_dotenv()
 url = os.getenv('DATABASE_URL')
 
-class Badge:
-    def __init__(self, name, description, criteria, sprite):
-        self.name = name
-        self.description = description
-        self.criteria = criteria
-        self.sprite = sprite
-        self.is_unlocked = False
-
-    def unlock(self, user_progress):
-        if self.criteria_met(user_progress):
-            self.is_unlocked = True
-
-    def criteria_met(self, user_progress):
-        # Implement logic to check if user_progress meets badge criteria
-        return user_progress >= self.criteria
-    
-
-
-class UserBadge(Resource):
+class Badge(Resource):
     def get(self, uid):
-        
-        # get all badges associated with user
-        # parse arguments
-        # args = request.args.get('uid')
+        # get user badges
         conn = psycopg2.connect(url)
         cur = conn.cursor()
-        cur.execute("SELECT * FROM user_badges WHERE user_badges.user_id = %s", (uid,))
+        cur.execute("SELECT * FROM user_badges WHERE user_id = %s", (uid,))
         badges = cur.fetchall()
-        columns = [desc[0] for desc in cur.description]
         cur.close()
-
-        badges = [dict(zip(columns, row)) for row in badges]
-
-        if badges:   
-            for b in badges:
-                if b['date']:
-                    b['date'] = b['date'].isoformat()
         if badges:
-            return badges, 200
-        else: 
-            return {"message": "Badge not found"}, 400
-
-class NewBadge(Resource):
-    def post(self):
+            badges_data = []
+            for badge in badges:
+                # array of badge_id + date
+                badges_data.append((int(badge[1]), badge[2]))
+            return self.getBadgeInfo(badges_data)
+        else:
+            return [404]
+    
+    def getBadgeInfo(self, badges):
+        conn = psycopg2.connect(url)
+        cur = conn.cursor()
+        ret = []
+        for badge_info in badges:
+            cur.execute("SELECT badge_id, badge_name, badge_description, sprite FROM badges WHERE badge_id = %s", (badge_info[0],))
+            badge = cur.fetchone()
+            if badge_info[1]:
+                date = badge_info[1].isoformat()
+            else:
+                date = "NA"
+            
+            badge_data = {
+                "badge_id": str(badge[0]),
+                "badge_name": str(badge[1]),
+                "badge_description": str(badge[2]),
+                "sprite": str(badge[3]),
+                "date": date,
+            }
+            ret.append(badge_data)
+        cur.close()
+        return ret
+    
+    def post(self, uid):
         register_post_args = reqparse.RequestParser()
-        register_post_args.add_argument("uid", type=str, required=True)
         register_post_args.add_argument("gametype", type=str, required=True)
         register_post_args.add_argument("score", type=int, required=True)
         args = register_post_args.parse_args()
 
-        uid= args['uid']
         gametype = args['gametype']
         score = args['score']
 
@@ -93,4 +88,32 @@ class NewBadge(Resource):
         conn.commit()
         cur.close()
         return True, 200
+
+
+
+# class UserBadge(Resource):
+#     def get(self, uid):
+        
+#         # get all badges associated with user
+#         # parse arguments
+#         # args = request.args.get('uid')
+#         conn = psycopg2.connect(url)
+#         cur = conn.cursor()
+#         cur.execute("SELECT * FROM user_badges WHERE user_badges.user_id = %s", (uid,))
+#         badges = cur.fetchall()
+#         columns = [desc[0] for desc in cur.description]
+#         cur.close()
+
+#         badges = [dict(zip(columns, row)) for row in badges]
+
+#         if badges:   
+#             for b in badges:
+#                 if b['date']:
+#                     b['date'] = b['date'].isoformat()
+#         if badges:
+#             return badges, 200
+#         else: 
+#             return {"message": "Badge not found"}, 400
+
+        
     
