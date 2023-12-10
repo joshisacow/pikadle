@@ -20,7 +20,6 @@ class Main(Resource):
 
 api.add_resource(Main, '/')
 api.add_resource(Pokemon.Pokemon, '/pokemon/<string:pokeName>')
-api.add_resource(Pokemon.Random, '/random')
 api.add_resource(Pokemon.PokeNames, '/pokemon/names')
 api.add_resource(Pokemon.RandomGivenFixedType, '/random/type/<string:type>')
 api.add_resource(Pokemon.TypeRandom, '/random/type')

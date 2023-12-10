@@ -72,9 +72,6 @@ class Badge(Resource):
             badgesmet = cur.fetchall()
         cur.execute("SELECT badge_id FROM user_badges WHERE user_id = %s", (uid,))
         currentbadges = cur.fetchall()
-        print(badgesmet)
-        print(gametype)
-        print(score)
         # find diff between two sets
         badgesmet, currentbadges = set(badgesmet), set(currentbadges)
         diff = badgesmet.difference(currentbadges)
@@ -92,31 +89,3 @@ class Badge(Resource):
         cur.close()
         return True, 200
 
-
-
-# class UserBadge(Resource):
-#     def get(self, uid):
-        
-#         # get all badges associated with user
-#         # parse arguments
-#         # args = request.args.get('uid')
-#         conn = psycopg2.connect(url)
-#         cur = conn.cursor()
-#         cur.execute("SELECT * FROM user_badges WHERE user_badges.user_id = %s", (uid,))
-#         badges = cur.fetchall()
-#         columns = [desc[0] for desc in cur.description]
-#         cur.close()
-
-#         badges = [dict(zip(columns, row)) for row in badges]
-
-#         if badges:   
-#             for b in badges:
-#                 if b['date']:
-#                     b['date'] = b['date'].isoformat()
-#         if badges:
-#             return badges, 200
-#         else: 
-#             return {"message": "Badge not found"}, 400
-
-        
-    

@@ -25,13 +25,8 @@ export default function Safari(){
     const [score, setScore] = useState(0)
     const [isButtonDisabled, setButtonDisabled] = useState(false)
     const typeaheadRef = useRef(null)
-    const total_guesses = 30
 
     const { data: session, status } = useSession();
-    //const [trigger, setTrigger] = useState(false);
-    //const [c, setC] = useState(0)
-    function handleSubmit(){}
-
 
     const handleClick = async() => {
         if (pokeGuess == ""){
@@ -60,7 +55,7 @@ export default function Safari(){
             setButtonDisabled(false)
         }
         , 500);
-        if(guessCount + 1>= total_guesses){
+        if(guessCount + 1>= config.SAFARI_MAX_GUESS){
             if(session){
                 const uid = session.user.uid
                 const request = fetch(config.UPDATE_SAFARI_URL, {
@@ -126,40 +121,35 @@ export default function Safari(){
         fetchRandomGivenType(pokeType);
     }, [pokeType])//when type is set, get a random pokemon of that type
 
-    useEffect(() =>{
-        
-    }, [guessCount])
-
-
     return (
         <div id='answers' className="relative">
             <h1>Safari Zone!</h1>
             <p>In Safari Mode, you get 30 tries to catch as many pokemon of a certain type!</p>
-            <p>Try to catch more than you friends!</p>
             <h3>Today's type: {pokeType} </h3>
             <div id='wordleheader'>
-                <p>Guesses Remaining: {total_guesses - guessCount}</p>
+                <p>Guesses Remaining: {config.SAFARI_MAX_GUESS - guessCount}</p>
                 <p>Score: {score}</p>
-                <p>{randomPokemon.name}</p>
-                <Typeahead
-                    id="pokeInput"
-                    labelKey="name"
-                    onChange={setPokeGuess}
-                    options={pokeOptions}
-                    placeholder="Choose your pokemon..."
-                    selected={pokeGuess}
-                    ref={typeaheadRef}
-                />
-                {(guessCount < total_guesses) && <Button id='submit' onClick ={handleClick} disabled={isButtonDisabled}>
-                    Submit
-                </Button>}
-                {(guessCount >= total_guesses) && <Button id='submit'> 
-                    Submit
-                </Button>}
+                <div className="inputs">
+                    <Typeahead
+                        id="pokeInput"
+                        labelKey="name"
+                        onChange={setPokeGuess}
+                        options={pokeOptions}
+                        placeholder="Choose your pokemon..."
+                        selected={pokeGuess}
+                        ref={typeaheadRef}
+                        />
+                    {(guessCount < config.SAFARI_MAX_GUESS) && <Button id='submit' onClick ={handleClick} disabled={isButtonDisabled}>
+                        Submit
+                    </Button>}
+                    {(guessCount >= config.SAFARI_MAX_GUESS) && <Button id='submit'> 
+                        Submit
+                    </Button>}
+                </div>
             </div>
             <ToastContainer/>
             <Guesses pokemon = {pokemon} daily = {randomPokemon} guesses = {guesses}/>
-            {(guessCount==total_guesses)&&<EndModal score = {score}></EndModal>}
+            {(guessCount==config.SAFARI_MAX_GUESS)&&<EndModal score = {score}></EndModal>}
         </div>
     )
 }
