@@ -95,6 +95,7 @@ export default function Safari(){
             .then(response => response.json())
             .then((data) => {
                 setRandomPokemon(data)
+                console.log(data.name)
             })
     }
     
@@ -140,8 +141,8 @@ export default function Safari(){
             <div id='wordleheader'>
                 <p>Guesses Remaining: {total_guesses - guessCount}</p>
                 <p>Score: {score}</p>
-                <p>{randomPokemon.name}</p>
-                <Typeahead
+                <div className="inputs">
+                    <Typeahead
                     id="pokeInput"
                     labelKey="name"
                     onChange={setPokeGuess}
@@ -156,6 +157,7 @@ export default function Safari(){
                 {(guessCount >= total_guesses) && <Button id='submit'> 
                     Submit
                 </Button>}
+                </div>
             </div>
             <ToastContainer/>
             <Guesses pokemon = {pokemon} daily = {randomPokemon} guesses = {guesses}/>
