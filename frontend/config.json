@@ -1,21 +1,6 @@
 {
-    "POKEMON_URL": "http://127.0.0.1:8080/pokemon/",
-    "RANDOM_URL": "http://127.0.0.1:8080/random",
-    "NAMES_URL": "http://127.0.0.1:8080/pokemon/names",
-    "USER_URL": "http://127.0.0.1:8080/users/",
-    "AUTH_URL": "http://127.0.0.1:8080/auth",
-    "RANDOM_GIVEN_TYPE_URL": "http://127.0.0.1:8080/random/type/",
-    "TYPE_URL": "http://127.0.0.1:8080/random/type",
-    "BASE_URL": "http://localhost:3000",
-    "CATCH_URL": "http://127.0.0.1:8080/catch",
-    "ACHIEVEMENT_URL": "http://127.0.0.1:8080/achievement",
-    "DAILY_URL": "http://127.0.0.1:8080/daily",
-    "BADGE_URL": "http://127.0.0.1:8080/badge",
-    "CAUGHT_URL": "http://127.0.0.1:8080/caught/",
-    "UPDATE_SAFARI_URL": "http://127.0.0.1:8080/safariscore",
-    "SITE_URL": "http://127.0.0.1:8080/",
-    "USERBADGE_URL": "http://127.0.0.1:8080/userbadge/",
-    "NEWBADGE_URL": "http://127.0.0.1:8080/newbadge",
+    "BASE_URL": "https://pikadle-ten.vercel.app/",
+    "API_URL": "https://pikadle-backend.vercel.app/",
     "MAX_COUNT": 10,
     "SAFARI_MAX_GUESS": 30
 }

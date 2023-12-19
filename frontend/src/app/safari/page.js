@@ -37,7 +37,7 @@ export default function Safari(){
             toast.error("You already guessed that pokemon!");
             return; 
         }
-        const response = await fetch(config.POKEMON_URL + pokeGuess[0])
+        const response = await fetch(config.API_URL + "pokemon/" + pokeGuess[0])
         const guess =await response.json();  
         setPokemon(guess)
         setGuessCount(guessCount + 1)
@@ -58,14 +58,14 @@ export default function Safari(){
             if(session){
                 const setscore = score + 1;
                 const uid = session.user.uid
-                const request = fetch(config.UPDATE_SAFARI_URL, {
+                const request = fetch(config.API_URL + "safariscore", {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({"uid": uid, "score": setscore})
                 })
-                const req2 = await fetch(config.SITE_URL + "badge/" + uid, {
+                const req2 = await fetch(config.API_URL + "badge/" + uid, {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json'
@@ -80,7 +80,7 @@ export default function Safari(){
     }
 
     const fetchRandomGivenType = (input) =>{
-        fetch(config.RANDOM_GIVEN_TYPE_URL + input)
+        fetch(config.API_URL + "random/type/" + input)
             .then(response => response.json())
             .then((data) => {
                 setRandomPokemon(data)
@@ -89,7 +89,7 @@ export default function Safari(){
     }
     
     const fetchOptions = () =>{
-        fetch(config.NAMES_URL)
+        fetch(config.API_URL + "pokemon/names")
             .then(response => response.json())
             .then((data) => {
                 setPokeOptions(data)
@@ -97,7 +97,7 @@ export default function Safari(){
     }
     
     const fetchType = async() =>{
-        fetch(config.TYPE_URL).then(response=>response.json())
+        fetch(config.API_URL + "random/type").then(response=>response.json())
         .then((data)=>{
             setPokeType(data)
         })

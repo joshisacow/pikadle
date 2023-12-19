@@ -39,7 +39,7 @@ export default function Wordle () {
         //     setAllowGuesses(false)
         // } 
         
-        const response = await fetch(config.POKEMON_URL + pokeGuess[0]);
+        const response = await fetch(config.API_URL + "pokemon/" + pokeGuess[0]);
         const guess = await response.json();  
         // setPokemon(guess);
         // setTrigger(!trigger);
@@ -52,7 +52,7 @@ export default function Wordle () {
     }
     
     const fetchOptions = () =>{
-        fetch(config.NAMES_URL)
+        fetch(config.API_URL + "pokemon/names")
             .then(response => response.json())
             .then((data) => {
                 setPokeOptions(data)
@@ -72,7 +72,7 @@ export default function Wordle () {
     const maxDate = today.toISOString().split('T')[0];
 
     const fetchDate = async (date) => {
-        const request = await fetch(config.DAILY_URL, {
+        const request = await fetch(config.API_URL + "daily", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'

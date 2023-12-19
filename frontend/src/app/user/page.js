@@ -24,7 +24,7 @@ export default function User () {
 
   const fetchUserInfo = () =>{
     if (session) {
-      fetch(config.USER_URL + session.user.uid)
+      fetch(config.API_URL + "users/" + session.user.uid)
       .then(response => response.json())
       .then((data) => {
           setPokeCount(data.number_of_pokemon);
@@ -42,7 +42,7 @@ export default function User () {
 
   const fetchPokeDisplay = () => {
     if (session) {
-      fetch(config.CAUGHT_URL + session.user.uid)
+      fetch(config.API_URL + "caught/" + session.user.uid)
       .then(response => response.json())
       .then((data) => {
         setUserPokemon(data);

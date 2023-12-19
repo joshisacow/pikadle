@@ -40,7 +40,7 @@ export default function Wordle () {
         if (guessCount == config.MAX_COUNT - 1){
             updateLatestDate();
         } 
-        const response = await fetch(config.POKEMON_URL + pokeGuess[0]);
+        const response = await fetch(config.API_URL + "pokemon/" + pokeGuess[0]);
         const guess = await response.json();  
         setPokemon(guess);
         // setTrigger(!trigger);
@@ -55,14 +55,14 @@ export default function Wordle () {
 
                 // should set can guess to false
                 updateLatestDate();
-                const req2 = await fetch(config.SITE_URL + "badge/" + uid, {
+                const req2 = await fetch(config.API_URL + "badge/" + uid, {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({"gametype": "p", "score": 1})
                 })
-                const request = await fetch(config.CATCH_URL, {
+                const request = await fetch(config.API_URL + "catch", {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json'
@@ -82,14 +82,14 @@ export default function Wordle () {
     }
     
     const fetchDaily = () =>{
-        fetch(config.DAILY_URL)
+        fetch(config.API_URL + "daily")
             .then(response => response.json())
             .then((data) => {
                 setDailyPokemon(data)
             })
     }
     const fetchOptions = () =>{
-        fetch(config.NAMES_URL)
+        fetch(config.API_URL + "pokemon/names")
             .then(response => response.json())
             .then((data) => {
                 setPokeOptions(data)
@@ -98,7 +98,7 @@ export default function Wordle () {
     const checkIfAvailable = () => {
         // check if user has already guessed today
         if (session) {
-            fetch(config.SITE_URL + "canguess/" + session.user.uid)
+            fetch(config.API_URL + "canguess/" + session.user.uid)
                 .then(response => response.json())
                 .then((data) => {
                     setAllowGuesses(data)
@@ -109,7 +109,7 @@ export default function Wordle () {
     const updateLatestDate = async () => {
         // update latest attempted date in db
         if (session) {
-            const request = await fetch(config.SITE_URL + "canguess/" + session.user.uid, {
+            const request = await fetch(config.API_URL + "canguess/" + session.user.uid, {
                 method: "POST",
             })
             const response = await request.json();
