@@ -72,17 +72,19 @@ export default function Wordle () {
     const maxDate = today.toISOString().split('T')[0];
 
     const fetchDate = async (date) => {
-        const request = await fetch(config.API_URL + "daily", {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({"date": date})
-        })
-        const response = await request.json();
-        // validate response?
-        setDailyPokemon(response)
-        return response;
+        if (date) {
+            const request = await fetch(config.API_URL + "daily", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({"date": date})
+            })
+            const response = await request.json();
+            // validate response?
+            setDailyPokemon(response)
+            return response;
+        }
     }
     useEffect(()=>{
         setGuesses([])

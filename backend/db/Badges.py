@@ -79,7 +79,7 @@ class Badge(Resource):
         if not diff:
             # no new badges
             cur.close()
-            return False, 404
+            return False, 200
         else:
             # new badges
             today = date.today()

@@ -45,9 +45,9 @@ export default function Safari(){
         setButtonDisabled(true)
         setTimeout(() => {
             if (pokeGuess[0] == randomPokemon.name){
-            setScore(score + 1)
-            fetchRandomGivenType(pokeType)
-            setGuesses(oldArray => [])
+                setScore(score + 1);
+                fetchRandomGivenType(pokeType);
+                setGuesses(oldArray => []);
             }
             setPokeGuess("")
             typeaheadRef.current.clear();
@@ -113,7 +113,9 @@ export default function Safari(){
     }, [])//get daily type
 
     useEffect(() =>{
-        fetchRandomGivenType(pokeType);
+        if (pokeType) {
+            fetchRandomGivenType(pokeType);
+        }
     }, [pokeType])//when type is set, get a random pokemon of that type
 
     return (
