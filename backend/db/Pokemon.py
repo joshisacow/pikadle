@@ -160,11 +160,12 @@ class TypeRandom(Resource):
         days = (today - epoch.date()).days
         random.seed(days)
         type_number = random.randint(0, 17)
-        cur.execute("SELECT DISTINCT type1 FROM pokemon ORDER BY type1 DESC LIMIT 1 OFFSET %s", str(type_number))
-        type = cur.fetchone()
+        type_number = str(type_number)
+        cur.execute("SELECT DISTINCT type1 FROM pokemon ORDER BY type1 DESC LIMIT 1 OFFSET %s", (type_number,))
+        dailytype = cur.fetchone()
         cur.close()
-        if type: 
-            return type[0]
+        if dailytype: 
+            return dailytype[0]
         else:
             return {"message": "type not found"}, 404
 
